@@ -1,19 +1,25 @@
 import { AppConfigPublic } from "./types";
 
 export const appConfig: AppConfigPublic = {
-  projectName: "Indie Kit",
-  projectSlug: "indie-kit",
+  projectName: "Stuf'd",
+  projectSlug: "Stuf'd",
   keywords: [
-    "Indie Kit",
-    "NextJS Boilerplate",
-    "NextJS SaaS",
+    "Stuf'd",
+    "Digitize your Menus",
+    "POS System",
     "NextJS Starter Kit",
-    "SaaS Boilerplate",
-    "SaaS Starter Kit",
-    "Indie Kit Pro",
+    "Digital Menu",
+    "Digital Menu Generator",
+    "Digital Menu Creator",
+    "Digital Menu Maker",
+    "Digital Menu Software",
+    "Digital Menu System",
+    "Digital Menu Platform",
+    "Digital Menu Service",
+    "Digital Menu Provider",
   ],
   description:
-    "Indie Kit is a NextJS starter kit for building your own SaaS in hours.",
+    "Stuf'd is a POS system for restaurants and cafes.",
   legal: {
     address: {
       street: "Plot No 337, Workyard, Phase 2, Industrial Business &amp; Park",
@@ -26,14 +32,14 @@ export const appConfig: AppConfigPublic = {
     phone: "+91 9876543210",
   },
   social: {
-    twitter: "https://twitter.com/cjsingg",
-    instagram: "https://instagram.com/-",
-    linkedin: "https://linkedin.com/-",
-    facebook: "https://facebook.com/-",
-    youtube: "https://youtube.com/-",
+    twitter: "https://twitter.com/stufdapp",
+    instagram: "https://instagram.com/stufdapp",
+    linkedin: "https://linkedin.com/stufdapp",
+    facebook: "https://facebook.com/stufdapp",
+    youtube: "https://youtube.com/stufdapp",
   },
   email: {
-    senderName: "Indie Kit",
-    senderEmail: "ssent.hq@gmail.com",
+    senderName: "Stuf'd",
+    senderEmail: "stufdapp@gmail.com",
   },
 };

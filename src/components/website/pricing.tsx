@@ -120,7 +120,7 @@ export function WebsitePricing() {
               </div>
               {plan.paymentLink && (
                 <Button className="w-full" asChild>
-                  <Link href={plan.paymentLink}>Get Indie Kit Pro</Link>
+                  <Link href={plan.paymentLink}>Get Started Today</Link>
                 </Button>
               )}
               <ul className="mt-8 space-y-3 text-sm">

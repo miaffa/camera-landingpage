@@ -9,54 +9,54 @@ import {
 
 const faqs = [
   {
-    question: "What is Indie Kit?",
+    question: "What is Stuf'd?",
     answer:
-      "Indie Kit is a complete starter kit for indie hackers and startups that provides all the essential features needed to launch a SaaS product. It includes authentication, payment processing, email systems, background jobs, SEO optimization, and much more, all pre-configured and ready to use.",
+      "Stuf'd is a digital menu platform that helps restaurants convert their paper menus into interactive digital experiences. We provide real-time customer ratings, analytics, and tools to boost customer satisfaction and increase positive reviews.",
   },
   {
-    question: "What tech stack does Indie Kit use?",
+    question: "How does the digital menu work?",
     answer:
-      "Indie Kit is built with modern technologies including Next.js, TypeScript, TailwindCSS, Shadcn UI, Drizzle ORM, and more. For services, it integrates with industry standards like Stripe/Lemon Squeezy for payments, various email providers (Resend, SES, etc.), and Inngest for background jobs.",
+      "Restaurants can easily create digital menus using our drag-and-drop editor. Customers can view the menu on their phones, rate dishes, leave reviews, and share their favorite meals. All data is collected in real-time for restaurant owners to analyze.",
   },
   {
-    question: "Do I need to be an experienced developer to use Indie Kit?",
+    question: "Do I need technical skills to set up Stuf'd?",
     answer:
-      "While some development experience is helpful, Indie Kit is designed to be accessible. The codebase is well-documented, follows best practices, and comes with detailed guides. We also provide a supportive Discord community where you can get help when needed.",
+      "Not at all! Stuf'd is designed to be user-friendly for restaurant owners and staff. Our setup process takes just 5 minutes, and you can update your menu anytime without any technical knowledge. We also provide training and support.",
   },
   {
-    question: "Can I customize the design and features?",
+    question: "Can I customize the menu design?",
     answer:
-      "Absolutely! Indie Kit provides a solid foundation that's fully customizable. All components are built with TailwindCSS and Shadcn UI, making it easy to modify the design. You can also add, remove, or modify features to match your specific needs.",
+      "Yes! Stuf'd offers extensive customization options including your restaurant's branding, colors, fonts, and layout. You can create a menu that perfectly matches your restaurant's style and personality.",
   },
   {
-    question: "What kind of support is included?",
+    question: "What kind of analytics do I get?",
     answer:
-      "Indie Kit comes with comprehensive documentation, integration guides, and access to our Discord community. You'll get support for technical issues, guidance on best practices, and can connect with other indie hackers building with the kit.",
+      "You'll get real-time insights into which dishes are most popular, customer ratings and feedback, peak dining times, and customer preferences. This data helps you make informed decisions about your menu and operations.",
   },
   {
-    question: "How does the payment integration work?",
+    question: "How does the rating system work?",
     answer:
-      "Indie Kit includes pre-built integrations with Stripe and Lemon Squeezy, handling both one-time payments and subscriptions. It includes features like plan management, usage quotas, and customer portals. PayPal integration is coming soon.",
+      "Customers can rate dishes directly from the digital menu using a simple star system. They can also leave written reviews and share their favorite dishes on social media. All ratings are collected and displayed in your analytics dashboard.",
   },
   {
-    question: "What about email functionality?",
+    question: "Can I update my menu in real-time?",
     answer:
-      "The kit includes a complete email system with beautiful, responsive templates built using react-email. It supports multiple providers (Resend, SES, Mailgun, etc.) and includes automated sequences for onboarding, notifications, and marketing.",
+      "Absolutely! You can update prices, add new dishes, mark items as unavailable, or make any changes instantly. Updates appear immediately on all customer devices and platforms.",
   },
   {
-    question: "How does Indie Kit handle SEO?",
+    question: "What devices does Stuf'd work on?",
     answer:
-      "Indie Kit comes with built-in SEO optimization including automated sitemap generation, structured data (JSON-LD), Open Graph tags, and a complete blog structure using MDX. All UI components are also optimized for search engines.",
+      "Stuf'd works on all devices - smartphones, tablets, and computers. Your digital menu is automatically optimized for each device type to provide the best viewing experience for your customers.",
   },
   {
-    question: "What databases are supported?",
+    question: "How much does Stuf'd cost?",
     answer:
-      "Indie Kit supports PostgreSQL, MySQL, and MongoDB out of the box. It uses Drizzle ORM for type-safe database operations and includes features like automated migrations and connection pooling for better performance.",
+      "We offer flexible pricing plans starting at $29/month for small restaurants. All plans include a 14-day free trial, so you can try Stuf'd risk-free. Enterprise plans are available for restaurant chains and franchises.",
   },
   {
-    question: "How much time can Indie Kit save me?",
+    question: "What support do you provide?",
     answer:
-      "Based on our estimates, Indie Kit can save you 50+ hours of development time by providing pre-built features and integrations. This includes time saved on authentication (12h), payment processing (8h), email setup (4h), background jobs (7h), and more.",
+      "We provide comprehensive support including setup assistance, staff training, and ongoing technical support. Our team is available via email, phone, and live chat to help you get the most out of Stuf'd.",
   },
 ];
 
@@ -69,16 +69,14 @@ export function WebsiteFAQs() {
             Frequently Asked Questions
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Can&apos;t find what you&apos;re looking for? Join our{" "}
+            Can&apos;t find what you&apos;re looking for?{" "}
             <a
-              href="https://discord.gg/indiekit"
+              href="/contact"
               className="font-medium text-primary hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
             >
-              Discord community
+              Contact our support team
             </a>{" "}
-            for support
+            for help
           </p>
         </div>
         <div className="mx-auto mt-12 max-w-3xl">

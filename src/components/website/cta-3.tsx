@@ -27,8 +27,7 @@ export function CTA3() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
               <Button
                 size="lg"
-                variant="secondary"
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-full"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
                 asChild
               >
                 <Link href="/sign-up">

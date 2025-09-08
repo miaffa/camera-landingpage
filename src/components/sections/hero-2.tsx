@@ -10,7 +10,7 @@ const Hero2 = () => {
       <div className="container text-center">
         <div className="mx-auto flex max-w-(--breakpoint-lg) flex-col gap-6">
           <h1 className="text-3xl font-extrabold lg:text-6xl">
-            Generate your website in minutes with AI in your browser
+            Digitize your Menus with Stuf'd
           </h1>
           <p className="text-balance text-muted-foreground lg:text-lg">
             We are a team of developers who are passionate about creating

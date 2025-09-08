@@ -15,7 +15,7 @@ const CTA1 = () => {
             <div className="flex flex-col justify-center gap-2 sm:flex-row">
               <Button
                 size="lg"
-                className="bg-background text-primary hover:bg-background"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 Get Started
               </Button>

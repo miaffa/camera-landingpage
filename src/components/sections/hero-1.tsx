@@ -21,7 +21,7 @@ const Hero1 = () => {
             </p>
           </a>
           <h1 className="mx-auto my-5 max-w-(--breakpoint-lg) text-balance text-center text-3xl md:text-5xl">
-            Generate your website in minutes with AI in your browser
+            Digitize your Menus with Stuf'd
           </h1>
           <p className="mx-auto max-w-(--breakpoint-md) text-center text-sm text-muted-foreground md:text-base">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia

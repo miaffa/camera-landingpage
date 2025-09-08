@@ -1,80 +1,113 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "@tailwindcss/typography";
-
-@custom-variant dark (&:is(.dark *));
-@config "../../tailwind.config.ts";
 
 :root {
   --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.606 0.25 292.717);
-  --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.606 0.25 292.717);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.606 0.25 292.717);
-  --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.606 0.25 292.717);
+  /* Background & Text - Using your off-white and dark navy */
+  --background: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white */
+  --foreground: oklch(0.25 0.15 240); /* Dark navy for text */
+  --card: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white cards */
+  --card-foreground: oklch(0.25 0.15 240); /* Dark navy text */
+  --popover: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white popovers */
+  --popover-foreground: oklch(0.25 0.15 240); /* Dark navy text */
+  
+  /* Primary - Using your light blue for CTAs */
+  --primary: #89DDFF; /* Light blue - using hex for better compatibility */
+  --primary-foreground: #1a1a2e; /* Dark navy on blue */
+  
+  /* Secondary - Using your light coral */
+  --secondary: oklch(0.85 0.12 25); /* #FFA39B - Light coral */
+  --secondary-foreground: oklch(0.25 0.15 240); /* Dark navy text */
+  
+  /* Muted - Using your light green */
+  --muted: oklch(0.9 0.08 120); /* #AFDC83 - Light green */
+  --muted-foreground: oklch(0.4 0.1 120); /* Darker green text */
+  
+  /* Accent - Using your yellow */
+  --accent: oklch(0.9 0.08 85); /* #FFE18A - Light yellow */
+  --accent-foreground: oklch(0.25 0.15 240); /* Dark navy text */
+  
+  /* Destructive - Using your red coral */
+  --destructive: oklch(0.65 0.15 25); /* #FF685C - Red coral */
+  --destructive-foreground: oklch(0.99 0.01 85); /* Off-white on red */
+  
+  /* Borders & Inputs - Using gray for subtle outlines */
+  --border: oklch(0.85 0.01 0); /* Light gray borders */
+  --input: oklch(0.85 0.01 0); /* Light gray inputs */
+  --ring: #89DDFF; /* Light blue focus ring */
+  
+  /* Chart colors - Using your palette */
+  --chart-1: oklch(0.7 0.15 75); /* #F7B806 - Orange */
+  --chart-2: oklch(0.65 0.15 25); /* #FF685C - Red coral */
+  --chart-3: oklch(0.9 0.08 120); /* #AFDC83 - Light green */
+  --chart-4: oklch(0.8 0.12 200); /* #89DDFF - Light blue */
+  --chart-5: oklch(0.6 0.15 200); /* #2AC2FF - Dark blue */
+  
+  /* Sidebar - Using off-white with blue accents */
+  --sidebar: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white */
+  --sidebar-foreground: oklch(0.25 0.15 240); /* Dark navy */
+  --sidebar-primary: oklch(0.8 0.12 200); /* #89DDFF - Light blue */
+  --sidebar-primary-foreground: oklch(0.15 0.1 240); /* Dark navy */
+  --sidebar-accent: oklch(0.85 0.12 25); /* #FFA39B - Light coral */
+  --sidebar-accent-foreground: oklch(0.25 0.15 240); /* Dark navy */
+  --sidebar-border: oklch(0.85 0.01 0); /* Light gray */
+  --sidebar-ring: oklch(0.8 0.12 200); /* #89DDFF - Light blue */
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.541 0.281 293.009);
-  --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.541 0.281 293.009);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.541 0.281 293.009);
-  --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.541 0.281 293.009);
+  /* Dark mode - Using darker versions of your palette */
+  --background: oklch(0.15 0.1 240); /* Dark navy background */
+  --foreground: oklch(0.95 0.02 85); /* Light cream text */
+  --card: oklch(0.2 0.1 240); /* Slightly lighter navy cards */
+  --card-foreground: oklch(0.95 0.02 85); /* Light cream text */
+  --popover: oklch(0.2 0.1 240); /* Slightly lighter navy popovers */
+  --popover-foreground: oklch(0.95 0.02 85); /* Light cream text */
+  
+  /* Primary - Brighter blue for dark mode */
+  --primary: #7dd3fc; /* Brighter light blue for dark mode */
+  --primary-foreground: #1a1a2e; /* Dark navy on blue */
+  
+  /* Secondary - Muted coral for dark mode */
+  --secondary: oklch(0.3 0.1 25); /* Darker coral */
+  --secondary-foreground: oklch(0.95 0.02 85); /* Light cream text */
+  
+  /* Muted - Darker green for dark mode */
+  --muted: oklch(0.25 0.08 120); /* Darker green */
+  --muted-foreground: oklch(0.7 0.1 120); /* Lighter green text */
+  
+  /* Accent - Muted yellow for dark mode */
+  --accent: oklch(0.3 0.08 85); /* Darker yellow */
+  --accent-foreground: oklch(0.95 0.02 85); /* Light cream text */
+  
+  /* Destructive - Brighter red for dark mode */
+  --destructive: oklch(0.7 0.18 25); /* #FF685C - Brighter red coral */
+  --destructive-foreground: oklch(0.95 0.02 85); /* Light cream on red */
+  
+  /* Borders & Inputs - Subtle gray borders */
+  --border: oklch(0.3 0.01 0); /* Dark gray borders */
+  --input: oklch(0.3 0.01 0); /* Dark gray inputs */
+  --ring: #7dd3fc; /* Light blue focus ring for dark mode */
+  
+  /* Chart colors - Same as light mode but adjusted for dark */
+  --chart-1: oklch(0.75 0.18 75); /* Orange */
+  --chart-2: oklch(0.7 0.18 25); /* Red coral */
+  --chart-3: oklch(0.6 0.1 120); /* Light green */
+  --chart-4: oklch(0.7 0.15 200); /* Light blue */
+  --chart-5: oklch(0.5 0.18 200); /* Dark blue */
+  
+  /* Sidebar - Dark navy with blue accents */
+  --sidebar: oklch(0.15 0.1 240); /* Dark navy */
+  --sidebar-foreground: oklch(0.95 0.02 85); /* Light cream */
+  --sidebar-primary: oklch(0.7 0.15 200); /* Light blue */
+  --sidebar-primary-foreground: oklch(0.15 0.1 240); /* Dark navy */
+  --sidebar-accent: oklch(0.3 0.1 25); /* Dark coral */
+  --sidebar-accent-foreground: oklch(0.95 0.02 85); /* Light cream */
+  --sidebar-border: oklch(0.3 0.01 0); /* Dark gray */
+  --sidebar-ring: oklch(0.7 0.15 200); /* Light blue */
 }
 
-@theme inline {
+/* Color theme variables for Tailwind CSS */
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar: var(--sidebar);
@@ -107,19 +140,15 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-
-  --color-1: var(--color-1);
-  --color-2: var(--color-2);
-  --color-3: var(--color-3);
-  --color-4: var(--color-4);
-  --color-5: var(--color-5);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: oklch(from var(--ring) l c h / 0.5);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }
