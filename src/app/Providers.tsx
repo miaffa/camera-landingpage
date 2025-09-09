@@ -21,7 +21,7 @@ function Providers({ children }: { children: React.ReactNode }) {
           <SWRConfig value={{ fetcher }}>
             <Next13ProgressBar
               height="4px"
-              color="hsl(var(--primary))"
+              color="var(--primary)"
               options={{ showSpinner: true }}
               showOnShallow
             />

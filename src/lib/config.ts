@@ -22,14 +22,14 @@ export const appConfig: AppConfigPublic = {
     "Stuf'd is a POS system for restaurants and cafes.",
   legal: {
     address: {
-      street: "Plot No 337, Workyard, Phase 2, Industrial Business &amp; Park",
-      city: "Chandigarh",
-      state: "Punjab",
-      postalCode: "160002",
-      country: "India",
+      street: "University of Louisville",
+      city: "Louisville",
+      state: "Kentucky",
+      postalCode: "40219",
+      country: "United States",
     },
-    email: "ssent.hq@gmail.com",
-    phone: "+91 9876543210",
+    email: "stufdapp@gmail.com",
+    phone: "+1 502-852-6115",
   },
   social: {
     twitter: "https://twitter.com/stufdapp",
