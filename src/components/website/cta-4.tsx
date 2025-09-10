@@ -8,10 +8,10 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 
 const benefits = [
-  "Free 7-day trial",
+  "Free 14-day trial",
   "No credit card required",
   "Cancel anytime",
-  "24/7 support",
+  "24/7 restaurant support",
 ];
 
 export function CTA4() {
@@ -39,11 +39,11 @@ export function CTA4() {
         <div className="mx-auto grid max-w-lg gap-8 lg:max-w-none lg:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Start your AI journey today
+              Start digitizing your menu today
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Experience the power of AI-driven automation. Join thousands of
-              businesses that are already transforming their workflow.
+              Experience the power of digital menus. Join hundreds of
+              restaurants that are already creating better customer experiences.
             </p>
 
             {/* Benefits List */}
@@ -59,9 +59,7 @@ export function CTA4() {
             {/* Testimonial */}
             <figure className="mt-12">
               <blockquote className="text-lg font-medium leading-8">
-                &ldquo;This platform has completely transformed how we handle our data
-                processing. The AI-powered insights have been a game-changer for our
-                business.&rdquo;
+                &ldquo;Stuf'd has completely transformed how our customers interact with our menu. The real-time ratings and feedback have been a game-changer for our restaurant.&rdquo;
               </blockquote>
               <figcaption className="mt-4">
                 <div className="flex items-center gap-4">
@@ -77,7 +75,7 @@ export function CTA4() {
                   <div>
                     <div className="font-medium">Sarah Chen</div>
                     <div className="text-sm text-muted-foreground">
-                      CTO at TechFlow
+                      Owner at Golden Dragon Restaurant
                     </div>
                   </div>
                 </div>
@@ -89,7 +87,7 @@ export function CTA4() {
             <div className="w-full rounded-3xl bg-background p-8 shadow-xs ring-1 ring-border/10 sm:p-12">
               <h3 className="text-2xl font-bold">Get started for free</h3>
               <p className="mt-4 text-muted-foreground">
-                Try our platform free for 7 days. No credit card required.
+                Try Stuf'd free for 14 days. No credit card required.
               </p>
 
               <form onSubmit={handleSubmit} className="mt-8">
@@ -101,7 +99,7 @@ export function CTA4() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="Enter your work email"
+                      placeholder="Enter your restaurant email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required

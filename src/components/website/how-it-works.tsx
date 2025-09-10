@@ -5,18 +5,18 @@ import HeroVideoDialog from "@/components/ui/hero-video-dialog";
 
 const steps = [
   {
-    title: "Clone github repo",
-    description: "Simply clone the github repo and install the dependencies.",
+    title: "Sign up for Stuf'd",
+    description: "Create your restaurant account and choose your plan.",
     icon: Github,
   },
   {
-    title: "Make changes to the code",
-    description: "Make changes to the code and test it locally.",
+    title: "Create your digital menu",
+    description: "Upload your menu or use our builder to create it from scratch.",
     icon: Code,
   },
   {
-    title: "Deploy to Vercel",
-    description: "Deploy to Vercel and start marketing your product.",
+    title: "Go live and start collecting ratings",
+    description: "Deploy your digital menu and start getting customer feedback.",
     icon: Upload,
   },
 ];
@@ -30,7 +30,7 @@ export function HowItWorks() {
             How it works
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Just 3 steps to get started with Indiekit (5 minutes)
+            Just 3 steps to get started with Stuf'd (5 minutes)
           </p>
         </div>
 

@@ -14,12 +14,12 @@ const MonthlyAnnualPricing = () => {
     <section className="py-32">
       <div className="container">
         <div className="mx-auto mb-20 max-w-(--breakpoint-md) text-center">
-          <p className="text-primary font-medium mb-4">Special Launch Offer</p>
+          <p className="text-primary font-medium mb-4">Restaurant Pricing</p>
           <h2 className="mb-4 text-4xl tracking-tight font-bold lg:text-5xl">
             Simple, Transparent Pricing
           </h2>
           <p className="text-muted-foreground text-lg">
-            Choose the perfect plan for your needs. No hidden fees.
+            Choose the perfect plan for your restaurant. No hidden fees.
           </p>
         </div>
 
@@ -71,80 +71,80 @@ const MonthlyAnnualPricing = () => {
             <div className="rounded-xl border border-2 border-gray-400 p-8 hover:border-primary transition-colors">
               <div className="flex h-full flex-col justify-between gap-6">
                 <div>
-                  <h3 className="mb-4 text-2xl font-bold">Basic Plan</h3>
+                  <h3 className="mb-4 text-2xl font-bold">Starter Plan</h3>
                   <div className="mb-6">
                     <span className="text-5xl font-bold">
-                      {isAnnually ? "$63" : "$79"}
+                      {isAnnually ? "$29" : "$39"}
                     </span>
                     <span className="ml-2 font-medium text-muted-foreground">
                       per month
                     </span>
                   </div>
                   <p className="text-muted-foreground font-medium">
-                    Good for small teams, or small businesses just starting out.
+                    Perfect for small cafes and food trucks just starting out.
                   </p>
                   <p className="mb-4 mt-8 font-bold text-lg">Includes</p>
                   <ul className="flex flex-col gap-4">
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">5 projects limit</span>
+                      <span className="font-medium">Up to 50 menu items</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">5GB storage</span>
+                      <span className="font-medium">Basic digital menu</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Up to 3 users</span>
+                      <span className="font-medium">Customer ratings</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Support by email only</span>
+                      <span className="font-medium">Email support</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
                       <span className="font-medium">
-                        No time tracking feature
+                        Basic analytics
                       </span>
                     </li>
                   </ul>
                 </div>
                 <Button size="lg" className="mt-8">
-                  Start a free trial
+                  Start free trial
                 </Button>
               </div>
             </div>
             <div className="rounded-xl border border-gray-400 border-2 p-8 hover:border-primary transition-colors">
               <div className="flex h-full flex-col justify-between gap-6">
                 <div>
-                  <h3 className="mb-4 text-2xl font-bold">Pro Plan</h3>
+                  <h3 className="mb-4 text-2xl font-bold">Professional Plan</h3>
                   <div className="mb-6">
                     <span className="text-5xl font-bold">
-                      {isAnnually ? "$239" : "$299"}
+                      {isAnnually ? "$79" : "$99"}
                     </span>
                     <span className="ml-2 font-medium text-muted-foreground">
                       per month
                     </span>
                   </div>
                   <p className="text-muted-foreground font-medium">
-                    Good for medium to large businesses. Get all the features
+                    Perfect for restaurants and bistros. Get all the features
                     you need.
                   </p>
                   <p className="mb-4 mt-8 font-bold text-lg">
-                    Everything in Basic, plus
+                    Everything in Starter, plus
                   </p>
                   <ul className="flex flex-col gap-4">
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Unlimited projects</span>
+                      <span className="font-medium">Up to 200 menu items</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">50GB storage</span>
+                      <span className="font-medium">Custom branding</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Unlimited users</span>
+                      <span className="font-medium">Advanced analytics</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
@@ -153,7 +153,7 @@ const MonthlyAnnualPricing = () => {
                   </ul>
                 </div>
                 <Button size="lg" className="mt-8">
-                  Start a free trial
+                  Start free trial
                 </Button>
               </div>
             </div>

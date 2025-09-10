@@ -16,12 +16,12 @@ export function CTA3() {
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col justify-center">
             <h2 className="text-3xl font-bold sm:text-4xl">
-              Transform your workflow with AI-powered automation
+              Transform your restaurant with digital menus
             </h2>
 
             <p className="mt-4 text-lg text-primary-foreground/80">
-              Join thousands of businesses that are saving time and increasing
-              productivity with our AI solutions.
+              Join hundreds of restaurants that are creating better customer
+              experiences and increasing satisfaction with Stuf'd.
             </p>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
@@ -41,7 +41,7 @@ export function CTA3() {
                 className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 rounded-full"
                 asChild
               >
-                <Link href="/book-demo">Book a demo</Link>
+                <Link href="/contact">Schedule Demo</Link>
               </Button>
             </div>
 
@@ -62,9 +62,9 @@ export function CTA3() {
                   ))}
                 </div>
                 <div className="text-sm">
-                  <p className="font-medium">Rated 5.0 by 1,000+ users</p>
+                  <p className="font-medium">Rated 4.8 by 500+ restaurants</p>
                   <p className="text-primary-foreground/60">
-                    on leading review platforms
+                    on restaurant review platforms
                   </p>
                 </div>
               </div>
@@ -75,16 +75,16 @@ export function CTA3() {
             <div className="aspect-square overflow-hidden rounded-4xl bg-primary-foreground/10">
               {theme === 'dark' ? (
                 <Image
-                  src="https://picsum.photos/800/800?random=1"
-                  alt="Dashboard Preview (Dark)"
+                  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwxNzd8fHx8fHwyfHwxNzIzNjM0NDc0fA&ixlib=rb-4.0.3&q=80&w=1080"
+                  alt="Digital Menu Preview (Dark)"
                   width={800}
                   height={800}
                   className="h-full w-full object-cover"
                 />
               ) : (
                 <Image
-                  src="https://picsum.photos/800/800?random=2"
-                  alt="Dashboard Preview (Light)"
+                  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NDI3NzN8MHwxfGFsbHwxNzd8fHx8fHwyfHwxNzIzNjM0NDc0fA&ixlib=rb-4.0.3&q=80&w=1080"
+                  alt="Digital Menu Preview (Light)"
                   width={800}
                   height={800}
                   className="h-full w-full object-cover"
@@ -96,15 +96,15 @@ export function CTA3() {
             <div className="absolute -bottom-6 -left-6 rounded-3xl bg-background p-6 shadow-xl ring-1 ring-border/10 sm:-bottom-8 sm:-left-8 sm:p-8">
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <p className="text-3xl font-bold">50%</p>
+                  <p className="text-3xl font-bold">40%</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Increase in productivity
+                    Increase in customer satisfaction
                   </p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold">30hr</p>
+                  <p className="text-3xl font-bold">25%</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Saved per month
+                    Increase in positive reviews
                   </p>
                 </div>
               </div>

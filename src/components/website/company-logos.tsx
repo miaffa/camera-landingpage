@@ -5,34 +5,34 @@ import Link from "next/link";
 
 const companies = [
   {
-    name: "Google Drive",
-    image: "https://simpleicons.org/icons/googledrive.svg",
-    url: "https://www.google.com/",
+    name: "OpenTable",
+    image: "https://simpleicons.org/icons/opentable.svg",
+    url: "https://www.opentable.com/",
   },
   {
-    name: "Product Hunt",
-    image: "https://simpleicons.org/icons/producthunt.svg",
-    url: "https://www.producthunt.com/",
+    name: "Yelp",
+    image: "https://simpleicons.org/icons/yelp.svg",
+    url: "https://www.yelp.com/",
   },
   {
-    name: "X",
-    image: "https://simpleicons.org/icons/x.svg",
-    url: "https://x.com/",
+    name: "Grubhub",
+    image: "https://simpleicons.org/icons/grubhub.svg",
+    url: "https://www.grubhub.com/",
   },
   {
-    name: "Reddit",
-    image: "https://simpleicons.org/icons/reddit.svg",
-    url: "https://www.reddit.com/",
+    name: "DoorDash",
+    image: "https://simpleicons.org/icons/doordash.svg",
+    url: "https://www.doordash.com/",
   },
   {
-    name: "Notion",
-    image: "https://simpleicons.org/icons/notion.svg",
-    url: "https://www.notion.so/",
+    name: "Uber Eats",
+    image: "https://simpleicons.org/icons/ubereats.svg",
+    url: "https://www.ubereats.com/",
   },
   {
-    name: "Indie Hackers",
-    image: "https://simpleicons.org/icons/indiehackers.svg",
-    url: "https://www.indiehackers.com/",
+    name: "Toast",
+    image: "https://simpleicons.org/icons/toast.svg",
+    url: "https://pos.toasttab.com/",
   },
 ];
 
@@ -41,7 +41,7 @@ export function CompanyLogos() {
     <div className="bg-muted/40 py-8" aria-label="Company Logos">
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm font-medium text-muted-foreground">
-          Featured on
+          Trusted by restaurants using
         </p>
         <div className="mt-8 grid grid-cols-2 items-center gap-8 sm:grid-cols-3 lg:grid-cols-6">
           {companies.map((company) => (

@@ -8,49 +8,49 @@ export function ProblemStatement() {
       <div className="flex flex-col gap-4 max-w-3xl mx-auto relative justify-center items-center w-full">
         <Card className="bg-red-200 dark:bg-red-800/50 text-foreground text-left md:text-center border-none w-fit">
           <CardHeader>
-            <CardTitle>I&apos;ve quit 10+ times!</CardTitle>
+            <CardTitle>I&apos;ve struggled with paper menus!</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-lg mb-4">
-              I wanted to build simple apps to launch over the weekend. I was so
-              frustrated implementing billing, stripe, auth, quota management,
-              etc. I just gave up.
+              I wanted to modernize my restaurant but was so frustrated with
+              paper menus, printing costs, outdated prices, and losing customers
+              to competitors. I almost gave up.
             </p>
             <hr className="my-4 border-foreground/20" />
             <ul className="list-disc list-inside mb-4">
               <li>
-                <b>4 hrs+</b> to set up emails
+                <b>$200+</b> monthly printing costs
               </li>
               <li>
-                <b>6 hrs+</b> designing a landing page
+                <b>2 hrs+</b> updating prices manually
               </li>
               <li>
-                <b>4 hrs+</b> to handle Stripe webhooks
+                <b>1 hr+</b> reprinting menus for changes
               </li>
               <li>
-                <b>4 hrs+</b> for SEO tags
+                <b>3 hrs+</b> dealing with customer complaints
               </li>
               <li>
-                <b>4 hrs+</b> for setting up basic auth
+                <b>5 hrs+</b> lost sales from outdated menus
               </li>
               <li>
-                <b>3 hrs+</b> for DNS records
+                <b>2 hrs+</b> staff training on menu changes
               </li>
               <li>
-                <b>2 hrs+</b> for protected API routes
+                <b>4 hrs+</b> managing multiple menu versions
               </li>
               <li>
-                <b>10+ hrs+</b> for billing, quota management, etc.
+                <b>10+ hrs+</b> lost customers to digital competitors
               </li>
               <li>
-                <b>∞ hrs+</b> overthinking/clueless...
+                <b>∞ hrs+</b> stress and frustration...
               </li>
             </ul>
             <p className="text-lg mb-4">
-              <b>37+ hours of headaches</b>
+              <b>27+ hours of headaches per month</b>
             </p>
             <p className="text-lg">
-              <b>No inspiration or confidence for building the app</b>
+              <b>No way to compete with modern restaurants</b>
             </p>
           </CardContent>
         </Card>

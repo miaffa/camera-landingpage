@@ -19,232 +19,231 @@ import HyperText from "../ui/hyper-text";
 const tabs = [
   {
     id: 1,
-    tabName: "Emails",
+    tabName: "Digital Menus",
     icon: Mail,
-    heading: "Email Setup & Design",
+    heading: "Interactive Menu Creation",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Beautiful, responsive email templates</b> design using{" "}
-          <code>react-email</code>
+          • <b>Drag-and-drop menu builder</b> for easy customization
         </li>
         <li>
-          • Automated welcome & onboarding <b>sequences</b>
+          • <b>Real-time menu updates</b> across all platforms
         </li>
-        <li>• SES integration guide.</li>
-        <li>• Resend integration guide</li>
+        <li>• Mobile-optimized design for all devices</li>
+        <li>• Custom branding and restaurant themes</li>
       </ul>
     ),
     timeSaved: "4 hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>Resend</Badge>
-        <Badge>SES</Badge>
-        <Badge>Mailgun</Badge>
-        <Badge>Mailchimp</Badge>
+        <Badge>QR Codes</Badge>
+        <Badge>Mobile App</Badge>
+        <Badge>Web Portal</Badge>
+        <Badge>Custom Branding</Badge>
       </div>
     ),
   },
   {
     id: 2,
-    tabName: "Payments",
+    tabName: "Customer Ratings",
     icon: CreditCard,
-    heading: "Payment Processing",
+    heading: "Real-time Customer Feedback",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Plan and Quota management</b> on user level.
+          • <b>In-menu rating system</b> for every dish
         </li>
         <li>
-          • Handle <b>subscriptions and one-time payments</b>.
+          • <b>Customer reviews and comments</b> collection
         </li>
-        <li>• Stripe integration with webhooks and checkout.</li>
-        <li>• Lemon Squeezy integration with webhooks and checkout.</li>
+        <li>• Social sharing of favorite dishes</li>
+        <li>• Real-time popularity rankings</li>
         <li>
-          • Subscription management & billing using <b>Customer Portal</b>.
+          • <b>Review management</b> and response system
         </li>
       </ul>
     ),
     timeSaved: "8 hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>Stripe</Badge>
-        <Badge>Lemon Squeezy</Badge>
-        <Badge>PayPal (coming soon)</Badge>
+        <Badge>Star Ratings</Badge>
+        <Badge>Social Sharing</Badge>
+        <Badge>Review Management</Badge>
+        <Badge>Analytics</Badge>
       </div>
     ),
   },
   {
     id: 3,
-    tabName: "Login",
+    tabName: "Analytics",
     icon: UserCheck,
-    heading: "Secure Authentication",
+    heading: "Restaurant Analytics Dashboard",
     featureList: (
       <ul className="mt-4 space-y-3">
-        <li>• Social login (Google, GitHub etc.)</li>
-        <li>• Magic link authentication</li>
-        <li>• Save user data to database</li>
-        <li>• Private API route for protected routes</li>
-        <li>• Super Admin dashboard for managing users</li>
+        <li>• Real-time dish popularity rankings</li>
+        <li>• Customer satisfaction metrics</li>
+        <li>• Peak dining time analysis</li>
+        <li>• Revenue impact tracking</li>
+        <li>• Custom reporting and insights</li>
       </ul>
     ),
     timeSaved: "12 hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>NextAuth</Badge>
-        <Badge>Google Auth</Badge>
-        <Badge>Custom Pages</Badge>
+        <Badge>Real-time Data</Badge>
+        <Badge>Custom Reports</Badge>
+        <Badge>Export Data</Badge>
       </div>
     ),
   },
   {
     id: 4,
-    tabName: "Database",
+    tabName: "QR Codes",
     icon: Database,
-    heading: "Database & Storage",
+    heading: "QR Code Integration",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>PostgreSQL/MySQL/MongoDB</b> database
+          • <b>Custom QR codes</b> for each table
         </li>
         <li>
-          • <b>Drizzle</b> ORM
+          • <b>Instant menu access</b> via smartphone
         </li>
         <li>
-          • <b>Automated migrations</b>
+          • <b>Contactless ordering</b> system
         </li>
         <li>
-          • <b>Connection pooling</b> for better performance
+          • <b>Table-specific</b> menu customization
         </li>
         <li>
-          • <b>File uploads</b> to S3 for cheap storage
+          • <b>Print-ready</b> QR code designs
         </li>
       </ul>
     ),
     timeSaved: "6 hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>PostgreSQL</Badge>
-        <Badge>Drizzle</Badge>
-        <Badge>NeonDB</Badge>
-        <Badge>MongoDB</Badge>
-        <Badge>PlanetScale</Badge>
+        <Badge>QR Generation</Badge>
+        <Badge>Table Codes</Badge>
+        <Badge>Print Ready</Badge>
+        <Badge>Contactless</Badge>
       </div>
     ),
   },
   {
     id: 5,
-    tabName: "SEO",
+    tabName: "Multi-Location",
     icon: Search,
-    heading: "Search Engine Optimization",
+    heading: "Multi-Location Management",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Entire blog structure</b> (MDX)
+          • <b>Centralized menu management</b> for all locations
         </li>
         <li>
-          • <b>Automated Sitemap generation</b>
+          • <b>Location-specific</b> menu customization
         </li>
         <li>
-          • <b>Structured data (JSON-LD)</b> for SEO
+          • <b>Franchise support</b> with brand consistency
         </li>
         <li>
-          • <b>Open Graph</b> for social media pre-setup
+          • <b>Regional pricing</b> and availability
         </li>
         <li>
-          • <b>SEO Optimised</b> UI components
+          • <b>Location analytics</b> and performance tracking
         </li>
       </ul>
     ),
     timeSaved: "5 hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>MDX</Badge>
-        <Badge>Schema.org</Badge>
-        <Badge>Open Graph</Badge>
-        <Badge>@vercel/og</Badge>
+        <Badge>Franchise</Badge>
+        <Badge>Multi-Site</Badge>
+        <Badge>Centralized</Badge>
+        <Badge>Regional</Badge>
       </div>
     ),
   },
   {
     id: 6,
-    tabName: "Design",
+    tabName: "Customization",
     icon: Palette,
-    heading: "Modern UI Components",
+    heading: "Restaurant Branding",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Responsive layouts</b>
+          • <b>Custom restaurant themes</b> and colors
         </li>
         <li>
-          • <b>Custom Themes</b> as per your brand
+          • <b>Logo integration</b> and branding
         </li>
         <li>
-          • <b>Email designer</b> for beautiful emails
+          • <b>Menu layout customization</b> options
         </li>
         <li>
-          • <b>Dark mode support</b>
+          • <b>Font and typography</b> selection
         </li>
         <li>
-          • <b>SEO Optimised</b> UI components
+          • <b>Mobile-optimized</b> responsive design
         </li>
         <li>
-          • Powered by <b>Shadcn/UI</b>
+          • <b>White-label</b> solutions available
         </li>
         <li>
-          • <b>Magic UI</b> for more components
+          • <b>Custom domain</b> support
         </li>
         <li>
-          • <b>TailwindCSS</b> for styling
+          • <b>Restaurant-specific</b> templates
         </li>
       </ul>
     ),
     timeSaved: "10 hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>TailwindCSS</Badge>
-        <Badge>Shadcn UI</Badge>
-        <Badge>Magic UI</Badge>
+        <Badge>Custom Themes</Badge>
+        <Badge>White Label</Badge>
+        <Badge>Branding</Badge>
       </div>
     ),
   },
   {
     id: 7,
-    tabName: "Background Jobs",
+    tabName: "Staff Management",
     icon: Cog,
-    heading: "Serverless Job Processing",
+    heading: "Restaurant Staff Tools",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Queue management</b>
+          • <b>Staff training</b> and onboarding
         </li>
         <li>
-          • <b>Scheduled tasks</b>
+          • <b>Menu update notifications</b>
         </li>
         <li>
-          • <b>Error handling & retries</b>
+          • <b>Customer feedback alerts</b>
         </li>
         <li>
-          • Powered by <b>Inngest</b>
+          • <b>Performance tracking</b> for staff
         </li>
         <li>
-          • Optional <b>Upstash</b> for rate limiting
+          • <b>Multi-language</b> support
         </li>
         <li>
-          • Implement heavy tasks in <b>background</b>
+          • <b>Role-based access</b> control
         </li>
         <li>
-          • Email sequences in <b>background</b>
+          • <b>Staff dashboard</b> for management
         </li>
       </ul>
     ),
     timeSaved: "7 hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>Upstash</Badge>
-        <Badge>Inngest</Badge>
-        <Badge>Schedule Tasks</Badge>
-        <Badge>Background Jobs</Badge>
+        <Badge>Training</Badge>
+        <Badge>Notifications</Badge>
+        <Badge>Multi-Language</Badge>
+        <Badge>Staff Dashboard</Badge>
       </div>
     ),
   },
@@ -255,28 +254,28 @@ const tabs = [
     heading: "And Much More...",
     featureList: (
       <ul className="mt-4 space-y-3">
-        <li>• API rate limiting (optional)</li>
-        <li>• File uploads (S3)</li>
+        <li>• Integration with POS systems</li>
+        <li>• Menu photo upload and processing</li>
         <li>
-          • <b>Discord community</b> for accountability and support.
+          • <b>Restaurant community</b> for support and tips
         </li>
         <li>
-          • <b>Super Admin dashboard</b> for managing users, plans, and more.
+          • <b>Admin dashboard</b> for managing restaurants and analytics
         </li>
         <li>
-          • <b>Roadmap Manager</b> for tracking your roadmap
+          • <b>Menu templates</b> for different cuisine types
         </li>
         <li>
-          • <b>Waitlist Manager</b> for managing your waitlist
+          • <b>Waitlist integration</b> for table management
         </li>
         <li>
-          • <b>Privacy Policy and other legal documents</b> ChatGPT prompts
+          • <b>Legal compliance</b> and privacy features
         </li>
         <li>
-          • <b>Contact Us</b> messages manager.
+          • <b>Customer support</b> and help center
         </li>
         <li>
-          • <b>Common Email Templates</b> for your emails
+          • <b>Email notifications</b> for restaurants and customers
         </li>
         <li>• And much more...</li>
       </ul>
@@ -284,12 +283,12 @@ const tabs = [
     timeSaved: "15+ hours",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>Discord</Badge>
-        <Badge>Email Templates</Badge>
-        <Badge>Roadmap Manager</Badge>
-        <Badge>Waitlist Manager</Badge>
-        <Badge>Privacy Policy</Badge>
-        <Badge>Contact Us</Badge>
+        <Badge>POS Integration</Badge>
+        <Badge>Menu Templates</Badge>
+        <Badge>Waitlist</Badge>
+        <Badge>Legal Compliance</Badge>
+        <Badge>Support</Badge>
+        <Badge>Notifications</Badge>
       </div>
     ),
   },
@@ -303,22 +302,22 @@ export const WebsiteFeatures = () => {
       <div className="container">
         <div className="mx-auto flex max-w-(--breakpoint-md) flex-col items-center gap-6">
           <h2 className="mb-4 text-center text-4xl font-semibold md:text-5xl">
-            Bootstrap your app instantly,{" "}
+            Digitize your restaurant menu{" "}
             <HyperText
               startOnView
               delay={1000}
               as="span"
               className="text-primary"
             >
-              launch faster
+              instantly
             </HyperText>
-            , make $
+            , boost reviews
           </h2>
           <p className="text-center text-lg text-muted-foreground md:text-xl">
-            Login users, process payments, send emails at lightspeed. Spend your
-            time building your startup, not integrating APIs.{" "}
-            <span className="text-primary">Indie Kit</span> provides you with
-            the boilerplate code you need to launch,{" "}
+            Create digital menus, collect customer ratings, and get real-time analytics. Spend your
+            time running your restaurant, not managing paper menus.{" "}
+            <span className="text-primary">Stuf'd</span> provides you with
+            everything you need to digitize,{" "}
             <HyperText startOnView delay={2500} as="span" className="text-sm">
               Faster than ever.
             </HyperText>

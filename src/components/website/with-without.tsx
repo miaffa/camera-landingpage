@@ -8,67 +8,67 @@ interface ComparisonItem {
 export function WithWithout() {
   const withProduct: ComparisonItem[] = [
     {
-      title: "Ready-to-Use Components",
+      title: "Digital Menu Creation",
       description:
-        "Get access to 100s of pre-built, responsive UI components (powered by shadcn/ui) and email templates",
+        "Create beautiful, interactive digital menus with drag-and-drop builder and custom branding",
     },
     {
-      title: "Authentication & Payments",
+      title: "Real-time Customer Feedback",
       description:
-        "Secure login system and payment processing ready out of the box",
+        "Collect instant ratings and reviews from customers directly through the menu",
     },
     {
-      title: "Background Processing",
+      title: "Instant Menu Updates",
       description:
-        "Efficient job queues and scheduled tasks handled automatically",
+        "Update prices, add items, or mark unavailable instantly across all platforms",
     },
     {
-      title: "SEO Optimization",
+      title: "Analytics Dashboard",
       description:
-        "Built-in SEO features, sitemaps, and structured data for better rankings",
+        "Get real-time insights into popular dishes, customer satisfaction, and dining trends",
     },
     {
-      title: "Database & Storage",
+      title: "QR Code Integration",
       description:
-        "Pre-configured database setup with migrations and file storage solutions",
+        "Generate custom QR codes for each table for contactless menu access",
     },
     {
-      title: "Developer Experience",
+      title: "Multi-Location Support",
       description:
-        "Well-documented codebase with TypeScript and best practices implemented",
+        "Manage multiple restaurant locations with centralized control and location-specific customization",
     },
   ];
 
   const withoutProduct: ComparisonItem[] = [
     {
-      title: "Start From Scratch",
+      title: "Paper Menu Nightmare",
       description:
-        "Spend weeks building basic components and designing email templates",
+        "Spend hundreds on printing costs and hours updating prices manually",
     },
     {
-      title: "Complex Integrations",
+      title: "No Customer Feedback",
       description:
-        "Struggle with authentication providers and payment gateway setups",
+        "Miss out on valuable customer insights and struggle to improve your menu",
     },
     {
-      title: "Manual Processing",
+      title: "Outdated Information",
       description:
-        "Build your own job scheduling system and handle background tasks",
+        "Deal with customer complaints about wrong prices and unavailable items",
     },
     {
-      title: "Basic SEO",
+      title: "No Analytics",
       description:
-        "Miss out on important SEO features and struggle with search rankings",
+        "Make decisions based on guesswork instead of real customer data",
     },
     {
-      title: "Database Headaches",
+      title: "Lost Customers",
       description:
-        "Deal with database setup, migrations, and storage configuration manually",
+        "Watch customers choose competitors with modern digital experiences",
     },
     {
-      title: "Technical Debt",
+      title: "Staff Confusion",
       description:
-        "Risk building without proper structure, leading to maintenance issues",
+        "Constantly train staff on menu changes and deal with version control issues",
     },
   ];
 
@@ -87,7 +87,7 @@ export function WithWithout() {
                 <X className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-red-700 dark:text-red-400">
-                Without Indie Kit
+                Without Stuf'd
               </h3>
             </div>
             <div className="space-y-6">
@@ -110,7 +110,7 @@ export function WithWithout() {
                 <Check className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-green-700 dark:text-green-400">
-                With Indie Kit
+                With Stuf'd
               </h3>
             </div>
             <div className="space-y-6">
