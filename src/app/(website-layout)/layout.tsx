@@ -2,7 +2,6 @@ import { appConfig } from "@/lib/config";
 import { Metadata } from "next";
 import React from "react";
 import { Header } from "@/components/layout/header";
-import FooterSection from "@/components/website/footer";
 
 export const metadata: Metadata = {
   title: {

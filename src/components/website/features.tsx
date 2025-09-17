@@ -76,7 +76,7 @@ export function Features() {
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <div key={feature.title} className="group">
               <div className="rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 hover:shadow-md">
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -104,7 +104,7 @@ export function Features() {
           <div className="rounded-lg bg-primary/5 p-8">
             <h3 className="text-2xl font-bold">Ready to digitize your menu?</h3>
             <p className="mt-2 text-muted-foreground">
-              Join hundreds of restaurants already using Stuf'd to create better customer experiences
+              Join hundreds of restaurants already using Stuf&apos;d to create better customer experiences
             </p>
             <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <a

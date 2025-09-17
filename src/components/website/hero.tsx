@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Star, Smartphone, TrendingUp, Users, Link as LinkIcon, Upload, PenTool } from "lucide-react";
 import AvatarCircles from "@/components/ui/avatar-circles";
 import { cn } from "@/lib/utils";
-import HyperText from "@/components/ui/hyper-text";
 import WordRotate from "@/components/ui/word-rotate";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -98,7 +97,7 @@ export function Hero() {
           <div className="mt-16">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-foreground mb-2">Get Started in Minutes</h2>
-              <p className="text-muted-foreground">Choose how you'd like to list your camera equipment</p>
+              <p className="text-muted-foreground">Choose how you&apos;d like to list your camera equipment</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -112,7 +111,7 @@ export function Hero() {
                     <div className="text-center w-full">
                       <h3 className="font-semibold text-lg break-words hyphens-auto">Link Equipment URL</h3>
                       <p className="text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
-                        Paste your existing equipment listing and we'll extract it automatically
+                        Paste your existing equipment listing and we&apos;ll extract it automatically
                       </p>
                     </div>
                   </Button>
@@ -216,7 +215,7 @@ export function Hero() {
                   </div>
                   <h3 className="mt-4 text-lg font-semibold">Earn Money</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Monetize your gear when you're not using it
+                    Monetize your gear when you&apos;re not using it
                   </p>
                 </div>
             </div>
@@ -256,7 +255,7 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
   };
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev: any) => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   return (

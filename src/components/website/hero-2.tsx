@@ -1,10 +1,8 @@
-import { Sparkles, Camera, Users, ArrowRight, Mail } from "lucide-react";
+import { Sparkles, ArrowRight, Mail } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 export default function Hero2() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 

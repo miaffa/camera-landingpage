@@ -78,7 +78,7 @@ export function Testimonials() {
                   ))}
                 </div>
                 <blockquote className="text-sm text-muted-foreground mb-4">
-                  "{testimonial.content}"
+                  &ldquo;{testimonial.content}&rdquo;
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <Avatar className="h-10 w-10">
