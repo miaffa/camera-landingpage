@@ -33,9 +33,15 @@ export const GET = withAuthRequired(async (req, context) => {
 
   const dodoCustomerId = user.dodoCustomerId;
   if (dodoCustomerId) {
-    const customerPortalSession =
-      await client.customers.customerPortal.create(dodoCustomerId);
-    return redirect(customerPortalSession.link);
+    try {
+      const dodoClient = client();
+      const customerPortalSession =
+        await dodoClient.customers.customerPortal.create(dodoCustomerId);
+      return redirect(customerPortalSession.link);
+    } catch (error) {
+      console.error("DodoPayments error:", error);
+      // Fall through to next payment method
+    }
   }
 
   // Check if has paypal context
