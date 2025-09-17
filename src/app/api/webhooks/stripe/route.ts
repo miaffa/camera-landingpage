@@ -1,3 +1,5 @@
+// COMMENTED OUT - Stripe webhook route (uncomment when Stripe is configured)
+/*
 import Stripe from "stripe";
 import stripe from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
@@ -328,6 +330,11 @@ async function handler(req: NextRequest) {
   }
 }
 
-export const POST = handler;
+*/
+
+// Placeholder route - returns 404 when Stripe is not configured
+export const POST = async () => {
+  return new Response("Stripe webhook not configured", { status: 404 });
+};
 
 export const maxDuration = 20;

@@ -1,3 +1,5 @@
+// COMMENTED OUT - PayPal webhook route (uncomment when PayPal is configured)
+/*
 import { NextRequest, NextResponse } from "next/server";
 
 import { db } from "@/db";
@@ -147,6 +149,11 @@ async function handler(req: NextRequest) {
   }
 }
 
-export const POST = handler;
+*/
+
+// Placeholder route - returns 404 when PayPal is not configured
+export const POST = async () => {
+  return new Response("PayPal webhook not configured", { status: 404 });
+};
 
 export const maxDuration = 20;
