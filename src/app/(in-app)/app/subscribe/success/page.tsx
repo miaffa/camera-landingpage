@@ -23,6 +23,10 @@ export default async function SubscribeSuccessPage({
         // Subscription Case
         try {
           const dodoClient = client();
+          if (!dodoClient) {
+            console.error("DodoPayments client not configured");
+            return <ErrorRedirector />;
+          }
           const subscription = await dodoClient.subscriptions.retrieve(
             subscription_id
           );
@@ -38,6 +42,10 @@ export default async function SubscribeSuccessPage({
       if (payment_id) {
         try {
           const dodoClient = client();
+          if (!dodoClient) {
+            console.error("DodoPayments client not configured");
+            return <ErrorRedirector />;
+          }
           const payment = await dodoClient.payments.retrieve(payment_id);
           if (payment.status !== "succeeded") {
             return <ErrorRedirector />;

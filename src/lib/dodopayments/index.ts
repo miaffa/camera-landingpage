@@ -37,6 +37,9 @@ export const createOneTimePaymentCheckout = async (params: {
         };
 
     const dodoClient = client();
+    if (!dodoClient) {
+      throw new Error("DodoPayments client not configured");
+    }
     const response = await dodoClient.payments.create({
       product_cart: [
         {
@@ -92,6 +95,9 @@ export const createSubscriptionCheckout = async (params: {
         };
 
     const dodoClient = client();
+    if (!dodoClient) {
+      throw new Error("DodoPayments client not configured");
+    }
     const response = await dodoClient.subscriptions.create({
       product_id: productId,
       quantity: 1,
