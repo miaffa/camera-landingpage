@@ -8,6 +8,9 @@ import { NextResponse } from "next/server";
 import client from "@/lib/dodopayments/client";
 import { paypalContext } from "@/db/schema/paypal";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 export const GET = withAuthRequired(async (req, context) => {
   const user = await db
     .select()
@@ -18,7 +21,7 @@ export const GET = withAuthRequired(async (req, context) => {
 
   const stripeCustomerId = user.stripeCustomerId;
 
-  if (stripeCustomerId) {
+  if (stripeCustomerId && stripe) {
     // create customer portal link
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: stripeCustomerId,
@@ -35,9 +38,11 @@ export const GET = withAuthRequired(async (req, context) => {
   if (dodoCustomerId) {
     try {
       const dodoClient = client();
-      const customerPortalSession =
-        await dodoClient.customers.customerPortal.create(dodoCustomerId);
-      return redirect(customerPortalSession.link);
+      if (dodoClient) {
+        const customerPortalSession =
+          await dodoClient.customers.customerPortal.create(dodoCustomerId);
+        return redirect(customerPortalSession.link);
+      }
     } catch (error) {
       console.error("DodoPayments error:", error);
       // Fall through to next payment method

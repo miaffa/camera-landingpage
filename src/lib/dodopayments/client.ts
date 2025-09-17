@@ -8,7 +8,8 @@ const getClient = () => {
     const apiKey = process.env.DODO_PAYMENTS_API_KEY;
     
     if (!apiUrl || !apiKey) {
-      throw new Error("DodoPayments API credentials not configured");
+      console.warn("DodoPayments API credentials not configured - returning null client");
+      return null;
     }
     
     client = new DodoPayments({
