@@ -36,7 +36,8 @@ export const createOneTimePaymentCheckout = async (params: {
           create_new_customer: true,
         };
 
-    const response = await client.payments.create({
+    const dodoClient = client();
+    const response = await dodoClient.payments.create({
       product_cart: [
         {
           product_id: productId,
@@ -90,7 +91,8 @@ export const createSubscriptionCheckout = async (params: {
           create_new_customer: true,
         };
 
-    const response = await client.subscriptions.create({
+    const dodoClient = client();
+    const response = await dodoClient.subscriptions.create({
       product_id: productId,
       quantity: 1,
       customer,
