@@ -10,38 +10,38 @@
 }
 :root {
   --radius: 0.65rem;
-  /* Background & Text - Using your off-white and dark navy */
-  --background: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white */
-  --foreground: oklch(0.25 0.15 240); /* Dark navy for text */
-  --card: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white cards */
-  --card-foreground: oklch(0.25 0.15 240); /* Dark navy text */
-  --popover: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white popovers */
-  --popover-foreground: oklch(0.25 0.15 240); /* Dark navy text */
+  /* Background & Text - Using muted blue/purple holographic gradient */
+  --background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 30%, #f3e8ff 70%, #e0e7ff 100%); /* Muted blue/purple holographic gradient */
+  --foreground: oklch(0.3 0.05 240); /* Muted dark blue for text */
+  --card: oklch(1 0 0 / 0.05); /* Very subtle white for glassmorphism */
+  --card-foreground: oklch(0.3 0.05 240); /* Muted dark blue text */
+  --popover: oklch(1 0 0 / 0.05); /* Very subtle white for glassmorphism */
+  --popover-foreground: oklch(0.3 0.05 240); /* Muted dark blue text */
   
-  /* Primary - Using your light blue for CTAs */
-  --primary: 200 100% 80%; /* Light blue in HSL */
-  --primary-foreground: 240 30% 15%; /* Dark navy on blue */
+  /* Primary - Muted holographic blue */
+  --primary: 200 40% 75%; /* Muted light blue in HSL */
+  --primary-foreground: 240 20% 20%; /* Muted dark blue on blue */
   
-  /* Secondary - Using your light coral */
-  --secondary: 15 100% 80%; /* Light coral in HSL */
-  --secondary-foreground: 240 30% 15%; /* Dark navy text */
+  /* Secondary - Muted holographic purple */
+  --secondary: 280 30% 75%; /* Muted light purple in HSL */
+  --secondary-foreground: 240 20% 20%; /* Muted dark blue text */
   
-  /* Muted - Using your light green */
-  --muted: 120 50% 80%; /* Light green in HSL */
-  --muted-foreground: 120 60% 20%; /* Darker green text */
+  /* Muted - Muted holographic blue-gray */
+  --muted: 220 20% 85%; /* Muted blue-gray in HSL */
+  --muted-foreground: 220 15% 40%; /* Muted blue-gray text */
   
-  /* Accent - Using your yellow */
-  --accent: 50 100% 80%; /* Light yellow in HSL */
-  --accent-foreground: 240 30% 15%; /* Dark navy text */
+  /* Accent - Blue theme for hover states */
+  --accent: 200 40% 75%; /* Blue accent for hover states */
+  --accent-foreground: 240 20% 20%; /* Muted dark blue text */
   
-  /* Destructive - Using your red coral */
-  --destructive: 10 100% 70%; /* Red coral in HSL */
-  --destructive-foreground: 50 100% 98%; /* Off-white on red */
+  /* Destructive - Muted holographic red */
+  --destructive: 10 30% 60%; /* Muted red in HSL */
+  --destructive-foreground: 0 0% 95%; /* Light gray on red */
   
-  /* Borders & Inputs - Using gray for subtle outlines */
-  --border: oklch(0.85 0.01 0); /* Light gray borders */
-  --input: oklch(0.85 0.01 0); /* Light gray inputs */
-  --ring: #89DDFF; /* Light blue focus ring */
+  /* Borders & Inputs - Muted blue/purple holographic outlines */
+  --border: oklch(0.9 0.05 220); /* Muted blue borders */
+  --input: oklch(0.9 0.05 220); /* Muted blue inputs */
+  --ring: oklch(0.7 0.15 200); /* Muted blue focus ring */
   
   /* Chart colors - Using your palette */
   --chart-1: oklch(0.7 0.15 75); /* #F7B806 - Orange */
@@ -62,38 +62,38 @@
 }
 
 .dark {
-  /* Dark mode - Using darker versions of your palette */
-  --background: oklch(0.15 0.1 240); /* Dark navy background */
-  --foreground: oklch(0.95 0.02 85); /* Light cream text */
-  --card: oklch(0.2 0.1 240); /* Slightly lighter navy cards */
-  --card-foreground: oklch(0.95 0.02 85); /* Light cream text */
-  --popover: oklch(0.2 0.1 240); /* Slightly lighter navy popovers */
-  --popover-foreground: oklch(0.95 0.02 85); /* Light cream text */
+  /* Dark mode - Using muted dark blue/purple holographic gradient */
+  --background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 30%, #312e81 70%, #1e1b4b 100%); /* Muted dark blue/purple holographic gradient */
+  --foreground: oklch(0.98 0.05 240); /* Very bright white text for headlines */
+  --card: oklch(0 0 0 / 0.1); /* Very subtle black for dark glassmorphism */
+  --card-foreground: oklch(0.95 0.08 240); /* Bright light blue text for cards */
+  --popover: oklch(0 0 0 / 0.1); /* Very subtle black for dark glassmorphism */
+  --popover-foreground: oklch(0.95 0.08 240); /* Bright light blue text for popovers */
   
-  /* Primary - Brighter blue for dark mode */
-  --primary: 200 100% 85%; /* Brighter light blue for dark mode */
-  --primary-foreground: 240 30% 15%; /* Dark navy on blue */
+  /* Primary - Muted holographic blue for dark mode */
+  --primary: 200 35% 65%; /* Muted light blue for dark mode */
+  --primary-foreground: 240 10% 90%; /* Light blue on blue */
   
-  /* Secondary - Muted coral for dark mode */
-  --secondary: 25 100% 50%; /* Darker coral */
-  --secondary-foreground: 50 100% 98%; /* Light cream text */
+  /* Secondary - Muted holographic purple for dark mode */
+  --secondary: 280 25% 60%; /* Muted light purple for dark mode */
+  --secondary-foreground: 240 10% 90%; /* Light blue text */
   
-  /* Muted - Darker green for dark mode */
-  --muted: 120 50% 40%; /* Darker green */
-  --muted-foreground: 120 50% 85%; /* Lighter green text */
+  /* Muted - Muted holographic blue-gray for dark mode */
+  --muted: 220 15% 35%; /* Muted blue-gray for dark mode */
+  --muted-foreground: 220 8% 90%; /* Very bright muted text for better contrast */
   
-  /* Accent - Muted yellow for dark mode */
-  --accent: 50 100% 60%; /* Darker yellow */
-  --accent-foreground: 50 100% 98%; /* Light cream text */
+  /* Accent - Blue theme for hover states in dark mode */
+  --accent: 200 35% 65%; /* Blue accent for hover states in dark mode */
+  --accent-foreground: 240 10% 90%; /* Light blue text */
   
-  /* Destructive - Brighter red for dark mode */
-  --destructive: 10 100% 60%; /* Brighter red coral */
-  --destructive-foreground: 50 100% 98%; /* Light cream on red */
+  /* Destructive - Muted holographic red for dark mode */
+  --destructive: 10 25% 50%; /* Muted red for dark mode */
+  --destructive-foreground: 0 0% 95%; /* Light gray on red */
   
-  /* Borders & Inputs - Subtle gray borders */
-  --border: oklch(0.3 0.01 0); /* Dark gray borders */
-  --input: oklch(0.3 0.01 0); /* Dark gray inputs */
-  --ring: #7dd3fc; /* Light blue focus ring for dark mode */
+  /* Borders & Inputs - Muted blue/purple holographic borders for dark mode */
+  --border: oklch(0.4 0.05 240); /* Muted dark blue borders */
+  --input: oklch(0.4 0.05 240); /* Muted dark blue inputs */
+  --ring: oklch(0.6 0.15 200); /* Muted blue focus ring for dark mode */
   
   /* Chart colors - Same as light mode but adjusted for dark */
   --chart-1: oklch(0.75 0.18 75); /* Orange */
@@ -119,8 +119,13 @@
     border-color: var(--border);
     outline-color: oklch(from var(--ring) l c h / 0.5);
   }
+  html {
+    background: var(--background);
+    scroll-behavior: smooth;
+  }
   body {
-    background-color: var(--background);
+    background: var(--background);
     color: var(--foreground);
+    min-height: 100vh;
   }
 }

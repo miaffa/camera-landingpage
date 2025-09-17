@@ -8,67 +8,67 @@ interface ComparisonItem {
 export function WithWithout() {
   const withProduct: ComparisonItem[] = [
     {
-      title: "Digital Menu Creation",
+      title: "Easy Equipment Listings",
       description:
-        "Create beautiful, interactive digital menus with drag-and-drop builder and custom branding",
+        "Create professional equipment listings with photos, descriptions, and custom pricing in minutes",
     },
     {
-      title: "Real-time Customer Feedback",
+      title: "Secure Rental System",
       description:
-        "Collect instant ratings and reviews from customers directly through the menu",
+        "Safe transactions with verified users, escrow payments, and equipment insurance coverage",
     },
     {
-      title: "Instant Menu Updates",
+      title: "Real-time Availability",
       description:
-        "Update prices, add items, or mark unavailable instantly across all platforms",
+        "Update equipment availability, pricing, or descriptions instantly across all platforms",
     },
     {
-      title: "Analytics Dashboard",
+      title: "Rental Analytics Dashboard",
       description:
-        "Get real-time insights into popular dishes, customer satisfaction, and dining trends",
+        "Get real-time insights into rental performance, earnings, and equipment utilization rates",
     },
     {
-      title: "QR Code Integration",
+      title: "Community Features",
       description:
-        "Generate custom QR codes for each table for contactless menu access",
+        "Share your photography work, tag equipment used, and connect with other photographers",
     },
     {
-      title: "Multi-Location Support",
+      title: "Location-Based Search",
       description:
-        "Manage multiple restaurant locations with centralized control and location-specific customization",
+        "Find equipment near you with geographic search, distance calculations, and local pickup options",
     },
   ];
 
   const withoutProduct: ComparisonItem[] = [
     {
-      title: "Paper Menu Nightmare",
+      title: "Expensive Rental Costs",
       description:
-        "Spend hundreds on printing costs and hours updating prices manually",
+        "Spend hundreds on rental shop fees and deal with limited availability and high prices",
     },
     {
-      title: "No Customer Feedback",
+      title: "No Equipment Access",
       description:
-        "Miss out on valuable customer insights and struggle to improve your menu",
+        "Miss out on professional gear opportunities and struggle to compete with better-equipped photographers",
     },
     {
-      title: "Outdated Information",
+      title: "Limited Availability",
       description:
-        "Deal with customer complaints about wrong prices and unavailable items",
+        "Deal with equipment unavailability and last-minute rental cancellations",
     },
     {
-      title: "No Analytics",
+      title: "No Rental Analytics",
       description:
-        "Make decisions based on guesswork instead of real customer data",
+        "Make decisions based on guesswork instead of real rental performance data",
     },
     {
-      title: "Lost Customers",
+      title: "Lost Opportunities",
       description:
-        "Watch customers choose competitors with modern digital experiences",
+        "Watch clients choose photographers with better equipment and miss out on projects",
     },
     {
-      title: "Staff Confusion",
+      title: "Equipment Management Hassle",
       description:
-        "Constantly train staff on menu changes and deal with version control issues",
+        "Constantly manage rental schedules, returns, and deal with rental shop policies",
     },
   ];
 
@@ -87,7 +87,7 @@ export function WithWithout() {
                 <X className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-red-700 dark:text-red-400">
-                Without Stuf'd
+                Without Our Platform
               </h3>
             </div>
             <div className="space-y-6">
@@ -110,7 +110,7 @@ export function WithWithout() {
                 <Check className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-green-700 dark:text-green-400">
-                With Stuf'd
+                With Our Platform
               </h3>
             </div>
             <div className="space-y-6">

@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-export function StufdHero() {
+export function Hero() {
   const avatarUrls = [
     {
       imageUrl: "https://i.pravatar.cc/150?img=1",
@@ -44,34 +44,34 @@ export function StufdHero() {
 
           <div className="flex flex-col items-center text-center">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              <span className="inline-block">Your Menu,</span>
+              <span className="inline-block">Rent Camera Gear,</span>
               <br />
               <WordRotate
                 className="text-primary inline-block"
-                words={["working harder", "digitized", "smart", "connected"]}
+                words={["anywhere", "instantly", "affordably", "securely"]}
               />
             </h1>
             <p className="mt-4 text-lg text-muted-foreground sm:text-xl max-w-2xl">
-                Digitizing menus for real time ratings and better customer experience.
+                Connect with photographers nationwide to rent professional camera equipment and share your creative work.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
               <Button size="lg" asChild>
-                <Link href="/join-waitlist">Register Your Restaurant</Link>
+                <Link href="/join-waitlist">Start Renting Gear</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/contact">Request a Demo</Link>
+                <Link href="/contact">List Your Equipment</Link>
               </Button>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              Join 500+ restaurants already digitizing their menus
+              Join 500+ photographers already sharing their gear
             </p>
             <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
               <div className="flex items-center gap-4">
                 <AvatarCircles avatarUrls={avatarUrls} numPeople={500} />
                 <div className="text-sm">
-                  <p className="font-medium">500+ restaurants</p>
+                  <p className="font-medium">500+ photographers</p>
                   <p className="text-muted-foreground">
-                    Already using Stuf'd
+                    Already using our platform
                   </p>
                 </div>
               </div>
@@ -94,15 +94,15 @@ export function StufdHero() {
             </div>
           </div>
 
-          {/* Menu Upload Section */}
+          {/* Equipment Upload Section */}
           <div className="mt-16">
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-foreground mb-2">Get Started in Minutes</h2>
-              <p className="text-muted-foreground">Choose how you'd like to create your digital menu</p>
+              <p className="text-muted-foreground">Choose how you'd like to list your camera equipment</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Link Menu URL Option */}
+              {/* Link Equipment URL Option */}
               <Dialog>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="h-auto p-8 flex flex-col items-center gap-4 hover:bg-primary/5 hover:border-primary/20 transition-all min-h-[180px]">
@@ -110,16 +110,16 @@ export function StufdHero() {
                       <LinkIcon className="h-6 w-6 text-primary" />
                     </div>
                     <div className="text-center w-full">
-                      <h3 className="font-semibold text-lg break-words hyphens-auto">Link Menu URL</h3>
+                      <h3 className="font-semibold text-lg break-words hyphens-auto">Link Equipment URL</h3>
                       <p className="text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
-                        Paste your existing menu link and we'll extract it automatically
+                        Paste your existing equipment listing and we'll extract it automatically
                       </p>
                     </div>
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-2xl lg:max-w-4xl bg-background border shadow-lg">
                   <DialogHeader>
-                    <DialogTitle>Link Your Menu</DialogTitle>
+                    <DialogTitle>Link Your Equipment</DialogTitle>
                   </DialogHeader>
                   <MenuUploadForm type="url" />
                 </DialogContent>
@@ -133,16 +133,16 @@ export function StufdHero() {
                       <Upload className="h-6 w-6 text-primary" />
                     </div>
                     <div className="text-center w-full">
-                      <h3 className="font-semibold text-lg break-words hyphens-auto">Upload Image</h3>
+                      <h3 className="font-semibold text-lg break-words hyphens-auto">Upload Photos</h3>
                       <p className="text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
-                        Upload a photo of your menu or snap one with your camera
+                        Upload photos of your camera equipment or snap them with your phone
                       </p>
                     </div>
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-2xl lg:max-w-4xl bg-background border shadow-lg">
                   <DialogHeader>
-                    <DialogTitle>Upload Menu Image</DialogTitle>
+                    <DialogTitle>Upload Equipment Photos</DialogTitle>
                   </DialogHeader>
                   <MenuUploadForm type="image" />
                 </DialogContent>
@@ -158,14 +158,14 @@ export function StufdHero() {
                     <div className="text-center w-full">
                       <h3 className="font-semibold text-lg break-words hyphens-auto">Start Fresh</h3>
                       <p className="text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
-                        Create your menu from scratch with our easy builder
+                        Create your equipment listing from scratch with our easy builder
                       </p>
                     </div>
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-2xl lg:max-w-4xl bg-background border shadow-lg">
                   <DialogHeader>
-                    <DialogTitle>Create New Menu</DialogTitle>
+                    <DialogTitle>Create New Equipment Listing</DialogTitle>
                   </DialogHeader>
                   <MenuUploadForm type="manual" />
                 </DialogContent>
@@ -173,7 +173,7 @@ export function StufdHero() {
             </div>
           </div>
 
-          {/* Feature Cards - Below Menu Upload */}
+          {/* Feature Cards - Below Equipment Upload */}
           <div className="mt-16">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
                 {/* Feature Card 1 */}
@@ -181,9 +181,9 @@ export function StufdHero() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <Smartphone className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Digital Menus</h3>
+                  <h3 className="mt-4 text-lg font-semibold">Easy Listings</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Convert paper menus to interactive digital experiences
+                    Create professional equipment listings in minutes
                   </p>
                 </div>
 
@@ -192,9 +192,9 @@ export function StufdHero() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <TrendingUp className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Real-time Ratings</h3>
+                  <h3 className="mt-4 text-lg font-semibold">Secure Rentals</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Get instant feedback and ratings from customers
+                    Safe transactions with verified users and insurance
                   </p>
                 </div>
 
@@ -203,9 +203,9 @@ export function StufdHero() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <Users className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Customer Insights</h3>
+                  <h3 className="mt-4 text-lg font-semibold">Community</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Understand what customers love about your dishes
+                    Connect with photographers and share your work
                   </p>
                 </div>
 
@@ -214,9 +214,9 @@ export function StufdHero() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <Star className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Boost Reviews</h3>
+                  <h3 className="mt-4 text-lg font-semibold">Earn Money</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Increase positive reviews and customer satisfaction
+                    Monetize your gear when you're not using it
                   </p>
                 </div>
             </div>
@@ -227,18 +227,18 @@ export function StufdHero() {
   );
 }
 
-// Menu Upload Form Component
+// Equipment Upload Form Component
 function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    restaurantName: '',
-    menuType: '',
-    cuisine: '',
+    photographerName: '',
+    equipmentType: '',
+    category: '',
     description: '',
-    menuUrl: '',
+    equipmentUrl: '',
     phone: '',
     email: '',
-    address: ''
+    location: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -249,7 +249,7 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     // Here you would integrate with your AI extraction service
-    console.log('Processing menu:', { type, formData });
+    console.log('Processing equipment:', { type, formData });
     
     setIsLoading(false);
     // Handle success/redirect
@@ -263,49 +263,49 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="restaurantName">Restaurant Name *</Label>
+          <Label htmlFor="photographerName">Photographer Name *</Label>
           <Input
-            id="restaurantName"
-            placeholder="Enter your restaurant name"
-            value={formData.restaurantName}
-            onChange={(e) => handleInputChange('restaurantName', e.target.value)}
+            id="photographerName"
+            placeholder="Enter your name or business name"
+            value={formData.photographerName}
+            onChange={(e) => handleInputChange('photographerName', e.target.value)}
             required
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="menuType">Menu Type *</Label>
-          <Select value={formData.menuType} onValueChange={(value) => handleInputChange('menuType', value)}>
+          <Label htmlFor="equipmentType">Equipment Type *</Label>
+          <Select value={formData.equipmentType} onValueChange={(value) => handleInputChange('equipmentType', value)}>
             <SelectTrigger>
-              <SelectValue placeholder="Select menu type" />
+              <SelectValue placeholder="Select equipment type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="breakfast">Breakfast</SelectItem>
-              <SelectItem value="lunch">Lunch</SelectItem>
-              <SelectItem value="dinner">Dinner</SelectItem>
-              <SelectItem value="brunch">Brunch</SelectItem>
-              <SelectItem value="full-menu">Full Menu</SelectItem>
-              <SelectItem value="drinks">Drinks Only</SelectItem>
-              <SelectItem value="desserts">Desserts</SelectItem>
+              <SelectItem value="camera">Camera Body</SelectItem>
+              <SelectItem value="lens">Lens</SelectItem>
+              <SelectItem value="lighting">Lighting Equipment</SelectItem>
+              <SelectItem value="tripod">Tripod & Support</SelectItem>
+              <SelectItem value="accessories">Accessories</SelectItem>
+              <SelectItem value="audio">Audio Equipment</SelectItem>
+              <SelectItem value="drone">Drone</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="cuisine">Cuisine Type</Label>
-        <Select value={formData.cuisine} onValueChange={(value) => handleInputChange('cuisine', value)}>
+        <Label htmlFor="category">Category</Label>
+        <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
           <SelectTrigger>
-            <SelectValue placeholder="Select cuisine type" />
+            <SelectValue placeholder="Select photography category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="american">American</SelectItem>
-            <SelectItem value="italian">Italian</SelectItem>
-            <SelectItem value="mexican">Mexican</SelectItem>
-            <SelectItem value="asian">Asian</SelectItem>
-            <SelectItem value="mediterranean">Mediterranean</SelectItem>
-            <SelectItem value="indian">Indian</SelectItem>
-            <SelectItem value="french">French</SelectItem>
+            <SelectItem value="portrait">Portrait Photography</SelectItem>
+            <SelectItem value="wedding">Wedding Photography</SelectItem>
+            <SelectItem value="landscape">Landscape Photography</SelectItem>
+            <SelectItem value="street">Street Photography</SelectItem>
+            <SelectItem value="commercial">Commercial Photography</SelectItem>
+            <SelectItem value="fashion">Fashion Photography</SelectItem>
+            <SelectItem value="sports">Sports Photography</SelectItem>
             <SelectItem value="other">Other</SelectItem>
           </SelectContent>
         </Select>
@@ -313,13 +313,13 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
 
       {type === 'url' && (
         <div className="space-y-2">
-          <Label htmlFor="menuUrl">Menu URL *</Label>
+          <Label htmlFor="equipmentUrl">Equipment URL *</Label>
           <Input
-            id="menuUrl"
+            id="equipmentUrl"
             type="url"
-            placeholder="https://example.com/menu"
-            value={formData.menuUrl}
-            onChange={(e) => handleInputChange('menuUrl', e.target.value)}
+            placeholder="https://example.com/equipment"
+            value={formData.equipmentUrl}
+            onChange={(e) => handleInputChange('equipmentUrl', e.target.value)}
             required
           />
         </div>
@@ -327,16 +327,17 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
 
       {type === 'image' && (
         <div className="space-y-2">
-          <Label htmlFor="menuImage">Menu Image *</Label>
+          <Label htmlFor="equipmentImage">Equipment Photos *</Label>
           <Input
-            id="menuImage"
+            id="equipmentImage"
             type="file"
             accept="image/*"
             capture="environment"
+            multiple
             required
           />
           <p className="text-xs text-muted-foreground">
-            Take a photo or upload an image of your menu
+            Take photos or upload images of your camera equipment
           </p>
         </div>
       )}
@@ -345,7 +346,7 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
         <Label htmlFor="description">Description</Label>
         <Textarea
           id="description"
-          placeholder="Brief description of your restaurant..."
+          placeholder="Brief description of your equipment and rental terms..."
           value={formData.description}
           onChange={(e) => handleInputChange('description', e.target.value)}
           rows={3}
@@ -368,7 +369,7 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
           <Input
             id="email"
             type="email"
-            placeholder="restaurant@example.com"
+            placeholder="photographer@example.com"
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
           />
@@ -376,12 +377,12 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="address">Address</Label>
+        <Label htmlFor="location">Location</Label>
         <Input
-          id="address"
-          placeholder="123 Main St, City, State 12345"
-          value={formData.address}
-          onChange={(e) => handleInputChange('address', e.target.value)}
+          id="location"
+          placeholder="City, State (e.g., Los Angeles, CA)"
+          value={formData.location}
+          onChange={(e) => handleInputChange('location', e.target.value)}
         />
       </div>
 
@@ -391,14 +392,14 @@ function MenuUploadForm({ type }: { type: 'url' | 'image' | 'manual' }) {
             <>
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
               {type === 'url' ? 'Extracting from URL...' : 
-               type === 'image' ? 'Processing Image...' : 
-               'Creating Menu...'}
+               type === 'image' ? 'Processing Images...' : 
+               'Creating Equipment Listing...'}
             </>
           ) : (
             <>
-              {type === 'url' ? 'Extract Menu from URL' : 
-               type === 'image' ? 'Process Menu Image' : 
-               'Create Menu'}
+              {type === 'url' ? 'Extract Equipment from URL' : 
+               type === 'image' ? 'Process Equipment Images' : 
+               'Create Equipment Listing'}
             </>
           )}
         </Button>

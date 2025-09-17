@@ -14,12 +14,12 @@ const MonthlyAnnualPricing = () => {
     <section className="py-32">
       <div className="container">
         <div className="mx-auto mb-20 max-w-(--breakpoint-md) text-center">
-          <p className="text-primary font-medium mb-4">Restaurant Pricing</p>
+          <p className="text-primary font-medium mb-4">Photographer Pricing</p>
           <h2 className="mb-4 text-4xl tracking-tight font-bold lg:text-5xl">
             Simple, Transparent Pricing
           </h2>
           <p className="text-muted-foreground text-lg">
-            Choose the perfect plan for your restaurant. No hidden fees.
+            Choose the perfect plan for your photography business. No hidden fees.
           </p>
         </div>
 
@@ -74,28 +74,28 @@ const MonthlyAnnualPricing = () => {
                   <h3 className="mb-4 text-2xl font-bold">Starter Plan</h3>
                   <div className="mb-6">
                     <span className="text-5xl font-bold">
-                      {isAnnually ? "$29" : "$39"}
+                      {isAnnually ? "$19" : "$29"}
                     </span>
                     <span className="ml-2 font-medium text-muted-foreground">
                       per month
                     </span>
                   </div>
                   <p className="text-muted-foreground font-medium">
-                    Perfect for small cafes and food trucks just starting out.
+                    Perfect for hobbyist photographers just starting out.
                   </p>
                   <p className="mb-4 mt-8 font-bold text-lg">Includes</p>
                   <ul className="flex flex-col gap-4">
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Up to 50 menu items</span>
+                      <span className="font-medium">Up to 10 equipment listings</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Basic digital menu</span>
+                      <span className="font-medium">Basic rental management</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Customer ratings</span>
+                      <span className="font-medium">Photo sharing</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
@@ -120,14 +120,14 @@ const MonthlyAnnualPricing = () => {
                   <h3 className="mb-4 text-2xl font-bold">Professional Plan</h3>
                   <div className="mb-6">
                     <span className="text-5xl font-bold">
-                      {isAnnually ? "$79" : "$99"}
+                      {isAnnually ? "$49" : "$69"}
                     </span>
                     <span className="ml-2 font-medium text-muted-foreground">
                       per month
                     </span>
                   </div>
                   <p className="text-muted-foreground font-medium">
-                    Perfect for restaurants and bistros. Get all the features
+                    Perfect for professional photographers. Get all the features
                     you need.
                   </p>
                   <p className="mb-4 mt-8 font-bold text-lg">
@@ -136,7 +136,7 @@ const MonthlyAnnualPricing = () => {
                   <ul className="flex flex-col gap-4">
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />
-                      <span className="font-medium">Up to 200 menu items</span>
+                      <span className="font-medium">Up to 50 equipment listings</span>
                     </li>
                     <li className="flex gap-3">
                       <Check className="mt-1 size-5 shrink-0 text-primary" />

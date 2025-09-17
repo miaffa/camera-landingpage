@@ -4,9 +4,9 @@ import { db } from "@/db";
 import { waitlist } from "@/db/schema/waitlist";
 
 const waitlistSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  name: z.string().optional().or(z.literal("")),
   email: z.string().email("Please enter a valid email"),
-  twitterAccount: z.string().optional(),
+  twitterAccount: z.string().optional().or(z.literal("")),
 });
 
 export async function POST(request: Request) {
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     const entry = await db
       .insert(waitlist)
       .values({
-        name: body.name,
+        name: body.name || null,
         email: body.email,
         twitterAccount: body.twitterAccount || null,
       })

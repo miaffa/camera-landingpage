@@ -7,64 +7,64 @@ import { Star } from "lucide-react";
 const testimonials = [
   {
     name: "Sarah Chen",
-    role: "Owner, Golden Dragon Restaurant",
+    role: "Wedding Photographer",
     avatar: "https://i.pravatar.cc/150?img=1",
-    content: "Stuf'd transformed our dining experience. Our customers love rating dishes directly from the menu, and we've seen a 40% increase in positive reviews since implementing it.",
+    content: "This platform has completely transformed my photography business. I can now try expensive equipment before buying and earn money from my unused gear. It's been a game-changer!",
     rating: 5,
-    restaurant: "Golden Dragon Restaurant"
+    restaurant: "Sarah Chen Photography"
   },
   {
     name: "Marcus Rodriguez",
-    role: "Manager, Bella Vista Bistro",
+    role: "Commercial Photographer",
     avatar: "https://i.pravatar.cc/150?img=2",
-    content: "The real-time analytics help us understand what our customers really want. We've optimized our menu based on ratings and increased sales by 25%.",
+    content: "The rental analytics help me understand which equipment is most in demand. I've optimized my gear collection based on rental data and increased my monthly earnings by 40%.",
     rating: 5,
-    restaurant: "Bella Vista Bistro"
+    restaurant: "Marcus Rodriguez Studios"
   },
   {
     name: "Emily Johnson",
-    role: "Chef, The Garden Table",
+    role: "Portrait Photographer",
     avatar: "https://i.pravatar.cc/150?img=3",
-    content: "Setting up our digital menu was incredibly easy. Within 30 minutes, we had a beautiful, interactive menu that our customers absolutely love.",
+    content: "Setting up my equipment listings was incredibly easy. Within 30 minutes, I had professional listings that started generating rental requests immediately.",
     rating: 5,
-    restaurant: "The Garden Table"
+    restaurant: "Emily Johnson Photography"
   },
   {
     name: "David Kim",
-    role: "Owner, Seoul Kitchen",
+    role: "Street Photographer",
     avatar: "https://i.pravatar.cc/150?img=4",
-    content: "The customer feedback feature is game-changing. We can instantly see which dishes are popular and adjust our menu accordingly. Customer satisfaction has never been higher.",
+    content: "The community features are amazing. I can share my work, tag the equipment I used, and connect with other photographers. It's like Instagram but for photographers!",
     rating: 5,
-    restaurant: "Seoul Kitchen"
+    restaurant: "David Kim Photography"
   },
   {
     name: "Lisa Thompson",
-    role: "Manager, Riverside Cafe",
+    role: "Event Photographer",
     avatar: "https://i.pravatar.cc/150?img=5",
-    content: "Our staff loves how easy it is to update the menu. When we run out of a dish or change prices, it's updated instantly across all platforms.",
+    content: "I love how easy it is to manage my rentals. When equipment is booked or returned, I get instant notifications. The calendar integration makes scheduling so simple.",
     rating: 5,
-    restaurant: "Riverside Cafe"
+    restaurant: "Lisa Thompson Events"
   },
   {
     name: "James Wilson",
-    role: "Owner, Wilson's Steakhouse",
+    role: "Studio Owner",
     avatar: "https://i.pravatar.cc/150?img=6",
-    content: "The professional plan gives us everything we need. The custom branding makes it feel like our own app, and the analytics help us make data-driven decisions.",
+    content: "The professional plan gives us everything we need. The custom branding makes it feel like our own platform, and the analytics help us make data-driven decisions about our gear.",
     rating: 5,
-    restaurant: "Wilson's Steakhouse"
+    restaurant: "Wilson Photography Studio"
   }
 ];
 
-export function StufdTestimonials() {
+export function Testimonials() {
   return (
     <section className="py-16 sm:py-24" aria-label="Testimonials">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Loved by restaurants everywhere
+            Loved by photographers everywhere
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            See how Stuf'd is helping restaurants create better customer experiences
+            See how our platform is helping photographers earn money and access amazing equipment
           </p>
         </div>
 
@@ -100,11 +100,11 @@ export function StufdTestimonials() {
         <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3">
           <div className="text-center">
             <div className="text-3xl font-bold text-primary">500+</div>
-            <div className="text-sm text-muted-foreground">Restaurants</div>
+            <div className="text-sm text-muted-foreground">Photographers</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-primary">50K+</div>
-            <div className="text-sm text-muted-foreground">Menu Items Digitized</div>
+            <div className="text-3xl font-bold text-primary">2K+</div>
+            <div className="text-sm text-muted-foreground">Equipment Listings</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-primary">4.8/5</div>

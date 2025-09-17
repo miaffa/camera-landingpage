@@ -1,19 +1,35 @@
-import { WebsiteFAQs } from "@/components/website/faqs";
-import { CTA2 } from "@/components/website/cta-2";
-import { StufdHero } from "@/components/website/stufd-hero";
-import { StufdFeatures } from "@/components/website/stufd-features";
-import { StufdPricing } from "@/components/website/stufd-pricing";
-import { StufdTestimonials } from "@/components/website/stufd-testimonials";
+"use client"
+
+import { useState } from "react"
+import { WebsiteFAQs } from "@/components/website/faqs"
+import { CTA2 } from "@/components/website/cta-2"
+import { Hero } from "@/components/website/hero"
+import { Features } from "@/components/website/features"
+import { Pricing } from "@/components/website/pricing"
+import { Testimonials } from "@/components/website/testimonials"
+import Hero2 from "@/components/website/hero-2"
 
 export default function WebsiteHomepage() {
+  // Temporary state to control what's shown
+  // Set to true to show only waitlist, false to show full landing page
+  const [showWaitlistOnly] = useState(true)
+
+  if (showWaitlistOnly) {
+    return (
+      <div className="relative min-h-screen overflow-hidden">
+        <Hero2 />
+      </div>
+    )
+  }
+
   return (
     <>
-      <StufdHero />
-      <StufdFeatures />
-      <StufdPricing />
-      <StufdTestimonials />
+      <Hero />
+      <Features />
+      <Pricing />
+      <Testimonials />
       <WebsiteFAQs />
       <CTA2 />
     </>
-  );
+  )
 }

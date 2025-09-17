@@ -9,12 +9,12 @@ import Link from "next/link";
 const plans = [
   {
     name: "Starter",
-    description: "Perfect for small cafes and food trucks",
-    price: { monthly: 29, annually: 290 },
+    description: "Perfect for hobbyist photographers",
+    price: { monthly: 19, annually: 190 },
     features: [
-      "Up to 50 menu items",
-      "Basic digital menu",
-      "Customer ratings",
+      "Up to 10 equipment listings",
+      "Basic rental management",
+      "Photo sharing",
       "Email support",
       "Mobile app access",
       "Basic analytics"
@@ -29,17 +29,17 @@ const plans = [
   },
   {
     name: "Professional",
-    description: "Ideal for restaurants and bistros",
-    price: { monthly: 79, annually: 790 },
+    description: "Ideal for professional photographers",
+    price: { monthly: 49, annually: 490 },
     features: [
-      "Up to 200 menu items",
+      "Up to 50 equipment listings",
       "Custom branding",
       "Advanced analytics",
       "Priority support",
-      "QR code generation",
       "Social media integration",
+      "Equipment insurance",
       "Review management",
-      "Staff training"
+      "User verification"
     ],
     limitations: [
       "No white-label option",
@@ -50,10 +50,10 @@ const plans = [
   },
   {
     name: "Enterprise",
-    description: "For restaurant chains and franchises",
-    price: { monthly: 199, annually: 1990 },
+    description: "For photography studios and agencies",
+    price: { monthly: 99, annually: 990 },
     features: [
-      "Unlimited menu items",
+      "Unlimited equipment listings",
       "White-label solution",
       "Advanced integrations",
       "Dedicated account manager",
@@ -68,7 +68,7 @@ const plans = [
   }
 ];
 
-export function StufdPricing() {
+export function Pricing() {
   return (
     <section className="py-16 sm:py-24" aria-label="Pricing">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -77,7 +77,7 @@ export function StufdPricing() {
             Simple, transparent pricing
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Choose the plan that fits your restaurant's needs. All plans include a 14-day free trial.
+            Choose the plan that fits your photography business needs. All plans include a 14-day free trial.
           </p>
         </div>
 
@@ -134,9 +134,9 @@ export function StufdPricing() {
         {/* Additional Info */}
         <div className="mt-16 text-center">
           <div className="rounded-lg bg-muted/50 p-8">
-            <h3 className="text-xl font-semibold">Not a Business?</h3>
+            <h3 className="text-xl font-semibold">Just Want to Rent?</h3>
             <p className="mt-2 text-muted-foreground">
-              Be the first to try the Stuf'd mobile app! Discover and review the best local food spots.
+              Be the first to try our mobile app! Discover and rent camera gear from photographers near you.
             </p>
             <Button asChild variant="outline" className="mt-4">
               <Link href="/join-waitlist">Learn More</Link>

@@ -8,39 +8,39 @@ export function ProblemStatement() {
       <div className="flex flex-col gap-4 max-w-3xl mx-auto relative justify-center items-center w-full">
         <Card className="bg-red-200 dark:bg-red-800/50 text-foreground text-left md:text-center border-none w-fit">
           <CardHeader>
-            <CardTitle>I&apos;ve struggled with paper menus!</CardTitle>
+            <CardTitle>I&apos;ve struggled with expensive camera gear!</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-lg mb-4">
-              I wanted to modernize my restaurant but was so frustrated with
-              paper menus, printing costs, outdated prices, and losing customers
-              to competitors. I almost gave up.
+              I wanted to try professional camera equipment but was so frustrated with
+              high rental costs, limited availability, and expensive gear that I couldn&apos;t afford.
+              I almost gave up on my photography dreams.
             </p>
             <hr className="my-4 border-foreground/20" />
             <ul className="list-disc list-inside mb-4">
               <li>
-                <b>$200+</b> monthly printing costs
+                <b>$500+</b> monthly rental costs for basic gear
               </li>
               <li>
-                <b>2 hrs+</b> updating prices manually
+                <b>2 hrs+</b> searching for available equipment
               </li>
               <li>
-                <b>1 hr+</b> reprinting menus for changes
+                <b>1 hr+</b> traveling to rental shops
               </li>
               <li>
-                <b>3 hrs+</b> dealing with customer complaints
+                <b>3 hrs+</b> dealing with rental shop policies
               </li>
               <li>
-                <b>5 hrs+</b> lost sales from outdated menus
+                <b>5 hrs+</b> lost opportunities due to gear unavailability
               </li>
               <li>
-                <b>2 hrs+</b> staff training on menu changes
+                <b>2 hrs+</b> learning new equipment on tight deadlines
               </li>
               <li>
-                <b>4 hrs+</b> managing multiple menu versions
+                <b>4 hrs+</b> managing rental schedules and returns
               </li>
               <li>
-                <b>10+ hrs+</b> lost customers to digital competitors
+                <b>10+ hrs+</b> lost clients to photographers with better gear
               </li>
               <li>
                 <b>∞ hrs+</b> stress and frustration...
@@ -50,7 +50,7 @@ export function ProblemStatement() {
               <b>27+ hours of headaches per month</b>
             </p>
             <p className="text-lg">
-              <b>No way to compete with modern restaurants</b>
+              <b>No way to access professional equipment affordably</b>
             </p>
           </CardContent>
         </Card>

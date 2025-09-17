@@ -5,18 +5,18 @@ import HeroVideoDialog from "@/components/ui/hero-video-dialog";
 
 const steps = [
   {
-    title: "Sign up for Stuf'd",
-    description: "Create your restaurant account and choose your plan.",
+    title: "Sign up for our platform",
+    description: "Create your photographer account and choose your plan.",
     icon: Github,
   },
   {
-    title: "Create your digital menu",
-    description: "Upload your menu or use our builder to create it from scratch.",
+    title: "List your camera equipment",
+    description: "Upload photos and details of your gear to create rental listings.",
     icon: Code,
   },
   {
-    title: "Go live and start collecting ratings",
-    description: "Deploy your digital menu and start getting customer feedback.",
+    title: "Start earning from rentals",
+    description: "Accept rental requests and start earning money from your equipment.",
     icon: Upload,
   },
 ];
@@ -30,7 +30,7 @@ export function HowItWorks() {
             How it works
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Just 3 steps to get started with Stuf'd (5 minutes)
+            Just 3 steps to get started with our platform (5 minutes)
           </p>
         </div>
 

@@ -16,12 +16,12 @@ export function CTA3() {
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col justify-center">
             <h2 className="text-3xl font-bold sm:text-4xl">
-              Transform your restaurant with digital menus
+              Transform your photography with gear rentals
             </h2>
 
             <p className="mt-4 text-lg text-primary-foreground/80">
-              Join hundreds of restaurants that are creating better customer
-              experiences and increasing satisfaction with Stuf'd.
+              Join hundreds of photographers who are sharing their equipment
+              and earning money while helping others create amazing photos.
             </p>
 
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
@@ -31,7 +31,7 @@ export function CTA3() {
                 asChild
               >
                 <Link href="/sign-up">
-                  Get started
+                  Start Renting
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -41,7 +41,7 @@ export function CTA3() {
                 className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 rounded-full"
                 asChild
               >
-                <Link href="/contact">Schedule Demo</Link>
+                <Link href="/contact">List Equipment</Link>
               </Button>
             </div>
 
@@ -62,9 +62,9 @@ export function CTA3() {
                   ))}
                 </div>
                 <div className="text-sm">
-                  <p className="font-medium">Rated 4.8 by 500+ restaurants</p>
+                  <p className="font-medium">Rated 4.8 by 500+ photographers</p>
                   <p className="text-primary-foreground/60">
-                    on restaurant review platforms
+                    on photography platforms
                   </p>
                 </div>
               </div>
@@ -96,15 +96,15 @@ export function CTA3() {
             <div className="absolute -bottom-6 -left-6 rounded-3xl bg-background p-6 shadow-xl ring-1 ring-border/10 sm:-bottom-8 sm:-left-8 sm:p-8">
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
-                  <p className="text-3xl font-bold">40%</p>
+                  <p className="text-3xl font-bold">$2,500</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Increase in customer satisfaction
+                    Average monthly earnings
                   </p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold">25%</p>
+                  <p className="text-3xl font-bold">95%</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    Increase in positive reviews
+                    Equipment utilization rate
                   </p>
                 </div>
               </div>

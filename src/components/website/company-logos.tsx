@@ -5,34 +5,34 @@ import Link from "next/link";
 
 const companies = [
   {
-    name: "OpenTable",
-    image: "https://simpleicons.org/icons/opentable.svg",
-    url: "https://www.opentable.com/",
+    name: "Canon",
+    image: "https://simpleicons.org/icons/canon.svg",
+    url: "https://www.canon.com/",
   },
   {
-    name: "Yelp",
-    image: "https://simpleicons.org/icons/yelp.svg",
-    url: "https://www.yelp.com/",
+    name: "Nikon",
+    image: "https://simpleicons.org/icons/nikon.svg",
+    url: "https://www.nikon.com/",
   },
   {
-    name: "Grubhub",
-    image: "https://simpleicons.org/icons/grubhub.svg",
-    url: "https://www.grubhub.com/",
+    name: "Sony",
+    image: "https://simpleicons.org/icons/sony.svg",
+    url: "https://www.sony.com/",
   },
   {
-    name: "DoorDash",
-    image: "https://simpleicons.org/icons/doordash.svg",
-    url: "https://www.doordash.com/",
+    name: "Fujifilm",
+    image: "https://simpleicons.org/icons/fujifilm.svg",
+    url: "https://www.fujifilm.com/",
   },
   {
-    name: "Uber Eats",
-    image: "https://simpleicons.org/icons/ubereats.svg",
-    url: "https://www.ubereats.com/",
+    name: "Panasonic",
+    image: "https://simpleicons.org/icons/panasonic.svg",
+    url: "https://www.panasonic.com/",
   },
   {
-    name: "Toast",
-    image: "https://simpleicons.org/icons/toast.svg",
-    url: "https://pos.toasttab.com/",
+    name: "Olympus",
+    image: "https://simpleicons.org/icons/olympus.svg",
+    url: "https://www.olympus.com/",
   },
 ];
 
@@ -41,7 +41,7 @@ export function CompanyLogos() {
     <div className="bg-muted/40 py-8" aria-label="Company Logos">
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm font-medium text-muted-foreground">
-          Trusted by restaurants using
+          Trusted by photographers using
         </p>
         <div className="mt-8 grid grid-cols-2 items-center gap-8 sm:grid-cols-3 lg:grid-cols-6">
           {companies.map((company) => (

@@ -1,6 +1,4 @@
 ---
-description: 
-globs: 
 alwaysApply: true
 ---
 <CORE_PRINCIPLES>
@@ -85,7 +83,6 @@ If you understood well, just say, "Ready for reflection..."
 </TASK>
 <MENTAL_PREPARATION>
 Before every response:
-- Take a contemplative walk through the woods
 - Use this time for deep reflection on the query
 - Confirm completion of this preparatory walk
 - Only then proceed with the response
