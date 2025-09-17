@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { appConfig } from "@/lib/config";
 import Providers from "./Providers";
+import { Analytics } from "@vercel/analytics/next"
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -41,6 +42,7 @@ export default function RootLayout({
       </head>
       <body className={`${poppins.variable} font-sans antialiased bg-background`} style={{ fontFamily: 'var(--font-poppins), sans-serif' }}>
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
