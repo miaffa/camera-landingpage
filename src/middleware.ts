@@ -56,6 +56,3 @@ export const config = {
     "/super-admin/:path*",
   ],
 };
-
-// Use Node.js runtime for middleware to support database connections
-export const runtime = 'nodejs';
