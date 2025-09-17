@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { appConfig } from "@/lib/config";
-// import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
@@ -10,9 +9,6 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 const navItems: { label: string; href: string }[] = [
   // { label: "Pricing", href: "/#pricing" },
 ];
-
-
-// const signInEnabled = process.env.NEXT_PUBLIC_SIGNIN_ENABLED === "true";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +20,7 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-lg font-bold text-gray-900 dark:text-white">{appConfig.projectName}</span>
+              <span className="text-lg font-bold text-foreground">{appConfig.projectName}</span>
             </Link>
           </div>
 
@@ -49,13 +45,13 @@ export function Header() {
           {/* Mobile Menu Button */}
           <div className="flex items-center space-x-2 md:hidden">
             <ThemeSwitcher />
-            <button
+            {/* <button
               className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <span className="sr-only">Open main menu</span>
               <Menu className="h-6 w-6" />
-            </button>
+            </button> */}
           </div>
         </div>
 
