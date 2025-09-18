@@ -122,7 +122,7 @@ export function Pricing() {
                   className="w-full" 
                   variant={plan.popular ? "default" : "outline"}
                 >
-                  <Link href={plan.name === "Enterprise" ? "/contact" : "/join-waitlist"}>
+                  <Link href={plan.name === "Enterprise" ? "/contact" : "/naming-contest"}>
                     {plan.cta}
                   </Link>
                 </Button>
@@ -139,7 +139,7 @@ export function Pricing() {
               Be the first to try our mobile app! Discover and rent camera gear from photographers near you.
             </p>
             <Button asChild variant="outline" className="mt-4">
-              <Link href="/join-waitlist">Learn More</Link>
+              <Link href="/naming-contest">Learn More</Link>
             </Button>
           </div>
         </div>

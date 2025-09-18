@@ -3,32 +3,33 @@ import { WebPageJsonLd } from "next-seo";
 import { appConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
+import { NamingContestForm } from "@/components/website/naming-contest-form";
 
 export const metadata: Metadata = {
-  title: "Join Waitlist",
-  description: "Join our waitlist to get early access to our platform.",
+  title: "Name Our Platform - Naming Contest",
+  description: "Help us name our peer-to-peer camera rental platform. Submit your creative name ideas and be part of our community!",
   openGraph: {
-    title: "Join Waitlist",
-    description: "Join our waitlist to get early access to our platform.",
+    title: "Name Our Platform - Naming Contest",
+    description: "Help us name our peer-to-peer camera rental platform. Submit your creative name ideas and be part of our community!",
     type: "website",
-    url: `${process.env.NEXT_PUBLIC_APP_URL}/join-waitlist`,
+    url: `${process.env.NEXT_PUBLIC_APP_URL}/naming-contest`,
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_APP_URL}/images/og.png`,
         width: 1200,
         height: 630,
-        alt: "Join Waitlist",
+        alt: "Naming Contest",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Join Waitlist",
-    description: "Join our waitlist to get early access to our platform.",
+    title: "Name Our Platform - Naming Contest",
+    description: "Help us name our peer-to-peer camera rental platform. Submit your creative name ideas and be part of our community!",
     images: [`${process.env.NEXT_PUBLIC_APP_URL}/images/og.png`],
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_APP_URL}/join-waitlist`,
+    canonical: `${process.env.NEXT_PUBLIC_APP_URL}/naming-contest`,
   },
 };
 
@@ -47,7 +48,7 @@ export default function JoinWaitlistPage() {
       />
       <WebPageJsonLd
         useAppDir
-        id={`${process.env.NEXT_PUBLIC_APP_URL}/join-waitlist`}
+        id={`${process.env.NEXT_PUBLIC_APP_URL}/naming-contest`}
         title="Join Waitlist"
         description="Join our waitlist to get early access to our platform."
         isAccessibleForFree={true}
@@ -57,15 +58,10 @@ export default function JoinWaitlistPage() {
           url: process.env.NEXT_PUBLIC_APP_URL,
         }}
       />
-      <div className="container max-w-md px-4 py-16 z-50">
+      <div className="container max-w-6xl px-4 py-16 z-10">
         <div className="bg-background">
-          <div className="rounded-3xl bg-muted/40 p-8 shadow-xs ring-1 ring-border/60">
-            <div className="mb-8 text-center">
-              <h1 className="mb-2 text-3xl font-bold">Join Our Waitlist</h1>
-              <p className="text-muted-foreground">
-                Be among the first to experience our platform when we launch.
-              </p>
-            </div>
+          <div className="rounded-3xl bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 p-8 shadow-xl">
+            <NamingContestForm />
           </div>
         </div>
       </div>

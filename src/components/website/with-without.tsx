@@ -104,22 +104,22 @@ export function WithWithout() {
             </div>
           </div>
           {/* With Product Section */}
-          <div className="bg-green-50 dark:bg-green-950/30 p-6 rounded-lg border border-green-200 dark:border-green-900">
+          <div className="bg-blue-50 dark:bg-blue-950/30 p-6 rounded-lg border border-blue-200 dark:border-blue-900">
             <div className="flex items-center gap-3 mb-6">
-              <div className="bg-green-500 p-2 rounded-full">
+              <div className="bg-blue-500 p-2 rounded-full">
                 <Check className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-green-700 dark:text-green-400">
+              <h3 className="text-xl font-semibold text-blue-700 dark:text-blue-400">
                 With Our Platform
               </h3>
             </div>
             <div className="space-y-6">
               {withProduct.map((item, index) => (
                 <div key={index} className="space-y-2">
-                  <h4 className="font-medium text-green-700 dark:text-green-400">
+                  <h4 className="font-medium text-blue-700 dark:text-blue-400">
                     {item.title}
                   </h4>
-                  <p className="text-green-600 dark:text-green-300/90">
+                  <p className="text-blue-600 dark:text-blue-300/90">
                     {item.description}
                   </p>
                 </div>
