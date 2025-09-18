@@ -57,7 +57,7 @@ export function NamingContestForm() {
             twitterAccount: ""
           }),
         });
-      } catch (waitlistError) {
+      } catch {
         console.log("Waitlist submission failed, continuing with name suggestion");
       }
 
