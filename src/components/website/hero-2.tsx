@@ -73,7 +73,7 @@ export default function Hero2() {
                   placeholder="Enter your email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-300 shadow-xl"
+                  className="w-full pl-10 pr-4 py-3 bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/60 hover:bg-white/30 dark:hover:bg-white/15 transition-all duration-300 shadow-xl"
                   required
                 />
               </div>
@@ -96,7 +96,7 @@ export default function Hero2() {
 
          {/* Descriptive Paragraph */}
          <p className="text-md md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-             Join the revolution where photographers connect, share premium gear, and create together.
+             Join the revolution where photographers connect, share camera gear, and create together.
          </p>
 
           {/* Feature List
