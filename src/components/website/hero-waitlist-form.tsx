@@ -142,9 +142,9 @@ export function HeroWaitlistForm() {
         </div>
 
         {/* Naming Form */}
-        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-3xl p-8 max-w-2xl mx-auto shadow-xl">
-          <form onSubmit={handleNameSuggestionSubmit} className="space-y-6">
-            <div className="space-y-4">
+        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto shadow-xl">
+          <form onSubmit={handleNameSuggestionSubmit} className="space-y-4 sm:space-y-6">
+            <div className="space-y-3 sm:space-y-4">
               <div>
                 <label htmlFor="nameSuggestion" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
                   Your name idea *
@@ -154,7 +154,7 @@ export function HeroWaitlistForm() {
                   placeholder="e.g., LensLoop, Cammunity, GearShare..."
                   value={nameSuggestion}
                   onChange={(e) => setNameSuggestion(e.target.value)}
-                  className="text-center bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                  className="text-center text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
                   required
                 />
               </div>
@@ -169,7 +169,7 @@ export function HeroWaitlistForm() {
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   rows={3}
-                  className="resize-none bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                  className="resize-none text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
                 />
               </div>
             </div>
@@ -177,13 +177,13 @@ export function HeroWaitlistForm() {
             <Button
               type="submit"
               disabled={isSubmitting || !nameSuggestion.trim()}
-              className="w-full py-6 text-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none"
+              className="w-full py-4 sm:py-6 text-base sm:text-lg min-h-[44px] bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none"
             >
               {isSubmitting ? (
                 "Sending..."
               ) : (
                 <>
-                  <Users className="w-5 h-5 mr-2" />
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                   Send it in
                 </>
               )}
@@ -199,22 +199,22 @@ export function HeroWaitlistForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 justify-center items-center max-w-md mx-auto px-4">
       <div className="relative flex-1 w-full">
-        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
         <input
           type="email"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/60 hover:bg-white/30 dark:hover:bg-white/15 transition-all duration-300 shadow-xl"
+          className="w-full pl-10 pr-4 py-3 sm:py-4 text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/60 hover:bg-white/30 dark:hover:bg-white/15 transition-all duration-300 shadow-xl"
           required
         />
       </div>
       <button
         type="submit"
         disabled={isSubmitting || !email}
-        className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:hover:opacity-50 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed flex items-center gap-2"
+        className="w-full sm:w-auto px-6 py-3 sm:py-4 min-h-[44px] bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:opacity-50 disabled:hover:opacity-50 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base"
       >
         {isSubmitting ? (
           "Joining..."

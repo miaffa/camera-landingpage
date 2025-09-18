@@ -132,19 +132,19 @@ export function WaitlistForm() {
         </div>
 
         <form onSubmit={handleWaitlistSubmit} className="space-y-6">
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto px-4">
             <Input
               type="email"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1"
+              className="flex-1 text-base py-3 sm:py-4"
               required
             />
             <Button
               type="submit"
               disabled={isSubmitting || !email}
-              className="px-8"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 min-h-[44px] text-sm sm:text-base"
             >
               {isSubmitting ? (
                 "Joining..."
@@ -189,14 +189,14 @@ export function WaitlistForm() {
 
       {/* Recent Suggestions */}
       {recentSuggestions.length > 0 && (
-        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-3xl p-6 max-w-2xl mx-auto shadow-xl">
-          <div className="flex items-center gap-2 mb-4">
-            <Lightbulb className="w-5 h-5 text-yellow-500" />
-            <h3 className="font-semibold">Recent ideas from the community:</h3>
+        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 max-w-2xl mx-auto shadow-xl">
+          <div className="flex items-center gap-2 mb-3 sm:mb-4">
+            <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+            <h3 className="font-semibold text-sm sm:text-base">Recent ideas from the community:</h3>
           </div>
           <div className="space-y-2">
             {recentSuggestions.map((suggestion, index) => (
-              <div key={index} className="text-sm">
+              <div key={index} className="text-xs sm:text-sm">
                 <span className="font-medium text-blue-600">&ldquo;{suggestion.nameSuggestion}&rdquo;</span>
                 {suggestion.reason && (
                   <span className="text-muted-foreground ml-2">- {suggestion.reason}</span>
@@ -211,8 +211,8 @@ export function WaitlistForm() {
       )}
 
       {/* Naming Form */}
-      <form onSubmit={handleNameSuggestionSubmit} className="space-y-6 max-w-md mx-auto">
-        <div className="space-y-4">
+      <form onSubmit={handleNameSuggestionSubmit} className="space-y-4 sm:space-y-6 max-w-md mx-auto px-4">
+        <div className="space-y-3 sm:space-y-4">
           <div>
             <label htmlFor="nameSuggestion" className="block text-sm font-medium mb-2">
               Your name idea *
@@ -222,7 +222,7 @@ export function WaitlistForm() {
               placeholder="e.g., LensLoop, Cammunity, GearShare..."
               value={nameSuggestion}
               onChange={(e) => setNameSuggestion(e.target.value)}
-              className="text-center"
+              className="text-center text-base py-3 sm:py-4"
               required
             />
           </div>
@@ -237,7 +237,7 @@ export function WaitlistForm() {
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               rows={3}
-              className="resize-none"
+              className="resize-none text-base"
             />
           </div>
         </div>
@@ -245,7 +245,7 @@ export function WaitlistForm() {
         <Button
           type="submit"
           disabled={isSubmitting || !nameSuggestion.trim()}
-          className="w-full"
+          className="w-full py-3 sm:py-4 min-h-[44px] text-sm sm:text-base"
         >
           {isSubmitting ? (
             "Sending..."
