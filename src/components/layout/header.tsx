@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { appConfig } from "@/lib/config";
-import { Menu } from "lucide-react";
+// import { Menu } from "lucide-react";
 import { useState } from "react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
@@ -11,7 +11,7 @@ const navItems: { label: string; href: string }[] = [
 ];
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/30 dark:border-white/20 bg-white/20 dark:bg-white/10 backdrop-blur-md supports-backdrop-filter:bg-white/20 dark:supports-backdrop-filter:bg-white/10">

@@ -1,7 +1,7 @@
 import { AppConfigPublic } from "./types";
 
 export const appConfig: AppConfigPublic = {
-  projectName: "CamearShare",
+  projectName: "CameraShare",
   projectSlug: "CameraShare",
   keywords: [
     "CameraShare",
