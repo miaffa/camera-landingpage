@@ -1,4 +1,4 @@
-import { Sparkles, ArrowRight, Mail } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { HeroWaitlistForm } from "./hero-waitlist-form";
 
 export default function Hero2() {

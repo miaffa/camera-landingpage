@@ -37,7 +37,7 @@ export default async function NameSuggestionsPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-xl">
-                    "{suggestion.nameSuggestion}"
+                    &ldquo;{suggestion.nameSuggestion}&rdquo;
                   </CardTitle>
                   <Badge variant="secondary">
                     {new Date(suggestion.createdAt).toLocaleDateString()}

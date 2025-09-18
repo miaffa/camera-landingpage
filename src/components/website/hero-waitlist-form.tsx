@@ -58,9 +58,9 @@ export function HeroWaitlistForm() {
           </div>
         </div>
         <div className="text-center">
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">You're in! 🎉</h3>
+          <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">You&apos;re in! 🎉</h3>
           <p className="text-muted-foreground">
-            We'll notify you when we launch. Want to help us name this thing?{" "}
+            We&apos;ll notify you when we launch. Want to help us name this thing?{" "}
       <a
         href="/naming-contest"
         className="text-blue-600 hover:text-blue-700 underline font-medium"

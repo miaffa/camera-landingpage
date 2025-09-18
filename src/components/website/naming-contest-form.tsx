@@ -5,8 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, CheckCircle2, Sparkles, Lightbulb, Users, Camera, Heart } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ArrowRight, Sparkles, Lightbulb } from "lucide-react";
 
 interface RecentSuggestion {
   nameSuggestion: string;
@@ -80,7 +79,7 @@ export function NamingContestForm() {
         throw new Error(errorData.error || "Failed to submit suggestion");
       }
 
-      toast.success("Thanks for the amazing suggestion! 🎨 We'll be in touch soon.");
+      toast.success("Thanks for the amazing suggestion! 🎨 We&apos;ll be in touch soon.");
       setNameSuggestion("");
       setReason("");
       setEmail("");
@@ -125,7 +124,7 @@ export function NamingContestForm() {
                   </div>
                   <div className="flex-1">
                     <div className="font-medium text-blue-500 mb-1">
-                      "{suggestion.nameSuggestion}"
+                      &ldquo;{suggestion.nameSuggestion}&rdquo;
                     </div>
                     {suggestion.reason && (
                       <div className="text-sm text-muted-foreground">
@@ -138,7 +137,7 @@ export function NamingContestForm() {
             ))}
           </div>
           <p className="text-sm text-muted-foreground mt-6 italic text-center">
-            We've heard everything from LensLoop to Cammunity. What's your creative take? 💡
+            We&apos;ve heard everything from LensLoop to Cammunity. What&apos;s your creative take? 💡
           </p>
         </div>
       )}
@@ -178,7 +177,7 @@ export function NamingContestForm() {
             
             <div>
               <label htmlFor="reason" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
-                Why this name? (optional but we'd love to know!)
+                Why this name? (optional but we&apos;d love to know!)
               </label>
               <Textarea
                 id="reason"
@@ -212,7 +211,7 @@ export function NamingContestForm() {
       <div className="text-center text-sm text-gray-900 dark:text-gray-100 max-w-2xl mx-auto">
         <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-2xl p-6 shadow-lg">
           <p>
-            <strong>What happens next?</strong> We'll review all suggestions and may even run a community vote on the top contenders. 
+            <strong>What happens next?</strong> We&apos;ll review all suggestions and may even run a community vote on the top contenders. 
             Contributors of winning names will get special recognition and early access! 🏆
           </p>
         </div>

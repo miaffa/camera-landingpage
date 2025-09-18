@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, CheckCircle2, Sparkles, Lightbulb, Users } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface RecentSuggestion {
   nameSuggestion: string;
@@ -63,7 +62,7 @@ export function WaitlistForm() {
         throw new Error(result.error || "Something went wrong");
       }
 
-      toast.success("You're in! 🎉");
+      toast.success("You&apos;re in! 🎉");
       
       // Show success animation then transition to naming step
       setTimeout(() => {
@@ -180,10 +179,10 @@ export function WaitlistForm() {
         </div>
         
         <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          You're in! 🎉
+          You&apos;re in!
         </h1>
         <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Now help us name this thing. We're building this platform for creators like you. 
+          Now help us name this thing. We&apos;re building this platform for creators like you. 
           Got a name that captures the spirit of peer-to-peer camera rentals? Drop it below.
         </p>
       </div>
@@ -198,7 +197,7 @@ export function WaitlistForm() {
           <div className="space-y-2">
             {recentSuggestions.map((suggestion, index) => (
               <div key={index} className="text-sm">
-                <span className="font-medium text-blue-600">"{suggestion.nameSuggestion}"</span>
+                <span className="font-medium text-blue-600">&ldquo;{suggestion.nameSuggestion}&rdquo;</span>
                 {suggestion.reason && (
                   <span className="text-muted-foreground ml-2">- {suggestion.reason}</span>
                 )}
@@ -206,7 +205,7 @@ export function WaitlistForm() {
             ))}
           </div>
           <p className="text-xs text-muted-foreground mt-3 italic">
-            We've heard everything from LensLoop to Cammunity. What's your take?
+            We&apos;ve heard everything from LensLoop to Cammunity. What&apos;s your take?
           </p>
         </div>
       )}
@@ -260,7 +259,7 @@ export function WaitlistForm() {
       </form>
 
       <div className="text-center text-sm text-muted-foreground">
-        <p>Thanks for being part of our community! We'll keep you updated on our progress.</p>
+        <p>Thanks for being part of our community! We&apos;ll keep you updated on our progress.</p>
       </div>
     </div>
   );
