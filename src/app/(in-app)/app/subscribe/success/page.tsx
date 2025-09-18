@@ -21,17 +21,37 @@ export default async function SubscribeSuccessPage({
       // Check if subscription is active
       if (subscription_id) {
         // Subscription Case
-        const subscription = await client.subscriptions.retrieve(
-          subscription_id
-        );
-        if (subscription.status !== "active") {
+        try {
+          const dodoClient = client();
+          if (!dodoClient) {
+            console.error("DodoPayments client not configured");
+            return <ErrorRedirector />;
+          }
+          const subscription = await dodoClient.subscriptions.retrieve(
+            subscription_id
+          );
+          if (subscription.status !== "active") {
+            return <ErrorRedirector />;
+          }
+        } catch (error) {
+          console.error("DodoPayments error:", error);
           return <ErrorRedirector />;
         }
       }
       // Payment Case
       if (payment_id) {
-        const payment = await client.payments.retrieve(payment_id);
-        if (payment.status !== "succeeded") {
+        try {
+          const dodoClient = client();
+          if (!dodoClient) {
+            console.error("DodoPayments client not configured");
+            return <ErrorRedirector />;
+          }
+          const payment = await dodoClient.payments.retrieve(payment_id);
+          if (payment.status !== "succeeded") {
+            return <ErrorRedirector />;
+          }
+        } catch (error) {
+          console.error("DodoPayments error:", error);
           return <ErrorRedirector />;
         }
       }

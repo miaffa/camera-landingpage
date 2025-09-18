@@ -1,383 +1,128 @@
 "use client";
 
-import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import {
-  Mail,
-  CreditCard,
-  UserCheck,
-  Database,
-  Search,
-  Palette,
-  Cog,
-  MoreHorizontal,
-  Check,
+import { 
+  Smartphone, 
+  BarChart3, 
+  Users, 
+  Star, 
+  Clock, 
+  Shield,
+  Zap,
+  Heart
 } from "lucide-react";
-import HyperText from "../ui/hyper-text";
 
-const tabs = [
+const features = [
   {
-    id: 1,
-    tabName: "Emails",
-    icon: Mail,
-    heading: "Email Setup & Design",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>
-          • <b>Beautiful, responsive email templates</b> design using{" "}
-          <code>react-email</code>
-        </li>
-        <li>
-          • Automated welcome & onboarding <b>sequences</b>
-        </li>
-        <li>• SES integration guide.</li>
-        <li>• Resend integration guide</li>
-      </ul>
-    ),
-    timeSaved: "4 hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>Resend</Badge>
-        <Badge>SES</Badge>
-        <Badge>Mailgun</Badge>
-        <Badge>Mailchimp</Badge>
-      </div>
-    ),
+    icon: Smartphone,
+    title: "Digital Menu Creation",
+    description: "Transform your paper menus into beautiful, interactive digital experiences that work on any device.",
+    benefits: ["Easy drag-and-drop editor", "Real-time updates", "Mobile-optimized"]
   },
   {
-    id: 2,
-    tabName: "Payments",
-    icon: CreditCard,
-    heading: "Payment Processing",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>
-          • <b>Plan and Quota management</b> on user level.
-        </li>
-        <li>
-          • Handle <b>subscriptions and one-time payments</b>.
-        </li>
-        <li>• Stripe integration with webhooks and checkout.</li>
-        <li>• Lemon Squeezy integration with webhooks and checkout.</li>
-        <li>
-          • Subscription management & billing using <b>Customer Portal</b>.
-        </li>
-      </ul>
-    ),
-    timeSaved: "8 hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>Stripe</Badge>
-        <Badge>Lemon Squeezy</Badge>
-        <Badge>PayPal (coming soon)</Badge>
-      </div>
-    ),
+    icon: BarChart3,
+    title: "Real-time Analytics",
+    description: "Get instant insights into which dishes are popular, customer preferences, and dining trends.",
+    benefits: ["Live popularity rankings", "Customer feedback", "Sales analytics"]
   },
   {
-    id: 3,
-    tabName: "Login",
-    icon: UserCheck,
-    heading: "Secure Authentication",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>• Social login (Google, GitHub etc.)</li>
-        <li>• Magic link authentication</li>
-        <li>• Save user data to database</li>
-        <li>• Private API route for protected routes</li>
-        <li>• Super Admin dashboard for managing users</li>
-      </ul>
-    ),
-    timeSaved: "12 hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>NextAuth</Badge>
-        <Badge>Google Auth</Badge>
-        <Badge>Custom Pages</Badge>
-      </div>
-    ),
+    icon: Users,
+    title: "Customer Engagement",
+    description: "Let customers rate dishes, leave reviews, and share their favorite meals directly from the menu.",
+    benefits: ["In-menu rating system", "Social sharing", "Customer reviews"]
   },
   {
-    id: 4,
-    tabName: "Database",
-    icon: Database,
-    heading: "Database & Storage",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>
-          • <b>PostgreSQL/MySQL/MongoDB</b> database
-        </li>
-        <li>
-          • <b>Drizzle</b> ORM
-        </li>
-        <li>
-          • <b>Automated migrations</b>
-        </li>
-        <li>
-          • <b>Connection pooling</b> for better performance
-        </li>
-        <li>
-          • <b>File uploads</b> to S3 for cheap storage
-        </li>
-      </ul>
-    ),
-    timeSaved: "6 hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>PostgreSQL</Badge>
-        <Badge>Drizzle</Badge>
-        <Badge>NeonDB</Badge>
-        <Badge>MongoDB</Badge>
-        <Badge>PlanetScale</Badge>
-      </div>
-    ),
+    icon: Star,
+    title: "Boost Your Ratings",
+    description: "Increase positive reviews and improve your online reputation with better customer experiences.",
+    benefits: ["Higher review scores", "Better online presence", "Customer satisfaction"]
   },
   {
-    id: 5,
-    tabName: "SEO",
-    icon: Search,
-    heading: "Search Engine Optimization",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>
-          • <b>Entire blog structure</b> (MDX)
-        </li>
-        <li>
-          • <b>Automated Sitemap generation</b>
-        </li>
-        <li>
-          • <b>Structured data (JSON-LD)</b> for SEO
-        </li>
-        <li>
-          • <b>Open Graph</b> for social media pre-setup
-        </li>
-        <li>
-          • <b>SEO Optimised</b> UI components
-        </li>
-      </ul>
-    ),
-    timeSaved: "5 hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>MDX</Badge>
-        <Badge>Schema.org</Badge>
-        <Badge>Open Graph</Badge>
-        <Badge>@vercel/og</Badge>
-      </div>
-    ),
+    icon: Clock,
+    title: "Instant Updates",
+    description: "Update prices, add new dishes, or mark items as unavailable instantly across all platforms.",
+    benefits: ["Real-time menu changes", "Price updates", "Availability status"]
   },
   {
-    id: 6,
-    tabName: "Design",
-    icon: Palette,
-    heading: "Modern UI Components",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>
-          • <b>Responsive layouts</b>
-        </li>
-        <li>
-          • <b>Custom Themes</b> as per your brand
-        </li>
-        <li>
-          • <b>Email designer</b> for beautiful emails
-        </li>
-        <li>
-          • <b>Dark mode support</b>
-        </li>
-        <li>
-          • <b>SEO Optimised</b> UI components
-        </li>
-        <li>
-          • Powered by <b>Shadcn/UI</b>
-        </li>
-        <li>
-          • <b>Magic UI</b> for more components
-        </li>
-        <li>
-          • <b>TailwindCSS</b> for styling
-        </li>
-      </ul>
-    ),
-    timeSaved: "10 hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>TailwindCSS</Badge>
-        <Badge>Shadcn UI</Badge>
-        <Badge>Magic UI</Badge>
-      </div>
-    ),
+    icon: Shield,
+    title: "Secure & Reliable",
+    description: "Enterprise-grade security and 99.9% uptime guarantee for your restaurant operations.",
+    benefits: ["Data protection", "Reliable service", "24/7 support"]
   },
   {
-    id: 7,
-    tabName: "Background Jobs",
-    icon: Cog,
-    heading: "Serverless Job Processing",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>
-          • <b>Queue management</b>
-        </li>
-        <li>
-          • <b>Scheduled tasks</b>
-        </li>
-        <li>
-          • <b>Error handling & retries</b>
-        </li>
-        <li>
-          • Powered by <b>Inngest</b>
-        </li>
-        <li>
-          • Optional <b>Upstash</b> for rate limiting
-        </li>
-        <li>
-          • Implement heavy tasks in <b>background</b>
-        </li>
-        <li>
-          • Email sequences in <b>background</b>
-        </li>
-      </ul>
-    ),
-    timeSaved: "7 hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>Upstash</Badge>
-        <Badge>Inngest</Badge>
-        <Badge>Schedule Tasks</Badge>
-        <Badge>Background Jobs</Badge>
-      </div>
-    ),
+    icon: Zap,
+    title: "Quick Setup",
+    description: "Get your digital menu up and running in minutes, not hours. No technical expertise required.",
+    benefits: ["5-minute setup", "No coding needed", "Instant deployment"]
   },
   {
-    id: 8,
-    tabName: "More",
-    icon: MoreHorizontal,
-    heading: "And Much More...",
-    featureList: (
-      <ul className="mt-4 space-y-3">
-        <li>• API rate limiting (optional)</li>
-        <li>• File uploads (S3)</li>
-        <li>
-          • <b>Discord community</b> for accountability and support.
-        </li>
-        <li>
-          • <b>Super Admin dashboard</b> for managing users, plans, and more.
-        </li>
-        <li>
-          • <b>Roadmap Manager</b> for tracking your roadmap
-        </li>
-        <li>
-          • <b>Waitlist Manager</b> for managing your waitlist
-        </li>
-        <li>
-          • <b>Privacy Policy and other legal documents</b> ChatGPT prompts
-        </li>
-        <li>
-          • <b>Contact Us</b> messages manager.
-        </li>
-        <li>
-          • <b>Common Email Templates</b> for your emails
-        </li>
-        <li>• And much more...</li>
-      </ul>
-    ),
-    timeSaved: "15+ hours",
-    footer: (
-      <div className="flex items-center gap-2">
-        <Badge>Discord</Badge>
-        <Badge>Email Templates</Badge>
-        <Badge>Roadmap Manager</Badge>
-        <Badge>Waitlist Manager</Badge>
-        <Badge>Privacy Policy</Badge>
-        <Badge>Contact Us</Badge>
-      </div>
-    ),
-  },
+    icon: Heart,
+    title: "Customer Love",
+    description: "Create memorable dining experiences that keep customers coming back for more.",
+    benefits: ["Enhanced experience", "Customer loyalty", "Repeat visits"]
+  }
 ];
 
-export const WebsiteFeatures = () => {
-  const [activeTab, setActiveTab] = useState("1");
-
+export function Features() {
   return (
-    <section className="py-32" id="features" aria-label="Features">
-      <div className="container">
-        <div className="mx-auto flex max-w-(--breakpoint-md) flex-col items-center gap-6">
-          <h2 className="mb-4 text-center text-4xl font-semibold md:text-5xl">
-            Bootstrap your app instantly,{" "}
-            <HyperText
-              startOnView
-              delay={1000}
-              as="span"
-              className="text-primary"
-            >
-              launch faster
-            </HyperText>
-            , make $
+    <section className="py-16 sm:py-24" aria-label="Features">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Everything you need to digitize your restaurant
           </h2>
-          <p className="text-center text-lg text-muted-foreground md:text-xl">
-            Login users, process payments, send emails at lightspeed. Spend your
-            time building your startup, not integrating APIs.{" "}
-            <span className="text-primary">Indie Kit</span> provides you with
-            the boilerplate code you need to launch,{" "}
-            <HyperText startOnView delay={2500} as="span" className="text-sm">
-              Faster than ever.
-            </HyperText>
+          <p className="mt-4 text-lg text-muted-foreground">
+            Powerful features designed specifically for restaurants to create better customer experiences
           </p>
         </div>
-        <div className="mt-12">
-          <Tabs
-            defaultValue="1"
-            className="mx-auto flex w-full flex-col items-center gap-8"
-            value={activeTab}
-            onValueChange={setActiveTab}
-          >
-            <TabsList className="flex h-auto flex-wrap justify-center gap-2 rounded-lg md:rounded-full py-4 md:p-1">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                return (
-                  <TabsTrigger
-                    key={tab.id}
-                    value={tab.id.toString()}
-                    className={`flex items-center gap-2 rounded-full border border-solid border-transparent px-4 py-2 text-sm font-semibold transition ${
-                      activeTab === tab.id.toString()
-                        ? "border border-solid border-muted2 shadow-xs"
-                        : ""
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {tab.tabName}
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-            {tabs.map((tab) => (
-              <TabsContent
-                value={tab.id.toString()}
-                key={tab.id}
-                className="mt-0 w-full overflow-hidden rounded-2xl bg-accent px-8 py-6 md:px-12 md:py-8"
-              >
-                <div className="flex flex-col justify-between">
-                  <div className="mb-8">
-                    <h3 className="text-2xl font-semibold">{tab.heading}</h3>
-                    {tab.featureList}
-                    <div className="mt-6">
-                      <span className="text-sm text-green-500 flex items-center gap-1">
-                        <Check className="h-4 w-4" /> Time saved:
-                        <span className="font-semibold text-green-500">
-                          {tab.timeSaved}
-                        </span>
-                      </span>
-                    </div>
-                    <div className="mt-4 w-full">{tab.footer}</div>
-                  </div>
+
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {features.map((feature) => (
+            <div key={feature.title} className="group">
+              <div className="rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 hover:shadow-md">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                  <feature.icon className="h-6 w-6 text-primary" />
                 </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+                <h3 className="mt-4 text-lg font-semibold">{feature.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {feature.description}
+                </p>
+                <ul className="mt-4 space-y-1">
+                  {feature.benefits.map((benefit, benefitIndex) => (
+                    <li key={benefitIndex} className="flex items-center text-xs text-muted-foreground">
+                      <div className="mr-2 h-1.5 w-1.5 rounded-full bg-primary" />
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-16 text-center">
+          <div className="rounded-lg bg-primary/5 p-8">
+            <h3 className="text-2xl font-bold">Ready to digitize your menu?</h3>
+            <p className="mt-2 text-muted-foreground">
+              Join hundreds of restaurants already using Stuf&apos;d to create better customer experiences
+            </p>
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:justify-center">
+              <a
+                href="/join-waitlist"
+                className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+              >
+                Get Started Free
+              </a>
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+              >
+                Schedule Demo
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default WebsiteFeatures;
+}

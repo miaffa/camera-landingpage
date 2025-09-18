@@ -1,206 +1,145 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Check, X } from "lucide-react";
 import Link from "next/link";
-import { Badge } from "../ui/badge";
-import { BorderBeam } from "@/components/ui/border-beam";
 
 const plans = [
   {
-    name: "Indie Kit",
-    description: "Perfect for building B2C products",
-    price: 79,
-    anchorPrice: 349,
-    showBorderBeam: true,
-    paymentLink:
-      "https://checkout.dodopayments.com/buy/pdt_ICnsTbAPy8VERlAgVo9QJ?quantity=1&redirect_url=https://indiekit.pro%2Fpayment-success",
+    name: "Starter",
+    description: "Perfect for hobbyist photographers",
+    price: { monthly: 19, annually: 190 },
     features: [
-      "NextJS boilerplate",
-      "SEO & Blog",
-      "SES/Mailgun/Resend Emails",
-      "Stripe/Lemon Squeezy",
-      "Planetscale/NeonDB",
-      "Background Jobs",
-      "Google Auth & Magic Link",
-      "Components & UI",
-      "Quota Management Hooks",
-      "Super Admin Dashboard",
-      "Waitlist Module",
-      "Working Contact Form",
-      "MDX Blog",
-      "Pro tips for better coding workflow",
-      "Plan Management",
-      "Discord Community",
-      "Lifetime Updates",
+      "Up to 10 equipment listings",
+      "Basic rental management",
+      "Photo sharing",
+      "Email support",
+      "Mobile app access",
+      "Basic analytics"
     ],
+    limitations: [
+      "No custom branding",
+      "Limited integrations",
+      "Basic reporting"
+    ],
+    popular: false,
+    cta: "Start Free Trial"
   },
   {
-    name: "ShipFast",
-    description: "Competitor's offering",
-    price: 249,
-    anchorPrice: 349,
-    isCompetitor: true,
+    name: "Professional",
+    description: "Ideal for professional photographers",
+    price: { monthly: 49, annually: 490 },
     features: [
-      "NextJS boilerplate",
-      "SEO & Blog",
-      "Mailgun emails",
-      "Stripe / Lemon Squeezy",
-      "MongoDB / Supabase",
-      "Google Oauth & Magic Links",
-      "Components & animations",
-      "ChatGPT prompts for terms & privacy",
-      "Discord community & Leaderboard",
-      "$1,210 worth of discounts",
-      "Lifetime updates",
+      "Up to 50 equipment listings",
+      "Custom branding",
+      "Advanced analytics",
+      "Priority support",
+      "Social media integration",
+      "Equipment insurance",
+      "Review management",
+      "User verification"
     ],
-    negativePoints: [
-      "No TypeScript",
-      "No Shadcn/UI",
-      "No Background Jobs",
-      "No Quota Management",
-      "No Super Admin Dashboard",
-      "No Plan Management",
+    limitations: [
+      "No white-label option",
+      "Limited API access"
     ],
+    popular: true,
+    cta: "Start Free Trial"
   },
+  {
+    name: "Enterprise",
+    description: "For photography studios and agencies",
+    price: { monthly: 99, annually: 990 },
+    features: [
+      "Unlimited equipment listings",
+      "White-label solution",
+      "Advanced integrations",
+      "Dedicated account manager",
+      "Custom reporting",
+      "Multi-location support",
+      "API access",
+      "Custom development"
+    ],
+    limitations: [],
+    popular: false,
+    cta: "Contact Sales"
+  }
 ];
 
-export function WebsitePricing() {
+export function Pricing() {
   return (
-    <section className="py-16 sm:py-24" id="pricing">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mx-auto max-w-3xl text-center">
+    <section className="py-16 sm:py-24" aria-label="Pricing">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Save Money & Development Time
+            Simple, transparent pricing
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Get more features at a fraction of the cost.{" "}
-            <span className="font-bold text-primary">
-              68% cheaper than competitors
-            </span>
+            Choose the plan that fits your photography business needs. All plans include a 14-day free trial.
           </p>
         </div>
-        {/* Pricing Cards */}
-        <div className="mt-10 grid gap-8 lg:grid-cols-2 max-w-4xl mx-auto">
+
+        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative rounded-3xl ${plan.isCompetitor ? "bg-muted/20" : "bg-muted/40"} p-8 shadow-xs ring-1 ring-border/60`}
-            >
-              {plan.showBorderBeam && <BorderBeam />}
-              <div className="mb-8">
-                <h3 className="text-xl font-bold">{plan.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {plan.description}
-                </p>
-                <div className="mt-6">
-                  <div className="flex items-end gap-2">
-                    <span
-                      className={`text-4xl font-bold ${plan.isCompetitor ? "text-muted-foreground" : ""}`}
-                    >
-                      ${plan.price}
-                    </span>
-                    <div className="flex flex-col items-start">
-                      <span className="text-sm text-muted-foreground line-through">
-                        ${plan.anchorPrice}
-                      </span>
-                      <span className="text-sm text-green-500">
-                        ${plan.anchorPrice - plan.price} off
-                      </span>
-                    </div>
+            <Card key={plan.name} className={`relative ${plan.popular ? 'border-primary shadow-lg' : ''}`}>
+              {plan.popular && (
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground">
+                  Most Popular
+                </Badge>
+              )}
+              <CardHeader>
+                <CardTitle className="text-xl">{plan.name}</CardTitle>
+                <CardDescription>{plan.description}</CardDescription>
+                <div className="mt-4">
+                  <span className="text-4xl font-bold">${plan.price.monthly}</span>
+                  <span className="text-muted-foreground">/month</span>
+                  <div className="text-sm text-muted-foreground">
+                    or ${plan.price.annually}/year (save 17%)
                   </div>
                 </div>
-                {!plan.isCompetitor && (
-                  <div className="flex flex-row gap-2">
-                    <Badge className="mt-2">One time payment</Badge>
-                    <Badge className="mt-2">Early Access</Badge>
-                  </div>
-                )}
-              </div>
-              {plan.paymentLink && (
-                <Button className="w-full" asChild>
-                  <Link href={plan.paymentLink}>Get Indie Kit Pro</Link>
-                </Button>
-              )}
-              <ul className="mt-8 space-y-3 text-sm">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3">
-                    <Check
-                      className={`h-4 w-4 ${plan.isCompetitor ? "text-muted-foreground" : "text-primary"}`}
-                    />
-                    <span
-                      className={
-                        plan.isCompetitor ? "text-muted-foreground" : ""
-                      }
-                    >
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-                {plan.negativePoints && (
-                  <>
-                    <li className="mt-6 pt-6 border-t border-border">
-                      <span className="text-sm font-medium text-muted-foreground">
-                        What&apos;s missing:
-                      </span>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="flex items-start">
+                      <Check className="mr-3 h-5 w-5 flex-shrink-0 text-primary" />
+                      <span className="text-sm">{feature}</span>
                     </li>
-                    {plan.negativePoints.map((point) => (
-                      <li key={point} className="flex items-center gap-3">
-                        <X className="h-4 w-4 text-destructive" />
-                        <span className="text-muted-foreground">{point}</span>
-                      </li>
-                    ))}
-                  </>
-                )}
-              </ul>
-            </div>
+                  ))}
+                  {plan.limitations.map((limitation, index) => (
+                    <li key={`limitation-${index}`} className="flex items-start">
+                      <X className="mr-3 h-5 w-5 flex-shrink-0 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">{limitation}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button 
+                  asChild 
+                  className="w-full" 
+                  variant={plan.popular ? "default" : "outline"}
+                >
+                  <Link href={plan.name === "Enterprise" ? "/contact" : "/join-waitlist"}>
+                    {plan.cta}
+                  </Link>
+                </Button>
+              </CardFooter>
+            </Card>
           ))}
         </div>
 
-        {/* B2B Card */}
-        <div className="mt-16 max-w-2xl mx-auto">
-          <div className="rounded-3xl bg-muted/40 p-8 shadow-xs ring-1 ring-border/60">
-            <div className="mb-8">
-              <h3 className="text-xl font-bold">B2B Indie Kit</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Perfect for building B2B SaaS with team & workspace features
-              </p>
-              <div className="mt-4">
-                <Badge variant="secondary" className="mr-2">
-                  Coming Soon
-                </Badge>
-                <Badge>Save 50+ hours</Badge>
-              </div>
-            </div>
-            <ul className="mt-8 space-y-3 text-sm grid grid-cols-2 gap-4">
-              <li className="flex items-center gap-3">
-                <Check className="h-4 w-4 text-primary" />
-                <span>Team Management</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Check className="h-4 w-4 text-primary" />
-                <span>Workspace Models</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Check className="h-4 w-4 text-primary" />
-                <span>Role-based Access</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Check className="h-4 w-4 text-primary" />
-                <span>Team Hooks</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Check className="h-4 w-4 text-primary" />
-                <span>Workspace Hooks</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Check className="h-4 w-4 text-primary" />
-                <span>Multi-tenant Setup</span>
-              </li>
-            </ul>
-            <Button className="w-full mt-8" asChild>
-              <Link href="/join-waitlist">Join B2B Waitlist</Link>
+        {/* Additional Info */}
+        <div className="mt-16 text-center">
+          <div className="rounded-lg bg-muted/50 p-8">
+            <h3 className="text-xl font-semibold">Just Want to Rent?</h3>
+            <p className="mt-2 text-muted-foreground">
+              Be the first to try our mobile app! Discover and rent camera gear from photographers near you.
+            </p>
+            <Button asChild variant="outline" className="mt-4">
+              <Link href="/join-waitlist">Learn More</Link>
             </Button>
           </div>
         </div>

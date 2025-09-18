@@ -9,54 +9,54 @@ import {
 
 const faqs = [
   {
-    question: "What is Indie Kit?",
+    question: "What is this platform?",
     answer:
-      "Indie Kit is a complete starter kit for indie hackers and startups that provides all the essential features needed to launch a SaaS product. It includes authentication, payment processing, email systems, background jobs, SEO optimization, and much more, all pre-configured and ready to use.",
+      "Our platform is a peer-to-peer camera gear rental marketplace that connects photographers nationwide. You can list your equipment for rent, find gear to rent, and share your photography work with the community.",
   },
   {
-    question: "What tech stack does Indie Kit use?",
+    question: "How does the rental system work?",
     answer:
-      "Indie Kit is built with modern technologies including Next.js, TypeScript, TailwindCSS, Shadcn UI, Drizzle ORM, and more. For services, it integrates with industry standards like Stripe/Lemon Squeezy for payments, various email providers (Resend, SES, etc.), and Inngest for background jobs.",
+      "Photographers can list their camera equipment with photos, descriptions, and rental terms. Other photographers can search for gear by location, browse listings, and book rentals. All transactions are handled securely through our platform.",
   },
   {
-    question: "Do I need to be an experienced developer to use Indie Kit?",
+    question: "Do I need technical skills to list my equipment?",
     answer:
-      "While some development experience is helpful, Indie Kit is designed to be accessible. The codebase is well-documented, follows best practices, and comes with detailed guides. We also provide a supportive Discord community where you can get help when needed.",
+      "Not at all! Our platform is designed to be user-friendly for photographers of all skill levels. Creating a listing takes just a few minutes, and you can manage your rentals through our simple dashboard. We also provide support and guidance.",
   },
   {
-    question: "Can I customize the design and features?",
+    question: "Can I customize my equipment listings?",
     answer:
-      "Absolutely! Indie Kit provides a solid foundation that's fully customizable. All components are built with TailwindCSS and Shadcn UI, making it easy to modify the design. You can also add, remove, or modify features to match your specific needs.",
+      "Yes! You can customize your listings with detailed descriptions, multiple photos, custom pricing, and rental terms. You can also create a professional photographer profile to showcase your work and build trust with renters.",
   },
   {
-    question: "What kind of support is included?",
+    question: "What kind of analytics do I get?",
     answer:
-      "Indie Kit comes with comprehensive documentation, integration guides, and access to our Discord community. You'll get support for technical issues, guidance on best practices, and can connect with other indie hackers building with the kit.",
+      "You'll get real-time insights into your rental performance, equipment utilization rates, earnings, and renter feedback. This data helps you optimize your pricing, understand which gear is most popular, and make informed decisions about your equipment.",
   },
   {
-    question: "How does the payment integration work?",
+    question: "How does the review system work?",
     answer:
-      "Indie Kit includes pre-built integrations with Stripe and Lemon Squeezy, handling both one-time payments and subscriptions. It includes features like plan management, usage quotas, and customer portals. PayPal integration is coming soon.",
+      "Both renters and equipment owners can rate and review each other after a rental. This builds trust in the community and helps everyone make informed decisions. Reviews are displayed on profiles and equipment listings.",
   },
   {
-    question: "What about email functionality?",
+    question: "Can I update my listings in real-time?",
     answer:
-      "The kit includes a complete email system with beautiful, responsive templates built using react-email. It supports multiple providers (Resend, SES, Mailgun, etc.) and includes automated sequences for onboarding, notifications, and marketing.",
+      "Absolutely! You can update availability, pricing, descriptions, or mark equipment as unavailable instantly. Changes appear immediately to all users browsing your listings.",
   },
   {
-    question: "How does Indie Kit handle SEO?",
+    question: "What devices does the platform work on?",
     answer:
-      "Indie Kit comes with built-in SEO optimization including automated sitemap generation, structured data (JSON-LD), Open Graph tags, and a complete blog structure using MDX. All UI components are also optimized for search engines.",
+      "Our platform works on all devices - smartphones, tablets, and computers. The mobile app is optimized for on-the-go management, while the web platform offers full functionality for detailed management.",
   },
   {
-    question: "What databases are supported?",
+    question: "How much does it cost to use the platform?",
     answer:
-      "Indie Kit supports PostgreSQL, MySQL, and MongoDB out of the box. It uses Drizzle ORM for type-safe database operations and includes features like automated migrations and connection pooling for better performance.",
+      "We offer flexible pricing plans starting at $19/month for hobbyist photographers. All plans include a 14-day free trial. We also take a small commission from successful rentals. Enterprise plans are available for photography studios and agencies.",
   },
   {
-    question: "How much time can Indie Kit save me?",
+    question: "What support do you provide?",
     answer:
-      "Based on our estimates, Indie Kit can save you 50+ hours of development time by providing pre-built features and integrations. This includes time saved on authentication (12h), payment processing (8h), email setup (4h), background jobs (7h), and more.",
+      "We provide comprehensive support including setup assistance, equipment listing guidance, and ongoing technical support. Our team is available via email, phone, and live chat to help you get the most out of the platform.",
   },
 ];
 
@@ -69,16 +69,14 @@ export function WebsiteFAQs() {
             Frequently Asked Questions
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Can&apos;t find what you&apos;re looking for? Join our{" "}
+            Can&apos;t find what you&apos;re looking for?{" "}
             <a
-              href="https://discord.gg/indiekit"
+              href="/contact"
               className="font-medium text-primary hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
             >
-              Discord community
+              Contact our support team
             </a>{" "}
-            for support
+            for help
           </p>
         </div>
         <div className="mx-auto mt-12 max-w-3xl">

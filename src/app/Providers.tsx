@@ -21,18 +21,13 @@ function Providers({ children }: { children: React.ReactNode }) {
           <SWRConfig value={{ fetcher }}>
             <Next13ProgressBar
               height="4px"
-              color="hsl(var(--primary))"
+              color="var(--primary)"
               options={{ showSpinner: true }}
               showOnShallow
             />
 
             {children}
-            <Toaster position="top-center" className="dark:hidden" richColors />
-            <Toaster
-              position="top-center"
-              className="hidden dark:block"
-              richColors
-            />
+            <Toaster position="top-center" richColors />
           </SWRConfig>
         </SessionProvider>
       </Suspense>

@@ -1,3 +1,5 @@
+// COMMENTED OUT - DodoPayments webhook route (uncomment when DodoPayments is configured)
+/*
 import { NextRequest, NextResponse } from "next/server";
 import APIError from "@/lib/api/errors";
 import getOrCreateUser from "@/lib/users/getOrCreateUser";
@@ -495,6 +497,11 @@ async function handler(req: NextRequest) {
   }
 }
 
-export const POST = handler;
+*/
+
+// Placeholder route - returns 404 when DodoPayments is not configured
+export const POST = async () => {
+  return new Response("DodoPayments webhook not configured", { status: 404 });
+};
 
 export const maxDuration = 20;

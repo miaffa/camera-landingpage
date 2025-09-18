@@ -1,90 +1,115 @@
 "use client";
 
-import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    quote:
-      "The AI-driven analytics have revolutionized our product development cycle. Insights are now more accurate and faster than ever. A game-changer for tech companies.",
-    author: "Alex Rivera",
-    role: "CTO at InnovateTech",
-    image: "https://i.pravatar.cc/150?img=1",
+    name: "Sarah Chen",
+    role: "Wedding Photographer",
+    avatar: "https://i.pravatar.cc/150?img=1",
+    content: "This platform has completely transformed my photography business. I can now try expensive equipment before buying and earn money from my unused gear. It's been a game-changer!",
+    rating: 5,
+    restaurant: "Sarah Chen Photography"
   },
   {
-    quote:
-      "Implementing the customer prediction model has drastically improved our targeting strategy. Seeing a 50% increase in conversion rates! Highly recommend their solutions.",
-    author: "Samantha Lee",
-    role: "Marketing Director at NextGen Solutions",
-    image: "https://i.pravatar.cc/150?img=2",
+    name: "Marcus Rodriguez",
+    role: "Commercial Photographer",
+    avatar: "https://i.pravatar.cc/150?img=2",
+    content: "The rental analytics help me understand which equipment is most in demand. I've optimized my gear collection based on rental data and increased my monthly earnings by 40%.",
+    rating: 5,
+    restaurant: "Marcus Rodriguez Studios"
   },
   {
-    quote:
-      "As a startup, we need to move fast and stay ahead. The automated coding assistant helps us do just that. Our development speed has doubled. Essential tool for any startup.",
-    author: "Raj Patel",
-    role: "Founder & CEO at StartUp Grid",
-    image: "https://i.pravatar.cc/150?img=3",
+    name: "Emily Johnson",
+    role: "Portrait Photographer",
+    avatar: "https://i.pravatar.cc/150?img=3",
+    content: "Setting up my equipment listings was incredibly easy. Within 30 minutes, I had professional listings that started generating rental requests immediately.",
+    rating: 5,
+    restaurant: "Emily Johnson Photography"
   },
   {
-    quote:
-      "The supply chain optimization tools have drastically reduced our operational costs. Efficiency and accuracy in logistics have never been better.",
-    author: "Linda Wu",
-    role: "VP of Operations at LogiChain Solutions",
-    image: "https://i.pravatar.cc/150?img=4",
+    name: "David Kim",
+    role: "Street Photographer",
+    avatar: "https://i.pravatar.cc/150?img=4",
+    content: "The community features are amazing. I can share my work, tag the equipment I used, and connect with other photographers. It's like Instagram but for photographers!",
+    rating: 5,
+    restaurant: "David Kim Photography"
   },
   {
-    quote:
-      "By integrating their sustainable energy solutions, we've seen a significant reduction in carbon footprint. Leading the way in eco-friendly business practices.",
-    author: "Carlos Gomez",
-    role: "Head of R&D at EcoInnovate",
-    image: "https://i.pravatar.cc/150?img=5",
+    name: "Lisa Thompson",
+    role: "Event Photographer",
+    avatar: "https://i.pravatar.cc/150?img=5",
+    content: "I love how easy it is to manage my rentals. When equipment is booked or returned, I get instant notifications. The calendar integration makes scheduling so simple.",
+    rating: 5,
+    restaurant: "Lisa Thompson Events"
   },
   {
-    quote:
-      "The market analysis AI has transformed how we approach fashion trends. Our campaigns are now data-driven with higher customer engagement.",
-    author: "Aisha Khan",
-    role: "Chief Marketing Officer at Fashion Forward",
-    image: "https://i.pravatar.cc/150?img=6",
-  },
+    name: "James Wilson",
+    role: "Studio Owner",
+    avatar: "https://i.pravatar.cc/150?img=6",
+    content: "The professional plan gives us everything we need. The custom branding makes it feel like our own platform, and the analytics help us make data-driven decisions about our gear.",
+    rating: 5,
+    restaurant: "Wilson Photography Studio"
+  }
 ];
 
-export function WebsiteTestimonials() {
+export function Testimonials() {
   return (
-    <section className="bg-muted/40 py-16 sm:py-24" aria-label="Testimonials">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+    <section className="py-16 sm:py-24" aria-label="Testimonials">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            What our customers are saying
+            Loved by photographers everywhere
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Join thousands of satisfied customers who are transforming their
-            businesses with our AI solutions.
+            See how our platform is helping photographers earn money and access amazing equipment
           </p>
         </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.author}
-              className="flex flex-col justify-between rounded-3xl bg-background p-8 shadow-xs ring-1 ring-border/60"
-            >
-              <blockquote className="text-lg leading-relaxed">
-                &quot;{testimonial.quote}&quot;
-              </blockquote>
-              <div className="mt-8 flex items-center gap-4">
-                <Image
-                  className="h-10 w-10 rounded-full object-cover"
-                  src={testimonial.image}
-                  alt={testimonial.author}
-                  fill
-                />
-                <div>
-                  <div className="font-semibold">{testimonial.author}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {testimonial.role}
+
+        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((testimonial, index) => (
+            <Card key={index} className="h-full">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <blockquote className="text-sm text-muted-foreground mb-4">
+                  &ldquo;{testimonial.content}&rdquo;
+                </blockquote>
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                    <AvatarFallback>{testimonial.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <div className="font-medium text-sm">{testimonial.name}</div>
+                    <div className="text-xs text-muted-foreground">{testimonial.role}</div>
+                    <div className="text-xs text-primary font-medium">{testimonial.restaurant}</div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           ))}
+        </div>
+
+        {/* Stats Section */}
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-primary">500+</div>
+            <div className="text-sm text-muted-foreground">Photographers</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-primary">2K+</div>
+            <div className="text-sm text-muted-foreground">Equipment Listings</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-primary">4.8/5</div>
+            <div className="text-sm text-muted-foreground">Average Rating</div>
+          </div>
         </div>
       </div>
     </section>

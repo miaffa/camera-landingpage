@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import WaitlistForm from "./waitlist-form";
 import { WebPageJsonLd } from "next-seo";
 import { appConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
@@ -67,7 +66,6 @@ export default function JoinWaitlistPage() {
                 Be among the first to experience our platform when we launch.
               </p>
             </div>
-            <WaitlistForm />
           </div>
         </div>
       </div>

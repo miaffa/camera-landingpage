@@ -8,49 +8,49 @@ export function ProblemStatement() {
       <div className="flex flex-col gap-4 max-w-3xl mx-auto relative justify-center items-center w-full">
         <Card className="bg-red-200 dark:bg-red-800/50 text-foreground text-left md:text-center border-none w-fit">
           <CardHeader>
-            <CardTitle>I&apos;ve quit 10+ times!</CardTitle>
+            <CardTitle>I&apos;ve struggled with expensive camera gear!</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-lg mb-4">
-              I wanted to build simple apps to launch over the weekend. I was so
-              frustrated implementing billing, stripe, auth, quota management,
-              etc. I just gave up.
+              I wanted to try professional camera equipment but was so frustrated with
+              high rental costs, limited availability, and expensive gear that I couldn&apos;t afford.
+              I almost gave up on my photography dreams.
             </p>
             <hr className="my-4 border-foreground/20" />
             <ul className="list-disc list-inside mb-4">
               <li>
-                <b>4 hrs+</b> to set up emails
+                <b>$500+</b> monthly rental costs for basic gear
               </li>
               <li>
-                <b>6 hrs+</b> designing a landing page
+                <b>2 hrs+</b> searching for available equipment
               </li>
               <li>
-                <b>4 hrs+</b> to handle Stripe webhooks
+                <b>1 hr+</b> traveling to rental shops
               </li>
               <li>
-                <b>4 hrs+</b> for SEO tags
+                <b>3 hrs+</b> dealing with rental shop policies
               </li>
               <li>
-                <b>4 hrs+</b> for setting up basic auth
+                <b>5 hrs+</b> lost opportunities due to gear unavailability
               </li>
               <li>
-                <b>3 hrs+</b> for DNS records
+                <b>2 hrs+</b> learning new equipment on tight deadlines
               </li>
               <li>
-                <b>2 hrs+</b> for protected API routes
+                <b>4 hrs+</b> managing rental schedules and returns
               </li>
               <li>
-                <b>10+ hrs+</b> for billing, quota management, etc.
+                <b>10+ hrs+</b> lost clients to photographers with better gear
               </li>
               <li>
-                <b>∞ hrs+</b> overthinking/clueless...
+                <b>∞ hrs+</b> stress and frustration...
               </li>
             </ul>
             <p className="text-lg mb-4">
-              <b>37+ hours of headaches</b>
+              <b>27+ hours of headaches per month</b>
             </p>
             <p className="text-lg">
-              <b>No inspiration or confidence for building the app</b>
+              <b>No way to access professional equipment affordably</b>
             </p>
           </CardContent>
         </Card>

@@ -1,125 +1,131 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:is(.dark *));
-@config "../../tailwind.config.ts";
-
+@theme {
+  --color-primary: #89DDFF;
+  --color-secondary: #FFA39B;
+  --color-accent: #FFE18A;
+  --color-muted: #AFDC83;
+  --color-destructive: #FF685C;
+}
 :root {
   --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.606 0.25 292.717);
-  --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.606 0.25 292.717);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-primary: oklch(0.606 0.25 292.717);
-  --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.606 0.25 292.717);
+  /* Background & Text - Using muted blue/purple holographic gradient */
+  --background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 30%, #f3e8ff 70%, #e0e7ff 100%); /* Muted blue/purple holographic gradient */
+  --foreground: oklch(0.3 0.05 240); /* Muted dark blue for text */
+  --card: oklch(1 0 0 / 0.05); /* Very subtle white for glassmorphism */
+  --card-foreground: oklch(0.3 0.05 240); /* Muted dark blue text */
+  --popover: oklch(1 0 0 / 0.05); /* Very subtle white for glassmorphism */
+  --popover-foreground: oklch(0.3 0.05 240); /* Muted dark blue text */
+  
+  /* Primary - Muted holographic blue */
+  --primary: 200 40% 75%; /* Muted light blue in HSL */
+  --primary-foreground: 240 20% 20%; /* Muted dark blue on blue */
+  
+  /* Secondary - Muted holographic purple */
+  --secondary: 280 30% 75%; /* Muted light purple in HSL */
+  --secondary-foreground: 240 20% 20%; /* Muted dark blue text */
+  
+  /* Muted - Muted holographic blue-gray */
+  --muted: 220 20% 85%; /* Muted blue-gray in HSL */
+  --muted-foreground: 220 15% 40%; /* Muted blue-gray text */
+  
+  /* Accent - Blue theme for hover states */
+  --accent: 200 40% 75%; /* Blue accent for hover states */
+  --accent-foreground: 240 20% 20%; /* Muted dark blue text */
+  
+  /* Destructive - Muted holographic red */
+  --destructive: 10 30% 60%; /* Muted red in HSL */
+  --destructive-foreground: 0 0% 95%; /* Light gray on red */
+  
+  /* Borders & Inputs - Muted blue/purple holographic outlines */
+  --border: oklch(0.9 0.05 220); /* Muted blue borders */
+  --input: oklch(0.9 0.05 220); /* Muted blue inputs */
+  --ring: oklch(0.7 0.15 200); /* Muted blue focus ring */
+  
+  /* Chart colors - Using your palette */
+  --chart-1: oklch(0.7 0.15 75); /* #F7B806 - Orange */
+  --chart-2: oklch(0.65 0.15 25); /* #FF685C - Red coral */
+  --chart-3: oklch(0.9 0.08 120); /* #AFDC83 - Light green */
+  --chart-4: oklch(0.8 0.12 200); /* #89DDFF - Light blue */
+  --chart-5: oklch(0.6 0.15 200); /* #2AC2FF - Dark blue */
+  
+  /* Sidebar - Using off-white with blue accents */
+  --sidebar: oklch(0.99 0.01 85); /* #FFFCF5 - Off-white */
+  --sidebar-foreground: oklch(0.25 0.15 240); /* Dark navy */
+  --sidebar-primary: oklch(0.8 0.12 200); /* #89DDFF - Light blue */
+  --sidebar-primary-foreground: oklch(0.15 0.1 240); /* Dark navy */
+  --sidebar-accent: oklch(0.85 0.12 25); /* #FFA39B - Light coral */
+  --sidebar-accent-foreground: oklch(0.25 0.15 240); /* Dark navy */
+  --sidebar-border: oklch(0.85 0.01 0); /* Light gray */
+  --sidebar-ring: oklch(0.8 0.12 200); /* #89DDFF - Light blue */
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.541 0.281 293.009);
-  --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.541 0.281 293.009);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.541 0.281 293.009);
-  --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.541 0.281 293.009);
+  /* Dark mode - Using muted dark blue/purple holographic gradient */
+  --background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 30%, #312e81 70%, #1e1b4b 100%); /* Muted dark blue/purple holographic gradient */
+  --foreground: oklch(0.98 0.05 240); /* Very bright white text for headlines */
+  --card: oklch(0 0 0 / 0.1); /* Very subtle black for dark glassmorphism */
+  --card-foreground: oklch(0.95 0.08 240); /* Bright light blue text for cards */
+  --popover: oklch(0 0 0 / 0.1); /* Very subtle black for dark glassmorphism */
+  --popover-foreground: oklch(0.95 0.08 240); /* Bright light blue text for popovers */
+  
+  /* Primary - Muted holographic blue for dark mode */
+  --primary: 200 35% 65%; /* Muted light blue for dark mode */
+  --primary-foreground: 240 10% 90%; /* Light blue on blue */
+  
+  /* Secondary - Muted holographic purple for dark mode */
+  --secondary: 280 25% 60%; /* Muted light purple for dark mode */
+  --secondary-foreground: 240 10% 90%; /* Light blue text */
+  
+  /* Muted - Muted holographic blue-gray for dark mode */
+  --muted: 220 15% 35%; /* Muted blue-gray for dark mode */
+  --muted-foreground: 220 8% 90%; /* Very bright muted text for better contrast */
+  
+  /* Accent - Blue theme for hover states in dark mode */
+  --accent: 200 35% 65%; /* Blue accent for hover states in dark mode */
+  --accent-foreground: 240 10% 90%; /* Light blue text */
+  
+  /* Destructive - Muted holographic red for dark mode */
+  --destructive: 10 25% 50%; /* Muted red for dark mode */
+  --destructive-foreground: 0 0% 95%; /* Light gray on red */
+  
+  /* Borders & Inputs - Muted blue/purple holographic borders for dark mode */
+  --border: oklch(0.4 0.05 240); /* Muted dark blue borders */
+  --input: oklch(0.4 0.05 240); /* Muted dark blue inputs */
+  --ring: oklch(0.6 0.15 200); /* Muted blue focus ring for dark mode */
+  
+  /* Chart colors - Same as light mode but adjusted for dark */
+  --chart-1: oklch(0.75 0.18 75); /* Orange */
+  --chart-2: oklch(0.7 0.18 25); /* Red coral */
+  --chart-3: oklch(0.6 0.1 120); /* Light green */
+  --chart-4: oklch(0.7 0.15 200); /* Light blue */
+  --chart-5: oklch(0.5 0.18 200); /* Dark blue */
+  
+  /* Sidebar - Dark navy with blue accents */
+  --sidebar: oklch(0.15 0.1 240); /* Dark navy */
+  --sidebar-foreground: oklch(0.95 0.02 85); /* Light cream */
+  --sidebar-primary: oklch(0.7 0.15 200); /* Light blue */
+  --sidebar-primary-foreground: oklch(0.15 0.1 240); /* Dark navy */
+  --sidebar-accent: oklch(0.3 0.1 25); /* Dark coral */
+  --sidebar-accent-foreground: oklch(0.95 0.02 85); /* Light cream */
+  --sidebar-border: oklch(0.3 0.01 0); /* Dark gray */
+  --sidebar-ring: oklch(0.7 0.15 200); /* Light blue */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-
-  --color-1: var(--color-1);
-  --color-2: var(--color-2);
-  --color-3: var(--color-3);
-  --color-4: var(--color-4);
-  --color-5: var(--color-5);
-}
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--border);
+    outline-color: oklch(from var(--ring) l c h / 0.5);
+  }
+  html {
+    background: var(--background);
+    scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground;
+    background: var(--background);
+    color: var(--foreground);
+    min-height: 100vh;
   }
 }

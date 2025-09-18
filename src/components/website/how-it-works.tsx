@@ -5,18 +5,18 @@ import HeroVideoDialog from "@/components/ui/hero-video-dialog";
 
 const steps = [
   {
-    title: "Clone github repo",
-    description: "Simply clone the github repo and install the dependencies.",
+    title: "Sign up for our platform",
+    description: "Create your photographer account and choose your plan.",
     icon: Github,
   },
   {
-    title: "Make changes to the code",
-    description: "Make changes to the code and test it locally.",
+    title: "List your camera equipment",
+    description: "Upload photos and details of your gear to create rental listings.",
     icon: Code,
   },
   {
-    title: "Deploy to Vercel",
-    description: "Deploy to Vercel and start marketing your product.",
+    title: "Start earning from rentals",
+    description: "Accept rental requests and start earning money from your equipment.",
     icon: Upload,
   },
 ];
@@ -30,7 +30,7 @@ export function HowItWorks() {
             How it works
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Just 3 steps to get started with Indiekit (5 minutes)
+            Just 3 steps to get started with our platform (5 minutes)
           </p>
         </div>
 

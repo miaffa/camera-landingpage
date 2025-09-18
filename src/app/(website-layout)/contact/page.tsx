@@ -93,15 +93,11 @@ export default function ContactPage() {
         }}
       />
       {/* Hero Section */}
-      <section className="relative w-full overflow-hidden bg-linear-to-br from-primary via-primary/90 to-primary py-20 text-primary-foreground">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff33_1px,transparent_1px),linear-gradient(to_bottom,#ffffff33_1px,transparent_1px)] bg-size-[14px_14px]" />
-          <div className="absolute inset-0 bg-linear-to-br from-primary/50 via-transparent to-primary/50" />
-        </div>
+      <section className="relative w-full overflow-hidden py-20">
         <div className="container relative mx-auto px-4">
           <div className="mx-auto max-w-2xl space-y-4 text-center">
-            <h1 className="text-3xl font-bold md:text-5xl">Get in Touch</h1>
-            <p className="text-xl text-primary-foreground/90">
+            <h1 className="text-3xl font-bold md:text-5xl text-gray-900 dark:text-white">Get in Touch</h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               Have questions? We&apos;d love to hear from you. Send us a message
               and we&apos;ll respond as soon as possible.
             </p>
@@ -115,15 +111,15 @@ export default function ContactPage() {
           <div className="mx-auto grid max-w-6xl gap-16 md:grid-cols-2">
             {/* Contact Information */}
             <div className="space-y-12">
-              <div>
-                <h2 className="mb-6 text-2xl font-bold">Contact Information</h2>
-                <p className="mb-8 text-muted-foreground">
+              <div className="bg-white/15 dark:bg-white/10 backdrop-blur-md border border-white/25 dark:border-white/20 rounded-2xl p-8 shadow-2xl">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Contact Information</h2>
+                <p className="mb-8 text-gray-600 dark:text-gray-300">
                   Fill up the form and our Team will get back to you within 24
                   hours.
                 </p>
               </div>
 
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {[
                   {
                     icon: Phone,
@@ -145,31 +141,39 @@ export default function ContactPage() {
                       `${appConfig.legal.address.postalCode}, ${appConfig.legal.address.country}`,
                     ],
                   },
-                ].map((item, i) => (
-                  <div key={i} className="flex gap-4">
+                ].map((item, i) => {
+                  const iconGradients = [
+                    "from-blue-400 to-blue-600", // Phone - blue gradient
+                    "from-purple-400 to-purple-600", // Email - purple gradient  
+                    "from-blue-500 to-purple-500" // Address - blue to purple gradient
+                  ];
+                  
+                  return (
+                  <div key={i} className="flex gap-4 bg-white/15 dark:bg-white/10 backdrop-blur-md border border-white/25 dark:border-white/20 rounded-xl p-6 shadow-lg">
                     <div className="shrink-0">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                        <item.icon className="h-6 w-6 text-primary" />
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br ${iconGradients[i]} shadow-lg`}>
+                        <item.icon className="h-6 w-6 text-white" />
                       </div>
                     </div>
                     <div>
-                      <h3 className="mb-1 text-lg font-semibold">
+                      <h3 className="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
                         {item.title}
                       </h3>
                       {item.details.map((detail, j) => (
-                        <p key={j} className="text-muted-foreground">
+                        <p key={j} className="text-gray-600 dark:text-gray-300">
                           {detail}
                         </p>
                       ))}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
             {/* Contact Form */}
-            <div className="rounded-2xl border bg-card p-8 shadow-lg">
-              <h2 className="mb-6 text-2xl font-bold">Send us a Message</h2>
+            <div className="bg-white/15 dark:bg-white/10 backdrop-blur-md border border-white/25 dark:border-white/20 rounded-2xl p-8 shadow-2xl">
+              <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Send us a Message</h2>
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
@@ -241,7 +245,7 @@ export default function ContactPage() {
 
                   <Button
                     type="submit"
-                    className="w-full"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg"
                     size="lg"
                     disabled={isSubmitting}
                   >

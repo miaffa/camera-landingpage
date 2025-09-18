@@ -8,67 +8,67 @@ interface ComparisonItem {
 export function WithWithout() {
   const withProduct: ComparisonItem[] = [
     {
-      title: "Ready-to-Use Components",
+      title: "Easy Equipment Listings",
       description:
-        "Get access to 100s of pre-built, responsive UI components (powered by shadcn/ui) and email templates",
+        "Create professional equipment listings with photos, descriptions, and custom pricing in minutes",
     },
     {
-      title: "Authentication & Payments",
+      title: "Secure Rental System",
       description:
-        "Secure login system and payment processing ready out of the box",
+        "Safe transactions with verified users, escrow payments, and equipment insurance coverage",
     },
     {
-      title: "Background Processing",
+      title: "Real-time Availability",
       description:
-        "Efficient job queues and scheduled tasks handled automatically",
+        "Update equipment availability, pricing, or descriptions instantly across all platforms",
     },
     {
-      title: "SEO Optimization",
+      title: "Rental Analytics Dashboard",
       description:
-        "Built-in SEO features, sitemaps, and structured data for better rankings",
+        "Get real-time insights into rental performance, earnings, and equipment utilization rates",
     },
     {
-      title: "Database & Storage",
+      title: "Community Features",
       description:
-        "Pre-configured database setup with migrations and file storage solutions",
+        "Share your photography work, tag equipment used, and connect with other photographers",
     },
     {
-      title: "Developer Experience",
+      title: "Location-Based Search",
       description:
-        "Well-documented codebase with TypeScript and best practices implemented",
+        "Find equipment near you with geographic search, distance calculations, and local pickup options",
     },
   ];
 
   const withoutProduct: ComparisonItem[] = [
     {
-      title: "Start From Scratch",
+      title: "Expensive Rental Costs",
       description:
-        "Spend weeks building basic components and designing email templates",
+        "Spend hundreds on rental shop fees and deal with limited availability and high prices",
     },
     {
-      title: "Complex Integrations",
+      title: "No Equipment Access",
       description:
-        "Struggle with authentication providers and payment gateway setups",
+        "Miss out on professional gear opportunities and struggle to compete with better-equipped photographers",
     },
     {
-      title: "Manual Processing",
+      title: "Limited Availability",
       description:
-        "Build your own job scheduling system and handle background tasks",
+        "Deal with equipment unavailability and last-minute rental cancellations",
     },
     {
-      title: "Basic SEO",
+      title: "No Rental Analytics",
       description:
-        "Miss out on important SEO features and struggle with search rankings",
+        "Make decisions based on guesswork instead of real rental performance data",
     },
     {
-      title: "Database Headaches",
+      title: "Lost Opportunities",
       description:
-        "Deal with database setup, migrations, and storage configuration manually",
+        "Watch clients choose photographers with better equipment and miss out on projects",
     },
     {
-      title: "Technical Debt",
+      title: "Equipment Management Hassle",
       description:
-        "Risk building without proper structure, leading to maintenance issues",
+        "Constantly manage rental schedules, returns, and deal with rental shop policies",
     },
   ];
 
@@ -87,7 +87,7 @@ export function WithWithout() {
                 <X className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-red-700 dark:text-red-400">
-                Without Indie Kit
+                Without Our Platform
               </h3>
             </div>
             <div className="space-y-6">
@@ -110,7 +110,7 @@ export function WithWithout() {
                 <Check className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-green-700 dark:text-green-400">
-                With Indie Kit
+                With Our Platform
               </h3>
             </div>
             <div className="space-y-6">

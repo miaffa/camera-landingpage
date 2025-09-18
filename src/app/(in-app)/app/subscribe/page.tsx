@@ -103,6 +103,13 @@ async function SubscribePage({
       }
       break;
     case PlanProvider.STRIPE:
+      // Check if Stripe is configured
+      if (!stripe) {
+        return redirect(
+          `${process.env.NEXT_PUBLIC_APP_URL}/app/subscribe/error?code=STRIPE_NOT_CONFIGURED&message=Stripe payment processing is not available`
+        );
+      }
+
       // Check type and get price id from db
       const key: keyof typeof plan | null =
         type === PlanType.MONTHLY

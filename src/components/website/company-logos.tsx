@@ -5,34 +5,34 @@ import Link from "next/link";
 
 const companies = [
   {
-    name: "Google Drive",
-    image: "https://simpleicons.org/icons/googledrive.svg",
-    url: "https://www.google.com/",
+    name: "Canon",
+    image: "https://simpleicons.org/icons/canon.svg",
+    url: "https://www.canon.com/",
   },
   {
-    name: "Product Hunt",
-    image: "https://simpleicons.org/icons/producthunt.svg",
-    url: "https://www.producthunt.com/",
+    name: "Nikon",
+    image: "https://simpleicons.org/icons/nikon.svg",
+    url: "https://www.nikon.com/",
   },
   {
-    name: "X",
-    image: "https://simpleicons.org/icons/x.svg",
-    url: "https://x.com/",
+    name: "Sony",
+    image: "https://simpleicons.org/icons/sony.svg",
+    url: "https://www.sony.com/",
   },
   {
-    name: "Reddit",
-    image: "https://simpleicons.org/icons/reddit.svg",
-    url: "https://www.reddit.com/",
+    name: "Fujifilm",
+    image: "https://simpleicons.org/icons/fujifilm.svg",
+    url: "https://www.fujifilm.com/",
   },
   {
-    name: "Notion",
-    image: "https://simpleicons.org/icons/notion.svg",
-    url: "https://www.notion.so/",
+    name: "Panasonic",
+    image: "https://simpleicons.org/icons/panasonic.svg",
+    url: "https://www.panasonic.com/",
   },
   {
-    name: "Indie Hackers",
-    image: "https://simpleicons.org/icons/indiehackers.svg",
-    url: "https://www.indiehackers.com/",
+    name: "Olympus",
+    image: "https://simpleicons.org/icons/olympus.svg",
+    url: "https://www.olympus.com/",
   },
 ];
 
@@ -41,7 +41,7 @@ export function CompanyLogos() {
     <div className="bg-muted/40 py-8" aria-label="Company Logos">
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm font-medium text-muted-foreground">
-          Featured on
+          Trusted by photographers using
         </p>
         <div className="mt-8 grid grid-cols-2 items-center gap-8 sm:grid-cols-3 lg:grid-cols-6">
           {companies.map((company) => (

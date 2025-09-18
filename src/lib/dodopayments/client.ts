@@ -1,8 +1,24 @@
 import DodoPayments from "dodopayments";
 
-const client = new DodoPayments({
-  baseURL: process.env.DODO_PAYMENTS_API_URL!,
-  bearerToken: process.env.DODO_PAYMENTS_API_KEY!,
-});
+let client: DodoPayments | null = null;
 
-export default client;
+const getClient = () => {
+  if (!client) {
+    const apiUrl = process.env.DODO_PAYMENTS_API_URL;
+    const apiKey = process.env.DODO_PAYMENTS_API_KEY;
+    
+    if (!apiUrl || !apiKey) {
+      console.warn("DodoPayments API credentials not configured - returning null client");
+      return null;
+    }
+    
+    client = new DodoPayments({
+      baseURL: apiUrl,
+      bearerToken: apiKey,
+    });
+  }
+  
+  return client;
+};
+
+export default getClient;
