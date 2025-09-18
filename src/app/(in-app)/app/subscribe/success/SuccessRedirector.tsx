@@ -32,7 +32,7 @@ export default function SuccessRedirector() {
     <div className="container max-w-lg mx-auto py-12">
       <Card className="p-6">
         <div className="flex flex-col items-center text-center space-y-4">
-          <CheckCircle2 className="h-12 w-12 text-green-500" />
+          <CheckCircle2 className="h-12 w-12 text-blue-500" />
           <h1 className="text-2xl font-bold">Payment Successful!</h1>
           <p className="text-muted-foreground">
             Thank you for your payment. You will be redirected to the dashboard

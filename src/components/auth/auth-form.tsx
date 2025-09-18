@@ -21,35 +21,34 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
   const router = useRouter();
 
 
-  const handleImpersonation = async (token: string) => {
-    setIsLoading(true);
-    try {
-      const result = await signIn("credentials", {
-        signedToken: token,
-        redirect: false,
-        callbackUrl: callbackUrl || searchParams?.get("callbackUrl") || "/app",
-      });
-
-      if (result?.error) {
-        toast.error("Failed to impersonate user");
-      } else if (result?.url) {
-        router.push(result.url);
-      }
-    } catch (error) {
-      console.error("Impersonation error:", error);
-      toast.error("Failed to impersonate user");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  
   React.useEffect(() => {
+    const handleImpersonation = async (token: string) => {
+      setIsLoading(true);
+      try {
+        const result = await signIn("credentials", {
+          signedToken: token,
+          redirect: false,
+          callbackUrl: callbackUrl || searchParams?.get("callbackUrl") || "/app",
+        });
+
+        if (result?.error) {
+          toast.error("Failed to impersonate user");
+        } else if (result?.url) {
+          router.push(result.url);
+        }
+      } catch (error) {
+        console.error("Impersonation error:", error);
+        toast.error("Failed to impersonate user");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     const impersonateToken = searchParams?.get("impersonateToken");
     if (impersonateToken) {
       handleImpersonation(impersonateToken);
     }
-  }, [searchParams, handleImpersonation]);
+  }, [searchParams, callbackUrl, router]);
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true);

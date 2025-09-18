@@ -85,7 +85,7 @@ export default function RedeemLTDPage() {
         <form onSubmit={handleSubmit}>
           <CardContent>
             {successMessage ? (
-              <div className="flex items-center space-x-2 text-green-600 mb-4">
+              <div className="flex items-center space-x-2 text-blue-600 mb-4">
                 <CheckCircle className="h-5 w-5" />
                 <p>{successMessage}</p>
               </div>

@@ -55,7 +55,7 @@ export function Hero() {
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
               <Button size="lg" asChild>
-                <Link href="/join-waitlist">Start Renting Gear</Link>
+                <Link href="/naming-contest">Start Renting Gear</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/contact">List Your Equipment</Link>

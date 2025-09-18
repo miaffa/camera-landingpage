@@ -59,7 +59,7 @@ const MonthlyAnnualPricing = () => {
                   Yearly
                   <Badge
                     variant="outline"
-                    className="border-green-200 bg-green-100 px-1.5 text-green-600"
+                    className="border-blue-200 bg-blue-100 px-1.5 text-blue-600"
                   >
                     -20%
                   </Badge>

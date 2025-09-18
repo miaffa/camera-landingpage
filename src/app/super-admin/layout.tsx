@@ -12,6 +12,7 @@ import {
   ClipboardList,
   Menu,
   Ticket,
+  Lightbulb,
 } from "lucide-react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { appConfig } from "@/lib/config";
@@ -30,6 +31,7 @@ const navigation = [
   { name: "Lifetime Deal", href: "/super-admin/coupons", icon: Ticket },
   { name: "Messages", href: "/super-admin/messages", icon: MessageSquare },
   { name: "Waitlist", href: "/super-admin/waitlist", icon: ClipboardList },
+  { name: "Name Suggestions", href: "/super-admin/name-suggestions", icon: Lightbulb },
   { name: "Logout", href: "/super-admin/logout", icon: LogOut },
 ];
 
