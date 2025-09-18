@@ -6,7 +6,7 @@ import { nameSuggestions } from "@/db/schema/name-suggestions";
 const nameSuggestionSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   nameSuggestion: z.string().min(1, "Name suggestion is required").max(100, "Name suggestion too long"),
-  reason: z.string().optional().or(z.literal("")),
+  reason: z.string().optional(),
 });
 
 export async function POST(request: Request) {

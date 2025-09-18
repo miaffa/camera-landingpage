@@ -108,40 +108,6 @@ export function NamingContestForm() {
         </p>
       </div>
 
-      {/* Recent Suggestions */}
-      {recentSuggestions.length > 0 && (
-        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-3xl p-8 max-w-4xl mx-auto shadow-xl">
-          <div className="flex items-center gap-2 mb-6">
-            <Lightbulb className="w-5 h-5 text-yellow-500" />
-            <h3 className="font-semibold text-lg">Recent ideas from our creative community:</h3>
-          </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {recentSuggestions.map((suggestion, index) => (
-              <div key={index} className="bg-white/25 dark:bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/40 dark:border-white/20 shadow-lg">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
-                    {index + 1}
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-medium text-blue-500 mb-1">
-                      &ldquo;{suggestion.nameSuggestion}&rdquo;
-                    </div>
-                    {suggestion.reason && (
-                      <div className="text-sm text-muted-foreground">
-                        {suggestion.reason}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="text-sm text-muted-foreground mt-6 italic text-center">
-            We&apos;ve heard everything from LensLoop to Cammunity. What&apos;s your creative take? 💡
-          </p>
-        </div>
-      )}
-
       {/* Naming Form */}
       <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-3xl p-8 max-w-3xl mx-auto shadow-xl">
         <form onSubmit={handleNameSuggestionSubmit} className="flex flex-col gap-6">

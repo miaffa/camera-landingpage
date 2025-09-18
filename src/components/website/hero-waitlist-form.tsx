@@ -1,13 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { ArrowRight, Mail, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight, Mail, CheckCircle2, Sparkles, Lightbulb, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+interface RecentSuggestion {
+  nameSuggestion: string;
+  reason: string | null;
+  createdAt: string;
+}
 
 export function HeroWaitlistForm() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [nameSuggestion, setNameSuggestion] = useState("");
+  const [reason, setReason] = useState("");
+  const [recentSuggestions, setRecentSuggestions] = useState<RecentSuggestion[]>([]);
+
+  // Fetch recent suggestions when component mounts
+  useEffect(() => {
+    fetchRecentSuggestions();
+  }, []);
+
+  const fetchRecentSuggestions = async () => {
+    try {
+      const response = await fetch("/api/name-suggestions");
+      if (response.ok) {
+        const suggestions = await response.json();
+        setRecentSuggestions(suggestions);
+      }
+    } catch (error) {
+      console.error("Failed to fetch recent suggestions:", error);
+    }
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,9 +62,9 @@ export function HeroWaitlistForm() {
         throw new Error(result.error || "Something went wrong");
       }
 
-      toast.success("You're in! 🎉");
+      toast.success("You're in!");
       setIsSuccess(true);
-      setEmail("");
+      // Don't clear email - we'll use it for the naming contest
 
     } catch (error) {
       toast.error(
@@ -46,28 +75,124 @@ export function HeroWaitlistForm() {
     }
   }
 
+  const handleNameSuggestionSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!nameSuggestion.trim()) return;
+
+    try {
+      setIsSubmitting(true);
+      const response = await fetch("/api/name-suggestions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          nameSuggestion: nameSuggestion.trim(),
+          reason: reason.trim() || undefined,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Handle Zod validation errors
+        if (result.error && Array.isArray(result.error)) {
+          const errorMessage = result.error.map((err: any) => err.message).join(", ");
+          throw new Error(errorMessage);
+        }
+        // Handle other errors
+        throw new Error(result.error || "Something went wrong");
+      }
+
+      toast.success("Thanks for the suggestion! We love the creativity");
+      setNameSuggestion("");
+      setReason("");
+      
+      // Refresh recent suggestions
+      fetchRecentSuggestions();
+
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to submit suggestion"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (isSuccess) {
     return (
-      <div className="flex flex-col items-center gap-4 animate-in fade-in duration-500">
-        <div className="relative">
-          <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center animate-pulse">
-            <CheckCircle2 className="w-8 h-8 text-white" />
-          </div>
-          <div className="absolute -top-2 -right-2">
-            <Sparkles className="w-6 h-6 text-yellow-400 animate-bounce" />
-          </div>
-        </div>
+      <div className="space-y-8 animate-in fade-in duration-500">
+        {/* Success Animation */}
         <div className="text-center">
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">You&apos;re in! 🎉</h3>
-          <p className="text-muted-foreground">
-            We&apos;ll notify you when we launch. Want to help us name this thing?{" "}
-      <a
-        href="/naming-contest"
-        className="text-blue-600 hover:text-blue-700 underline font-medium"
-      >
-        Join our naming contest →
-      </a>
+          <div className="relative mb-6">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center animate-pulse">
+              <CheckCircle2 className="w-10 h-10 text-white" />
+            </div>
+          </div>
+          
+          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            You&apos;re in!
+          </h3>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Now help us name this thing. We&apos;re building this platform for creators like you. 
+            Got a name that captures the spirit of peer-to-peer camera rentals? Drop it below.
           </p>
+        </div>
+
+        {/* Naming Form */}
+        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-3xl p-8 max-w-2xl mx-auto shadow-xl">
+          <form onSubmit={handleNameSuggestionSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="nameSuggestion" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+                  Your name idea *
+                </label>
+                <Input
+                  id="nameSuggestion"
+                  placeholder="e.g., LensLoop, Cammunity, GearShare..."
+                  value={nameSuggestion}
+                  onChange={(e) => setNameSuggestion(e.target.value)}
+                  className="text-center bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="reason" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+                  Why this name? (optional)
+                </label>
+                <Textarea
+                  id="reason"
+                  placeholder="Tell us what makes this name special..."
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  rows={3}
+                  className="resize-none bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isSubmitting || !nameSuggestion.trim()}
+              className="w-full py-6 text-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none"
+            >
+              {isSubmitting ? (
+                "Sending..."
+              ) : (
+                <>
+                  <Users className="w-5 h-5 mr-2" />
+                  Send it in
+                </>
+              )}
+            </Button>
+          </form>
+        </div>
+
+        <div className="text-center text-sm text-muted-foreground">
+          <p>Thanks for being part of our community! We&apos;ll keep you updated on our progress.</p>
         </div>
       </div>
     );
