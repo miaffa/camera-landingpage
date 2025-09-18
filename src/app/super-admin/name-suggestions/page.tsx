@@ -40,7 +40,7 @@ export default async function NameSuggestionsPage() {
                     &ldquo;{suggestion.nameSuggestion}&rdquo;
                   </CardTitle>
                   <Badge variant="secondary">
-                    {new Date(suggestion.createdAt).toLocaleDateString()}
+                    {suggestion.createdAt ? new Date(suggestion.createdAt).toLocaleDateString() : 'Unknown date'}
                   </Badge>
                 </div>
                 <CardDescription>
