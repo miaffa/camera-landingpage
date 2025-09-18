@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     title: "Name Our Platform - Naming Contest",
     description: "Help us name our peer-to-peer camera rental platform. Submit your creative name ideas and be part of our community!",
     type: "website",
-    url: `${process.env.NEXT_PUBLIC_APP_URL}/naming-contest`,
+    url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://camerashare.com'}/naming-contest`,
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_APP_URL}/images/og.png`,
+        url: `${process.env.NEXT_PUBLIC_APP_URL || 'https://camerashare.com'}/images/og.png`,
         width: 1200,
         height: 630,
         alt: "Naming Contest",
@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Name Our Platform - Naming Contest",
     description: "Help us name our peer-to-peer camera rental platform. Submit your creative name ideas and be part of our community!",
-    images: [`${process.env.NEXT_PUBLIC_APP_URL}/images/og.png`],
+    images: [`${process.env.NEXT_PUBLIC_APP_URL || 'https://camerashare.com'}/images/og.png`],
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_APP_URL}/naming-contest`,
+    canonical: `${process.env.NEXT_PUBLIC_APP_URL || 'https://camerashare.com'}/naming-contest`,
   },
 };
 
@@ -48,14 +48,14 @@ export default function JoinWaitlistPage() {
       />
       <WebPageJsonLd
         useAppDir
-        id={`${process.env.NEXT_PUBLIC_APP_URL}/naming-contest`}
+        id={`${process.env.NEXT_PUBLIC_APP_URL || 'https://camerashare.com'}/naming-contest`}
         title="Join Waitlist"
         description="Join our waitlist to get early access to our platform."
         isAccessibleForFree={true}
         publisher={{
           "@type": "Organization",
           name: appConfig.projectName,
-          url: process.env.NEXT_PUBLIC_APP_URL,
+          url: process.env.NEXT_PUBLIC_APP_URL || 'https://camerashare.com',
         }}
       />
       <div className="container max-w-6xl px-4 py-16 z-10">
