@@ -44,7 +44,7 @@ export default function Hero2() {
   }
 
   return (
-    <div className="relative flex items-center justify-center px-4 py-16 min-h-[80vh]">
+    <div className="relative flex items-center justify-center px-4 py-16 min-h-screen">
         <div className="max-w-4xl mx-auto text-center">
           {/* Top Badge */}
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full text-sm mb-8 shadow-xl">
