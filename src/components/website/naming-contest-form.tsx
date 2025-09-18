@@ -98,20 +98,20 @@ export function NamingContestForm() {
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6 sm:gap-8 px-4">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-sm mt-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-sm mt-2 sm:mt-4">
           Help Us Name This Thing!
         </h1>
-        <p className="text-lg mb-8 max-w-3xl mx-auto">
+        <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-3xl mx-auto">
           <strong>Got a name that captures the spirit of peer-to-peer camera rentals?</strong> Drop it below and be part of our community!
         </p>
       </div>
 
       {/* Naming Form */}
-      <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-3xl p-8 max-w-3xl mx-auto shadow-xl">
-        <form onSubmit={handleNameSuggestionSubmit} className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4">
+      <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto shadow-xl">
+        <form onSubmit={handleNameSuggestionSubmit} className="flex flex-col gap-4 sm:gap-6">
+          <div className="flex flex-col gap-3 sm:gap-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
                 Your email address *
@@ -122,7 +122,7 @@ export function NamingContestForm() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                className="text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
                 required
               />
             </div>
@@ -136,7 +136,7 @@ export function NamingContestForm() {
                 placeholder="e.g., LensLoop, Cammunity, GearShare, SnapSwap..."
                 value={nameSuggestion}
                 onChange={(e) => setNameSuggestion(e.target.value)}
-                className="text-center text-lg font-medium bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                className="text-center text-base sm:text-lg font-medium py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
                 required
               />
             </div>
@@ -151,7 +151,7 @@ export function NamingContestForm() {
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 rows={3}
-                className="resize-none bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100 h-20 field-sizing-auto"
+                className="resize-none text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
               />
             </div>
           </div>
@@ -159,15 +159,15 @@ export function NamingContestForm() {
           <Button
             type="submit"
             disabled={isSubmitting || !nameSuggestion.trim() || !email.trim()}
-            className="w-full py-6 text-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none"
+            className="w-full py-4 sm:py-6 text-base sm:text-lg min-h-[44px] bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:transform-none"
           >
             {isSubmitting ? (
               "Submitting your idea..."
             ) : (
               <>
-                <Sparkles className="w-5 h-5 mr-2" />
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Submit My Name Idea
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
               </>
             )}
           </Button>
@@ -175,7 +175,7 @@ export function NamingContestForm() {
       </div>
 
       <div className="text-center text-sm text-gray-900 dark:text-gray-100 max-w-2xl mx-auto">
-        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-2xl p-6 shadow-lg">
+        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
           <p>
             <strong>What happens next?</strong> We&apos;ll review all suggestions and may even run a community vote on the top contenders. 
             Contributors of winning names will get special recognition and early access! 🏆

@@ -36,13 +36,13 @@ export function Hero() {
   return (
     <>
       {/* Hero Section */}
-      <section className="overflow-hidden py-16 sm:py-24" aria-label="Hero">
+      <section className="overflow-hidden py-12 sm:py-16 lg:py-24" aria-label="Hero">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Centered Content */}
           {/* Add this temporarily at the top of your hero section for testing */}
 
           <div className="flex flex-col items-center text-center">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
               <span className="inline-block">Rent Camera Gear,</span>
               <br />
               <WordRotate
@@ -50,22 +50,22 @@ export function Hero() {
                 words={["anywhere", "instantly", "affordably", "securely"]}
               />
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground sm:text-xl max-w-2xl">
+            <p className="mt-4 text-base text-muted-foreground sm:text-lg lg:text-xl max-w-2xl px-4">
                 Connect with photographers nationwide to rent professional camera equipment and share your creative work.
             </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
-              <Button size="lg" asChild>
+            <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:gap-4 lg:gap-6 w-full max-w-md sm:max-w-none">
+              <Button size="lg" asChild className="w-full sm:w-auto min-h-[44px]">
                 <Link href="/naming-contest">Start Renting Gear</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto min-h-[44px]">
                 <Link href="/contact">List Your Equipment</Link>
               </Button>
             </div>
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-4 text-sm text-muted-foreground px-4">
               Join 500+ photographers already sharing their gear
             </p>
-            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-              <div className="flex items-center gap-4">
+            <div className="mt-4 sm:mt-6 flex flex-col gap-3 sm:gap-4 lg:flex-row lg:items-center lg:gap-6">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <AvatarCircles avatarUrls={avatarUrls} numPeople={500} />
                 <div className="text-sm">
                   <p className="font-medium">500+ photographers</p>
@@ -80,7 +80,7 @@ export function Hero() {
                     <Star
                       key={i}
                       className={cn(
-                        "h-5 w-5",
+                        "h-4 w-4 sm:h-5 sm:w-5",
                         i < 5
                           ? "fill-primary text-primary"
                           : "fill-muted text-muted"
@@ -94,23 +94,23 @@ export function Hero() {
           </div>
 
           {/* Equipment Upload Section */}
-          <div className="mt-16">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-2">Get Started in Minutes</h2>
-              <p className="text-muted-foreground">Choose how you&apos;d like to list your camera equipment</p>
+          <div className="mt-12 sm:mt-16">
+            <div className="text-center mb-6 sm:mb-8 px-4">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Get Started in Minutes</h2>
+              <p className="text-sm sm:text-base text-muted-foreground">Choose how you&apos;d like to list your camera equipment</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto px-4">
               {/* Link Equipment URL Option */}
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="h-auto p-8 flex flex-col items-center gap-4 hover:bg-primary/5 hover:border-primary/20 transition-all min-h-[180px]">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
-                      <LinkIcon className="h-6 w-6 text-primary" />
+                  <Button variant="outline" className="h-auto p-4 sm:p-6 lg:p-8 flex flex-col items-center gap-3 sm:gap-4 hover:bg-primary/5 hover:border-primary/20 transition-all min-h-[160px] sm:min-h-[180px]">
+                    <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
+                      <LinkIcon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                     </div>
                     <div className="text-center w-full">
-                      <h3 className="font-semibold text-lg break-words hyphens-auto">Link Equipment URL</h3>
-                      <p className="text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
+                      <h3 className="font-semibold text-base sm:text-lg break-words hyphens-auto">Link Equipment URL</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
                         Paste your existing equipment listing and we&apos;ll extract it automatically
                       </p>
                     </div>
@@ -127,13 +127,13 @@ export function Hero() {
               {/* Upload Image Option */}
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="h-auto p-8 flex flex-col items-center gap-4 hover:bg-primary/5 hover:border-primary/20 transition-all min-h-[180px]">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
-                      <Upload className="h-6 w-6 text-primary" />
+                  <Button variant="outline" className="h-auto p-4 sm:p-6 lg:p-8 flex flex-col items-center gap-3 sm:gap-4 hover:bg-primary/5 hover:border-primary/20 transition-all min-h-[160px] sm:min-h-[180px]">
+                    <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
+                      <Upload className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                     </div>
                     <div className="text-center w-full">
-                      <h3 className="font-semibold text-lg break-words hyphens-auto">Upload Photos</h3>
-                      <p className="text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
+                      <h3 className="font-semibold text-base sm:text-lg break-words hyphens-auto">Upload Photos</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
                         Upload photos of your camera equipment or snap them with your phone
                       </p>
                     </div>
@@ -150,13 +150,13 @@ export function Hero() {
               {/* Start Fresh Option */}
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button variant="outline" className="h-auto p-8 flex flex-col items-center gap-4 hover:bg-primary/5 hover:border-primary/20 transition-all min-h-[180px]">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
-                      <PenTool className="h-6 w-6 text-primary" />
+                  <Button variant="outline" className="h-auto p-4 sm:p-6 lg:p-8 flex flex-col items-center gap-3 sm:gap-4 hover:bg-primary/5 hover:border-primary/20 transition-all min-h-[160px] sm:min-h-[180px]">
+                    <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10 flex-shrink-0">
+                      <PenTool className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                     </div>
                     <div className="text-center w-full">
-                      <h3 className="font-semibold text-lg break-words hyphens-auto">Start Fresh</h3>
-                      <p className="text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
+                      <h3 className="font-semibold text-base sm:text-lg break-words hyphens-auto">Start Fresh</h3>
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-1 break-words leading-relaxed hyphens-auto overflow-hidden">
                         Create your equipment listing from scratch with our easy builder
                       </p>
                     </div>
@@ -173,48 +173,48 @@ export function Hero() {
           </div>
 
           {/* Feature Cards - Below Equipment Upload */}
-          <div className="mt-16">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
+          <div className="mt-12 sm:mt-16">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto px-4">
                 {/* Feature Card 1 */}
-                <div className="rounded-lg border bg-card p-6 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                    <Smartphone className="h-6 w-6 text-primary" />
+                <div className="rounded-lg border bg-card p-4 sm:p-6 shadow-sm">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <Smartphone className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Easy Listings</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
+                  <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold">Easy Listings</h3>
+                  <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
                     Create professional equipment listings in minutes
                   </p>
                 </div>
 
                 {/* Feature Card 2 */}
-                <div className="rounded-lg border bg-card p-6 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                    <TrendingUp className="h-6 w-6 text-primary" />
+                <div className="rounded-lg border bg-card p-4 sm:p-6 shadow-sm">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Secure Rentals</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
+                  <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold">Secure Rentals</h3>
+                  <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
                     Safe transactions with verified users and insurance
                   </p>
                 </div>
 
                 {/* Feature Card 3 */}
-                <div className="rounded-lg border bg-card p-6 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                    <Users className="h-6 w-6 text-primary" />
+                <div className="rounded-lg border bg-card p-4 sm:p-6 shadow-sm">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Community</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
+                  <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold">Community</h3>
+                  <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
                     Connect with photographers and share your work
                   </p>
                 </div>
 
                 {/* Feature Card 4 */}
-                <div className="rounded-lg border bg-card p-6 shadow-sm">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                    <Star className="h-6 w-6 text-primary" />
+                <div className="rounded-lg border bg-card p-4 sm:p-6 shadow-sm">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <Star className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold">Earn Money</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
+                  <h3 className="mt-3 sm:mt-4 text-base sm:text-lg font-semibold">Earn Money</h3>
+                  <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
                     Monetize your gear when you&apos;re not using it
                   </p>
                 </div>

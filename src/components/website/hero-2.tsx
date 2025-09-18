@@ -4,16 +4,16 @@ import { HeroWaitlistForm } from "./hero-waitlist-form";
 export default function Hero2() {
 
   return (
-    <div className="relative flex items-center justify-center px-4 py-16 min-h-screen">
+    <div className="relative flex items-center justify-center px-4 py-8 sm:py-16 min-h-screen">
         <div className="max-w-4xl mx-auto text-center">
           {/* Top Badge */}
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/25 dark:bg-white/10 backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full text-sm mb-8 shadow-xl">
-            <Sparkles className="w-4 h-4 text-blue-500" />
+          <div className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full text-xs sm:text-sm mb-6 sm:mb-8 shadow-xl">
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />
             <span className="font-medium">Exclusive Early Access • Invite Only</span>
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
             The Future of
             <br />
             <span>Camera Gear </span>
@@ -24,12 +24,12 @@ export default function Hero2() {
 
           
           {/* Email Signup Form */}
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12">
             <HeroWaitlistForm />
           </div>
 
          {/* Descriptive Paragraph */}
-         <p className="text-md md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
+         <p className="text-sm sm:text-base md:text-lg max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed px-4">
              Join the revolution where photographers connect, share camera gear, and create together.
          </p>
 
