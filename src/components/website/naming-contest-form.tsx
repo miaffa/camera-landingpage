@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowRight, Sparkles, Lightbulb } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 interface RecentSuggestion {
   nameSuggestion: string;
@@ -18,7 +18,7 @@ export function NamingContestForm() {
   const [nameSuggestion, setNameSuggestion] = useState("");
   const [reason, setReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [recentSuggestions, setRecentSuggestions] = useState<RecentSuggestion[]>([]);
+  const [, setRecentSuggestions] = useState<RecentSuggestion[]>([]);
 
   // Fetch recent suggestions when component mounts
   useEffect(() => {

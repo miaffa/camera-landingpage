@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { ArrowRight, Mail, CheckCircle2, Sparkles, Lightbulb, Users } from "lucide-react";
+import { ArrowRight, Mail, CheckCircle2, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,7 +19,7 @@ export function HeroWaitlistForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [nameSuggestion, setNameSuggestion] = useState("");
   const [reason, setReason] = useState("");
-  const [recentSuggestions, setRecentSuggestions] = useState<RecentSuggestion[]>([]);
+  const [, setRecentSuggestions] = useState<RecentSuggestion[]>([]);
 
   // Fetch recent suggestions when component mounts
   useEffect(() => {
@@ -98,7 +98,7 @@ export function HeroWaitlistForm() {
       if (!response.ok) {
         // Handle Zod validation errors
         if (result.error && Array.isArray(result.error)) {
-          const errorMessage = result.error.map((err: any) => err.message).join(", ");
+          const errorMessage = result.error.map((err: { message: string }) => err.message).join(", ");
           throw new Error(errorMessage);
         }
         // Handle other errors
