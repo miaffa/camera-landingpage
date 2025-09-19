@@ -149,7 +149,7 @@ export function HeroWaitlistForm() {
           <form onSubmit={handleNameSuggestionSubmit} className="space-y-4 sm:space-y-6">
             <div className="space-y-3 sm:space-y-4">
               <div>
-                <label htmlFor="nameSuggestion" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+                <label htmlFor="nameSuggestion" className="block text-sm font-medium mb-2 text-left" style={{ color: 'var(--foreground)' }}>
                   Your name idea *
                 </label>
                 <Input
@@ -157,13 +157,14 @@ export function HeroWaitlistForm() {
                   placeholder="e.g., LensLoop, Cammunity, GearShare..."
                   value={nameSuggestion}
                   onChange={(e) => setNameSuggestion(e.target.value)}
-                  className="text-center text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                  className="text-center text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300"
+                  style={{ color: 'var(--foreground)' }}
                   required
                 />
               </div>
               
               <div>
-                <label htmlFor="reason" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+                <label htmlFor="reason" className="block text-sm font-medium mb-2 text-left" style={{ color: 'var(--foreground)' }}>
                   Why this name? (optional)
                 </label>
                 <Textarea
@@ -172,12 +173,13 @@ export function HeroWaitlistForm() {
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   rows={3}
-                  className="resize-none text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                  className="resize-none text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300"
+                  style={{ color: 'var(--foreground)' }}
                 />
               </div>
               
               <div>
-                <label htmlFor="instagram" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+                <label htmlFor="instagram" className="block text-sm font-medium mb-2 text-left" style={{ color: 'var(--foreground)' }}>
                   Instagram handle (optional)
                 </label>
                 <Input
@@ -185,7 +187,8 @@ export function HeroWaitlistForm() {
                   placeholder="@yourusername"
                   value={instagram}
                   onChange={(e) => setInstagram(e.target.value)}
-                  className="text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                  className="text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300"
+                  style={{ color: 'var(--foreground)' }}
                 />
               </div>
             </div>

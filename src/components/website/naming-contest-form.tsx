@@ -106,8 +106,8 @@ export function NamingContestForm() {
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-sm mt-2 sm:mt-4">
           Help Us Name This Thing!
         </h1>
-        <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
-          <strong>Got a name that captures the spirit of peer-to-peer camera rentals?</strong> Drop it below and be part of our community!
+        <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--foreground)' }}>
+          <strong style={{ color: 'var(--foreground)' }}>Got a name that captures the spirit of peer-to-peer camera rentals?</strong> Drop it below and be part of our community!
         </p>
       </div>
 
@@ -116,7 +116,7 @@ export function NamingContestForm() {
         <form onSubmit={handleNameSuggestionSubmit} className="flex flex-col gap-4 sm:gap-6">
           <div className="flex flex-col gap-3 sm:gap-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+              <label htmlFor="email" className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
                 Your email address *
               </label>
               <Input
@@ -125,13 +125,14 @@ export function NamingContestForm() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                className="text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300"
+                style={{ color: 'var(--foreground)' }}
                 required
               />
             </div>
             
             <div>
-              <label htmlFor="nameSuggestion" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+              <label htmlFor="nameSuggestion" className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
                 Your brilliant name idea *
               </label>
               <Input
@@ -139,13 +140,14 @@ export function NamingContestForm() {
                 placeholder="e.g., LensLoop, Cammunity, GearShare, SnapSwap..."
                 value={nameSuggestion}
                 onChange={(e) => setNameSuggestion(e.target.value)}
-                className="text-center text-base sm:text-lg font-medium py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                className="text-center text-base sm:text-lg font-medium py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300"
+                style={{ color: 'var(--foreground)' }}
                 required
               />
             </div>
             
             <div>
-              <label htmlFor="reason" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+              <label htmlFor="reason" className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
                 Why this name? (optional but we&apos;d love to know!)
               </label>
               <Textarea
@@ -154,12 +156,13 @@ export function NamingContestForm() {
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 rows={3}
-                className="resize-none text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                className="resize-none text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300"
+                style={{ color: 'var(--foreground)' }}
               />
             </div>
             
             <div>
-              <label htmlFor="instagram" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+              <label htmlFor="instagram" className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
                 Instagram handle (optional)
               </label>
               <Input
@@ -167,7 +170,8 @@ export function NamingContestForm() {
                 placeholder="@yourusername"
                 value={instagram}
                 onChange={(e) => setInstagram(e.target.value)}
-                className="text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                className="text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300"
+                style={{ color: 'var(--foreground)' }}
               />
             </div>
           </div>
@@ -190,12 +194,12 @@ export function NamingContestForm() {
         </form>
       </div>
 
-      <div className="text-center text-sm text-gray-900 dark:text-gray-100 w-full">
+      <div className="text-center text-sm w-full">
         <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg max-w-2xl mx-auto">
-          <p>
-            <strong>What happens next?</strong> We&apos;ll review all suggestions and may even run a community vote on the top contenders. 
-            Contributors of winning names will get special recognition and early access! 🏆
-          </p>
+        <p style={{ color: 'var(--foreground)' }}>
+          <strong style={{ color: 'var(--foreground)' }}>What happens next?</strong> We&apos;ll review all suggestions and may even run a community vote on the top contenders.
+          Contributors of winning names will get special recognition and early access! 🏆
+        </p>
         </div>
       </div>
     </div>
