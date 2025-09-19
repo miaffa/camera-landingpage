@@ -101,18 +101,18 @@ export function NamingContestForm() {
   };
 
   return (
-    <div className="flex flex-col gap-6 sm:gap-8 px-4">
+    <div className="flex flex-col gap-6 sm:gap-8">
       <div className="text-center">
         <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-sm mt-2 sm:mt-4">
           Help Us Name This Thing!
         </h1>
-        <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-3xl mx-auto">
+        <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
           <strong>Got a name that captures the spirit of peer-to-peer camera rentals?</strong> Drop it below and be part of our community!
         </p>
       </div>
 
       {/* Naming Form */}
-      <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto shadow-xl">
+      <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 w-full shadow-xl">
         <form onSubmit={handleNameSuggestionSubmit} className="flex flex-col gap-4 sm:gap-6">
           <div className="flex flex-col gap-3 sm:gap-4">
             <div>
@@ -190,8 +190,8 @@ export function NamingContestForm() {
         </form>
       </div>
 
-      <div className="text-center text-sm text-gray-900 dark:text-gray-100 max-w-2xl mx-auto">
-        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+      <div className="text-center text-sm text-gray-900 dark:text-gray-100 w-full">
+        <div className="bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg max-w-2xl mx-auto">
           <p>
             <strong>What happens next?</strong> We&apos;ll review all suggestions and may even run a community vote on the top contenders. 
             Contributors of winning names will get special recognition and early access! 🏆

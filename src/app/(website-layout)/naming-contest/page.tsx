@@ -58,7 +58,7 @@ export default function JoinWaitlistPage() {
           url: process.env.NEXT_PUBLIC_APP_URL || 'https://camerashare.com',
         }}
       />
-      <div className="container max-w-6xl px-4 py-8 sm:py-16 z-10">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 z-10">
         <div className="bg-background">
           <div className="rounded-2xl sm:rounded-3xl bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 p-4 sm:p-6 lg:p-8 shadow-xl">
             <NamingContestForm />
