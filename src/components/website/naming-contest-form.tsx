@@ -17,6 +17,7 @@ export function NamingContestForm() {
   const [email, setEmail] = useState("");
   const [nameSuggestion, setNameSuggestion] = useState("");
   const [reason, setReason] = useState("");
+  const [instagram, setInstagram] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [, setRecentSuggestions] = useState<RecentSuggestion[]>([]);
 
@@ -71,6 +72,7 @@ export function NamingContestForm() {
           email,
           nameSuggestion: nameSuggestion.trim(),
           reason: reason.trim() || null,
+          instagram: instagram.trim() || null,
         }),
       });
 
@@ -82,6 +84,7 @@ export function NamingContestForm() {
       toast.success("Thanks for the amazing suggestion! 🎨 We&apos;ll be in touch soon.");
       setNameSuggestion("");
       setReason("");
+      setInstagram("");
       setEmail("");
       
       // Refresh recent suggestions
@@ -152,6 +155,19 @@ export function NamingContestForm() {
                 onChange={(e) => setReason(e.target.value)}
                 rows={3}
                 className="resize-none text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="instagram" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+                Instagram handle (optional)
+              </label>
+              <Input
+                id="instagram"
+                placeholder="@yourusername"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
+                className="text-base py-3 sm:py-4 bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
               />
             </div>
           </div>

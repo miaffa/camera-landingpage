@@ -7,6 +7,7 @@ const nameSuggestionSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   nameSuggestion: z.string().min(1, "Name suggestion is required").max(100, "Name suggestion too long"),
   reason: z.string().optional(),
+  instagram: z.string().optional(),
 });
 
 export async function POST(request: Request) {
@@ -20,6 +21,7 @@ export async function POST(request: Request) {
         email: body.email,
         nameSuggestion: body.nameSuggestion,
         reason: body.reason || null,
+        instagram: body.instagram || null,
       })
       .returning();
 

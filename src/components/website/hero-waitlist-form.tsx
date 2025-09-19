@@ -19,6 +19,7 @@ export function HeroWaitlistForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [nameSuggestion, setNameSuggestion] = useState("");
   const [reason, setReason] = useState("");
+  const [instagram, setInstagram] = useState("");
   const [, setRecentSuggestions] = useState<RecentSuggestion[]>([]);
 
   // Fetch recent suggestions when component mounts
@@ -90,6 +91,7 @@ export function HeroWaitlistForm() {
           email,
           nameSuggestion: nameSuggestion.trim(),
           reason: reason.trim() || undefined,
+          instagram: instagram.trim() || undefined,
         }),
       });
 
@@ -108,6 +110,7 @@ export function HeroWaitlistForm() {
       toast.success("Thanks for the suggestion! We love the creativity");
       setNameSuggestion("");
       setReason("");
+      setInstagram("");
       
       // Refresh recent suggestions
       fetchRecentSuggestions();
@@ -172,6 +175,19 @@ export function HeroWaitlistForm() {
                   className="resize-none text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
                 />
               </div>
+              
+              <div>
+                <label htmlFor="instagram" className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-100">
+                  Instagram handle (optional)
+                </label>
+                <Input
+                  id="instagram"
+                  placeholder="@yourusername"
+                  value={instagram}
+                  onChange={(e) => setInstagram(e.target.value)}
+                  className="text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm border-white/40 dark:border-white/20 focus:ring-blue-500/50 focus:border-blue-500/50 placeholder:text-gray-600 dark:placeholder:text-gray-300 text-gray-900 dark:text-gray-100"
+                />
+              </div>
             </div>
 
             <Button
@@ -207,7 +223,7 @@ export function HeroWaitlistForm() {
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full pl-10 pr-4 py-3 sm:py-4 text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/60 hover:bg-white/30 dark:hover:bg-white/15 transition-all duration-300 shadow-xl"
+          className="w-full pl-10 pr-4 py-3 sm:py-4 text-base bg-white/25 dark:bg-white/10 backdrop-blur-sm sm:backdrop-blur-md border border-white/40 dark:border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 hover:shadow-[0_0_0_3px_rgba(59,130,246,0.1),0_0_20px_rgba(59,130,246,0.3)] hover:border-blue-400/60 hover:bg-white/30 dark:hover:bg-white/15 transition-all duration-300"
           required
         />
       </div>

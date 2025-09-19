@@ -7,6 +7,10 @@
   --color-accent: #FFE18A;
   --color-muted: #89DDFF;
   --color-destructive: #FF685C;
+  --color-custom-blue: #315BED;
+  --color-custom-purple: #B647EA;
+  --color-custom-pink: #FFD9F1;
+  --color-custom-light-purple: #D8B1FF;
 }
 :root {
   --radius: 0.65rem;
