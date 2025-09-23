@@ -103,8 +103,19 @@ export function NamingContestForm() {
   return (
     <div className="flex flex-col gap-6 sm:gap-8">
       <div className="text-center">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent drop-shadow-sm mt-2 sm:mt-4">
-          Help Us Name This Thing!
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 drop-shadow-sm mt-2 sm:mt-4 relative">
+          <span className="relative z-10">Help Us Name This Thing!</span>
+          <div 
+            className="absolute -z-10 opacity-60 blur-lg"
+            style={{
+              background: 'radial-gradient(ellipse, rgba(182, 71, 234, 0.6) 0%, rgba(216, 177, 255, 0.4) 30%, rgba(255, 217, 241, 0.3) 60%, rgba(255, 217, 241, 0.1) 80%, transparent 100%)',
+              top: '50%',
+              left: '50%',
+              width: '80%',
+              height: '140%',
+              transform: 'translate(-50%, -50%)'
+            }}
+          />
         </h1>
         <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4" style={{ color: 'var(--foreground)' }}>
           <strong style={{ color: 'var(--foreground)' }}>Got a name that captures the spirit of peer-to-peer camera rentals?</strong> Drop it below and be part of our community!

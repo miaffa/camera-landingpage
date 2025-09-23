@@ -16,10 +16,7 @@ export default function Hero2() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
             The Future of
             <br />
-            <span>Camera Gear </span> 
-            <span className="bg-gradient-to-r from-[#315BED] to-[#B647EA] bg-clip-text text-transparent drop-shadow-sm">
-              Sharing
-            </span>
+            <span>Camera Gear Sharing</span> 
           </h1>
 
           
