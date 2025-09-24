@@ -5,6 +5,7 @@ import { appConfig } from "@/lib/config";
 // import { Menu } from "lucide-react";
 import { useState } from "react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { UserButton } from "@/components/layout/user-button";
 
 const navItems: { label: string; href: string }[] = [
   // { label: "Pricing", href: "/#pricing" },
@@ -37,14 +38,16 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop Theme Switcher */}
-          <div className="hidden items-center space-x-4 md:flex">
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-4">
             <ThemeSwitcher />
+            <UserButton />
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-2 md:hidden">
+          {/* Mobile Actions */}
+          <div className="flex items-center gap-2 md:hidden">
             <ThemeSwitcher />
+            <UserButton />
             {/* <button
               className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               onClick={() => setIsMenuOpen(!isMenuOpen)}

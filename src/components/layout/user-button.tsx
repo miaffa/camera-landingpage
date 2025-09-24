@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import useUser from "@/lib/users/useUser";
 import Link from "next/link";
-import { LayoutDashboard, CreditCard, LogOut, UserIcon, Ticket } from "lucide-react";
+import { LayoutDashboard, CreditCard, LogOut, UserIcon, Ticket, LogIn, UserPlus } from "lucide-react";
 
 export function UserButton() {
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
 
   const getInitials = (name: string) => {
     return name
@@ -23,6 +24,37 @@ export function UserButton() {
       .toUpperCase();
   };
 
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="flex items-center gap-2">
+        <div className="h-8 w-8 bg-gray-200 rounded-full animate-pulse" />
+        <div className="h-4 w-20 bg-gray-200 rounded-md animate-pulse" />
+      </div>
+    );
+  }
+
+  // Show login/signup buttons for unauthenticated users
+  if (!user) {
+    return (
+      <div className="flex items-center gap-2">
+        <Button variant="ghost" asChild>
+          <Link href="/sign-in" className="flex items-center gap-2">
+            <LogIn className="w-4 h-4" />
+            <span className="hidden sm:inline">Sign In</span>
+          </Link>
+        </Button>
+        <Button asChild>
+          <Link href="/sign-up" className="flex items-center gap-2">
+            <UserPlus className="w-4 h-4" />
+            <span className="hidden sm:inline">Sign Up</span>
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
+  // Show user menu for authenticated users
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2 outline-hidden">

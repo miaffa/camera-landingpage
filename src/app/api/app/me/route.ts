@@ -1,14 +1,20 @@
-import withAuthRequired from "@/lib/auth/withAuthRequired";
 import { NextResponse } from "next/server";
 import { MeResponse } from "./types";
+import { requireUser } from "@/lib/auth/requireUser";
 
-export const GET = withAuthRequired(async (req, context) => {
-  const { session, getCurrentPlan } = context;
+export const dynamic = "force-dynamic";
 
-  const currentPlan = await getCurrentPlan();
-
-  return NextResponse.json<MeResponse>({
-    currentPlan,
-    user: session.user,
-  });
-});
+export const GET = async () => {
+	const user = await requireUser();
+	// TODO: map to your plans logic if needed; keeping null for now
+	return NextResponse.json<MeResponse>({
+		currentPlan: null,
+		// Minimal shape; adapt as needed
+		user: {
+			id: user.id,
+			email: user.email ?? "",
+			name: user.user_metadata?.full_name ?? user.email ?? "",
+			image: user.user_metadata?.avatar_url ?? null,
+		} as any,
+	});
+};
