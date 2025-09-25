@@ -6,11 +6,11 @@ import { requireUser } from '@/lib/auth/requireUser';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { conversationId: string } }
+  { params }: { params: Promise<{ conversationId: string }> }
 ) {
   try {
     const user = await requireUser();
-    const { conversationId } = params;
+    const { conversationId } = await params;
 
     // Verify user has access to this conversation
     const conversation = await db
@@ -53,11 +53,11 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { conversationId: string } }
+  { params }: { params: Promise<{ conversationId: string }> }
 ) {
   try {
     const user = await requireUser();
-    const { conversationId } = params;
+    const { conversationId } = await params;
     const { text } = await request.json();
 
     if (!text || !text.trim()) {
