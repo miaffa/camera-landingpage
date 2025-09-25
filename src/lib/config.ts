@@ -1,10 +1,10 @@
 import { AppConfigPublic } from "./types";
 
 export const appConfig: AppConfigPublic = {
-  projectName: "CameraShare",
-  projectSlug: "CameraShare",
+  projectName: "LensFlare",
+  projectSlug: "LensFlare",
   keywords: [
-    "CameraShare",
+    "LensFlare",
     "Camera Gear Sharing",
     "Photography Community",
     "NextJS Starter Kit",
@@ -19,7 +19,7 @@ export const appConfig: AppConfigPublic = {
     "Gear Sharing Platform",
   ],
   description:
-    "CameraShare is a platform for photographers to connect, share premium gear, and create together.",
+    "LensFlare is a platform for photographers to connect, share premium gear, and create together.",
   legal: {
     address: {
       street: "University of Louisville",
@@ -32,14 +32,14 @@ export const appConfig: AppConfigPublic = {
     phone: "+1 502-852-6115",
   },
   social: {
-    twitter: "https://twitter.com/CameraShare",
-    instagram: "https://instagram.com/CameraShare",
-    linkedin: "https://linkedin.com/CameraShare",
-    facebook: "https://facebook.com/CameraShare",
-    youtube: "https://youtube.com/CameraShare",
+    twitter: "https://twitter.com/LensFlare",
+    instagram: "https://instagram.com/LensFlare",
+    linkedin: "https://linkedin.com/LensFlare",
+    facebook: "https://facebook.com/LensFlare",
+    youtube: "https://youtube.com/LensFlare",
   },
   email: {
-    senderName: "CameraShare",
+    senderName: "LensFlare",
     senderEmail: "miafanw@gmail.com",
   },
 };

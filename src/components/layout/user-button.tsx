@@ -9,12 +9,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useUser from "@/lib/users/useUser";
+import { useAuth } from "@/lib/users/useAuth";
 import Link from "next/link";
 import { LayoutDashboard, CreditCard, LogOut, UserIcon, Ticket, LogIn, UserPlus } from "lucide-react";
 
 export function UserButton() {
-  const { user, isLoading } = useUser();
+  const { user, profile, isLoading, signOut } = useAuth();
 
   const getInitials = (name: string) => {
     return name
@@ -35,7 +35,7 @@ export function UserButton() {
   }
 
   // Show login/signup buttons for unauthenticated users
-  if (!user) {
+  if (!user || !profile) {
     return (
       <div className="flex items-center gap-2">
         <Button variant="ghost" asChild>
@@ -59,25 +59,25 @@ export function UserButton() {
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2 outline-hidden">
         <Avatar>
-          <AvatarImage src={user?.image || undefined} />
+          <AvatarImage src={profile?.avatarUrl || undefined} />
           <AvatarFallback>
-            {user?.name ? (
-              getInitials(user.name)
+            {profile?.name ? (
+              getInitials(profile.name)
             ) : (
               <UserIcon className="w-4 h-4" />
             )}
           </AvatarFallback>
         </Avatar>
         <span className="hidden text-sm font-medium md:inline-block">
-          {user?.name || user?.email}
+          {profile?.name || profile?.email}
         </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium">{user?.name || "-"}</p>
-            {user?.email && (
-              <p className="text-xs text-muted-foreground">{user.email}</p>
+            <p className="text-sm font-medium">{profile?.name || "-"}</p>
+            {profile?.email && (
+              <p className="text-xs text-muted-foreground">{profile.email}</p>
             )}
           </div>
         </div>
@@ -102,11 +102,9 @@ export function UserButton() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/sign-out" className="cursor-pointer">
-            <LogOut className="mr-2 h-4 w-4" />
-            Sign out
-          </Link>
+        <DropdownMenuItem onClick={signOut} className="cursor-pointer">
+          <LogOut className="mr-2 h-4 w-4" />
+          Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

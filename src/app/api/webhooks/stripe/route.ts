@@ -1,5 +1,4 @@
-// COMMENTED OUT - Stripe webhook route (uncomment when Stripe is configured)
-/*
+// Stripe webhook route - enabled for Stripe integration
 import Stripe from "stripe";
 import stripe from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
@@ -130,7 +129,7 @@ class StripeWebhookHandler {
     customer: string | Stripe.Customer | Stripe.DeletedCustomer
   ): Promise<Stripe.Customer | null> {
     if (typeof customer === "string") {
-      const response = await stripe.customers.retrieve(customer);
+      const response = await stripe!.customers.retrieve(customer);
       if (response.deleted) {
         return null;
       }
@@ -235,7 +234,7 @@ class StripeWebhookHandler {
       .where(eq(users.id, user.id));
 
     // Get line items to find the plan
-    const lineItems = await stripe.checkout.sessions.listLineItems(object.id);
+    const lineItems = await stripe!.checkout.sessions.listLineItems(object.id);
 
     if (lineItems.data.length === 0) {
       throw new APIError("No line items found in checkout session");
@@ -273,7 +272,7 @@ async function handler(req: NextRequest) {
 
       try {
         const body = await req.text();
-        event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+        event = stripe!.webhooks.constructEvent(body, signature, webhookSecret);
       } catch (err) {
         console.error(`⚠️ Webhook signature verification failed.`, err);
         return NextResponse.json({
@@ -330,11 +329,5 @@ async function handler(req: NextRequest) {
   }
 }
 
-*/
-
-// Placeholder route - returns 404 when Stripe is not configured
-export const POST = async () => {
-  return new Response("Stripe webhook not configured", { status: 404 });
-};
-
+export const POST = handler;
 export const maxDuration = 20;

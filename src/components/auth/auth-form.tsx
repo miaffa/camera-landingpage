@@ -21,7 +21,12 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
 	const router = useRouter();
 	const supabase = React.useMemo(() => supabaseBrowser(), []);
 
-	const redirectTo = callbackUrl || searchParams?.get("callbackUrl") || "/app";
+	const redirectTo = callbackUrl || searchParams?.get("callbackUrl") || "/create";
+	
+	// Debug logging
+	console.log("AuthForm - redirectTo:", redirectTo);
+	console.log("AuthForm - callbackUrl:", callbackUrl);
+	console.log("AuthForm - searchParams:", searchParams?.get("callbackUrl"));
 
 	const handleGoogleSignIn = async () => {
 		setIsLoading(true);
@@ -42,19 +47,106 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
 
 	const handleEmailSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		console.log("Form submitted! Email:", email);
+		console.log("Current redirectTo:", redirectTo);
 		setIsLoading(true);
 
 		try {
-			const { error } = await supabase.auth.signInWithOtp({
-				email,
-				options: { emailRedirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}` },
-			});
-			if (error) throw error;
-			toast.success("Check your email for the login link");
-			setEmail("");
+			console.log("=== AUTHENTICATION STARTING ===");
+			// Development bypass - check if we're in development mode
+			if (process.env.NODE_ENV === 'development') {
+				console.log("Development mode: attempting authentication for", email);
+				
+				// Try to sign up directly (this will work for both new and existing users)
+				const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+					email,
+					password: 'Dev123!@#',
+					options: { 
+						emailRedirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`,
+						// Skip email confirmation in development
+						data: { skip_confirmation: true }
+					},
+				});
+
+				console.log("Sign up response:", { signUpData, signUpError });
+
+    if (signUpData.user) {
+      console.log("Sign up successful, redirecting to:", redirectTo);
+      toast.success("Account created and signed in (dev mode)");
+      setEmail("");
+      
+      // Wait for session to be stored
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Verify session is stored
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log("Session after signup:", session);
+      
+      // Check localStorage directly
+      const storedSession = localStorage.getItem('sb-bjdbcsgihtpgjrshnpeq-auth-token');
+      console.log("localStorage session after signup:", storedSession);
+      
+      // Longer delay to ensure auth state propagates
+      setTimeout(() => {
+        console.log("About to redirect to:", redirectTo);
+        // Force refresh the page to ensure auth state is loaded
+        window.location.href = redirectTo;
+      }, 1000);
+      return;
+    }
+
+				// If signup fails, try to sign in (user might already exist)
+				if (signUpError) {
+					console.log("Sign up failed, trying sign in:", signUpError.message);
+					const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+						email,
+						password: 'Dev123!@#',
+					});
+
+					if (signInData.user) {
+						console.log("Sign in successful, redirecting to:", redirectTo);
+						toast.success("Signed in successfully (dev mode)");
+						setEmail("");
+						
+						// Wait for session to be stored
+						await new Promise(resolve => setTimeout(resolve, 500));
+						
+      // Verify session is stored
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log("Session after signin:", session);
+						
+      // Check localStorage directly
+      const storedSession = localStorage.getItem('sb-bjdbcsgihtpgjrshnpeq-auth-token');
+      console.log("localStorage session after signin:", storedSession);
+						
+						// Longer delay to ensure auth state propagates
+						setTimeout(() => {
+							console.log("About to redirect to:", redirectTo);
+							// Force refresh the page to ensure auth state is loaded
+							window.location.href = redirectTo;
+						}, 1000);
+						return;
+					}
+
+					if (signInError) {
+						console.error("Both signup and signin failed:", { signUpError, signInError });
+						throw signInError;
+					}
+				}
+			} else {
+				// Production flow - use OTP
+				const { error } = await supabase.auth.signInWithOtp({
+					email,
+					options: { emailRedirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}` },
+				});
+				if (error) throw error;
+				toast.success("Check your email for the login link");
+				setEmail("");
+			}
 		} catch (error) {
-			console.error("Authentication error:", error);
+			console.error("=== AUTHENTICATION ERROR ===", error);
 			toast.error("Something went wrong");
+			// Don't redirect on error - keep user on page to see logs
 		} finally {
 			setIsLoading(false);
 		}
@@ -105,7 +197,12 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
 						className="w-full py-6"
 					/>
 				</div>
-				<Button type="submit" disabled={isLoading} className="w-full py-6">
+				<Button 
+					type="submit" 
+					disabled={isLoading} 
+					className="w-full py-6"
+					onClick={() => console.log("Button clicked!")}
+				>
 					{isLoading && <FaSpinner className="mr-2 h-4 w-4 animate-spin" />}
 					Continue with Email
 				</Button>

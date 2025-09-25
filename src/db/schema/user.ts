@@ -5,6 +5,8 @@ import {
   text,
   primaryKey,
   integer,
+  uuid,
+  decimal,
 } from "drizzle-orm/pg-core";
 
 import type { AdapterAccountType } from "next-auth/adapters";
@@ -96,3 +98,20 @@ export const authenticators = pgTable(
     }),
   ]
 );
+
+export const profiles = pgTable("profiles", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  username: text("username").unique(),
+  fullName: text("full_name"),
+  bio: text("bio"),
+  avatarUrl: text("avatar_url"),
+  phone: text("phone"),
+  location: text("location"),
+  latitude: decimal("latitude", { precision: 10, scale: 8 }),
+  longitude: decimal("longitude", { precision: 11, scale: 8 }),
+  isVerified: boolean("is_verified").default(false),
+  isOnline: boolean("is_online").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

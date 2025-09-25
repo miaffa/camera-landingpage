@@ -1,7 +1,7 @@
 -- Create posts table
 CREATE TABLE posts (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
   caption TEXT,
   location TEXT,
   image_url TEXT NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE posts (
 CREATE TABLE post_likes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id UUID NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
   UNIQUE(post_id, user_id)
 );
@@ -24,7 +24,7 @@ CREATE TABLE post_likes (
 CREATE TABLE post_comments (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id UUID NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
   content TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE post_comments (
 CREATE TABLE post_shares (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id UUID NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE post_shares (
 CREATE TABLE post_bookmarks (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   post_id UUID NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
   UNIQUE(post_id, user_id)
 );
@@ -51,7 +51,7 @@ CREATE TABLE post_bookmarks (
 -- Create gear table
 CREATE TABLE gear (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
   description TEXT,
   category TEXT NOT NULL,
@@ -86,8 +86,8 @@ CREATE TABLE post_gear (
 CREATE TABLE gear_rentals (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   gear_id UUID NOT NULL REFERENCES gear(id) ON DELETE CASCADE,
-  renter_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  owner_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  renter_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
+  owner_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE,
   start_date TIMESTAMP WITH TIME ZONE NOT NULL,
   end_date TIMESTAMP WITH TIME ZONE NOT NULL,
   total_amount DECIMAL(10,2) NOT NULL,

@@ -15,6 +15,6 @@ export const GET = async () => {
 			email: user.email ?? "",
 			name: user.user_metadata?.full_name ?? user.email ?? "",
 			image: user.user_metadata?.avatar_url ?? null,
-		} as any,
+		},
 	});
 };

@@ -14,14 +14,14 @@ import { ArrowUpRight, HelpCircle, TicketCheck } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import useCurrentPlan from "@/lib/users/useCurrentPlan";
-import useUser from "@/lib/users/useUser";
+import useUserSupabase from "@/lib/users/useUserSupabase";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function BillingSettingsPage() {
   const { currentPlan, isLoading, error } = useCurrentPlan();
-  const { user } = useUser();
+  const { user } = useUserSupabase();
   const router = useRouter();
   // Check if organization has a plan with quotas
   const plan = currentPlan;

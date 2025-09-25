@@ -16,3 +16,5 @@ export * from "./schema/name-suggestions";
 export * from "./schema/paypal";
 export * from "./schema/posts";
 export * from "./schema/gear";
+export * from "./schema/messages";
+export * from "./schema/rental";

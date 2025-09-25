@@ -1,6 +1,5 @@
 "use client";
 
-import { SessionProvider } from "next-auth/react";
 import React from "react";
 import { Toaster } from "sonner";
 import { Suspense } from "react";
@@ -13,23 +12,21 @@ function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="light"
       enableSystem
     >
       <Suspense>
-        <SessionProvider>
-          <SWRConfig value={{ fetcher }}>
-            <Next13ProgressBar
-              height="4px"
-              color="var(--primary)"
-              options={{ showSpinner: true }}
-              showOnShallow
-            />
+        <SWRConfig value={{ fetcher }}>
+          <Next13ProgressBar
+            height="4px"
+            color="var(--primary)"
+            options={{ showSpinner: true }}
+            showOnShallow
+          />
 
-            {children}
-            <Toaster position="top-center" richColors />
-          </SWRConfig>
-        </SessionProvider>
+          {children}
+          <Toaster position="top-center" richColors />
+        </SWRConfig>
       </Suspense>
     </ThemeProvider>
   );

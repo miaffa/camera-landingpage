@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, MapPin, MessageCircle, User } from "lucide-react";
+import { Home, Search, Plus, MessageCircle, User, Camera } from "lucide-react";
 
 export function BottomNavigation() {
   const pathname = usePathname();
@@ -11,20 +11,20 @@ export function BottomNavigation() {
     {
       href: "/app",
       icon: Home,
-      label: "Home",
+      label: "Feed",
       isActive: pathname === "/app"
     },
     {
-      href: "/search",
+      href: "/marketplace",
       icon: Search,
       label: "Search",
-      isActive: pathname === "/search"
+      isActive: pathname === "/marketplace"
     },
     {
-      href: "/map",
-      icon: MapPin,
-      label: "Map",
-      isActive: pathname === "/map"
+      href: "/create",
+      icon: Plus,
+      label: "Create",
+      isActive: pathname === "/create"
     },
     {
       href: "/messages",
@@ -41,22 +41,22 @@ export function BottomNavigation() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-blue-600 border-t border-blue-700">
-      <div className="flex items-center justify-around py-2">
+    <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border z-50">
+      <div className="flex items-center justify-around py-2 px-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex flex-col items-center justify-center py-2 px-3 min-w-0 flex-1 ${
+              className={`flex flex-col items-center justify-center py-2 px-3 min-w-0 flex-1 rounded-lg transition-colors ${
                 item.isActive
-                  ? "text-white"
-                  : "text-blue-200 hover:text-white transition-colors"
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
               }`}
             >
-              <Icon className={`w-6 h-6 ${item.isActive ? "text-white" : "text-blue-200"}`} />
-              <span className="text-xs mt-1 truncate">{item.label}</span>
+              <Icon className={`w-5 h-5 ${item.isActive ? "text-primary" : "text-muted-foreground"}`} />
+              <span className="text-xs mt-1 truncate font-medium">{item.label}</span>
             </Link>
           );
         })}

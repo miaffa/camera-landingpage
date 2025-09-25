@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev --turbopack\" \"inngest-cli dev -p 8288\" \"npx react-email dev --dir ./src/emails --port 3001\"",
+    "dev": "concurrently \"next dev --turbopack -H 0.0.0.0\" \"inngest-cli dev -p 8288\" \"npx react-email dev --dir ./src/emails --port 3001\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -49,6 +49,7 @@
     "@react-email/container": "^0.0.15",
     "@react-email/html": "^0.0.11",
     "@react-email/text": "^0.1.4",
+    "@stripe/stripe-js": "^7.9.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.57.4",
     "@types/papaparse": "^5.3.15",
@@ -121,6 +122,7 @@
     "postcss-load-config": "^6.0.1",
     "prettier": "^3.3.3",
     "react-email": "^4.0.16",
+    "supabase": "^2.45.5",
     "tailwindcss": "^4.1.12",
     "tsx": "^4.19.4",
     "tw-animate-css": "^1.3.5",
@@ -131,6 +133,9 @@
       "esbuild",
       "inngest-cli",
       "sharp"
+    ],
+    "onlyBuiltDependencies": [
+      "supabase"
     ]
   }
 }
