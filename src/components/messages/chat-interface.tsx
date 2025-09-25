@@ -1,52 +1,52 @@
 "use client";
 
-import { useState } from 'react';
+// import { useState } from 'react'; // TODO: Implement state management
 import { ArrowLeft, Phone, MoreVertical, Camera, Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 
 // Sample data matching the second image
-const sampleConversation = {
-  id: '1',
-  participant: {
-    name: 'Alex Rivera',
-    avatar: '/placeholder.svg',
-    initials: 'A',
-    online: true
-  },
-  rentalRequest: {
-    gearName: 'Canon EOS R5',
-    image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=200&h=150&fit=crop&crop=center',
-    status: 'approved',
-    date: '9/25/2025',
-    location: 'Downtown Coffee Shop',
-    price: '$225'
-  },
-  messages: [
-    {
-      id: '1',
-      text: 'Hi! Your rental request has been approved.',
-      timestamp: '08:52 AM',
-      isOwn: false
-    },
-    {
-      id: '2',
-      text: 'Great! When can I pick it up?',
-      timestamp: '09:22 AM',
-      isOwn: true
-    },
-    {
-      id: '3',
-      text: 'Canon R5 pickup confirmed',
-      timestamp: '09:50 AM',
-      isOwn: false
-    }
-  ]
-};
+// const sampleConversation = {
+//   id: '1',
+//   participant: {
+//     name: 'Alex Rivera',
+//     avatar: '/placeholder.svg',
+//     initials: 'A',
+//     online: true
+//   },
+//   rentalRequest: {
+//     gearName: 'Canon EOS R5',
+//     image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=200&h=150&fit=crop&crop=center',
+//     status: 'approved',
+//     date: '9/25/2025',
+//     location: 'Downtown Coffee Shop',
+//     price: '$225'
+//   },
+//   messages: [
+//     {
+//       id: '1',
+//       text: 'Hi! Your rental request has been approved.',
+//       timestamp: '08:52 AM',
+//       isOwn: false
+//     },
+//     {
+//       id: '2',
+//       text: 'Great! When can I pick it up?',
+//       timestamp: '09:22 AM',
+//       isOwn: true
+//     },
+//     {
+//       id: '3',
+//       text: 'Canon R5 pickup confirmed',
+//       timestamp: '09:50 AM',
+//       isOwn: false
+//     }
+//   ]
+// };
 
 interface ChatInterfaceProps {
-  conversation: typeof sampleConversation;
+  conversation: unknown; // TODO: Define proper conversation type
   onBack: () => void;
 }
 

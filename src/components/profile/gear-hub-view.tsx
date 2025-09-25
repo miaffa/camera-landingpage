@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { Camera, Plus, Edit, Trash2, Eye, Star, MapPin, Calendar } from 'lucide-react';
+// import { useState } from 'react'; // TODO: Implement state management
+import { Camera, Plus, Edit, Trash2, Eye, Star, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 
 // Sample gear data
 const sampleGear = [
@@ -54,7 +54,7 @@ const statusColors = {
 };
 
 export default function GearHubView() {
-  const [selectedGear, setSelectedGear] = useState<string | null>(null);
+  // const [selectedGear, setSelectedGear] = useState<string | null>(null); // TODO: Implement gear selection
 
   return (
     <div className="px-4 pb-20">

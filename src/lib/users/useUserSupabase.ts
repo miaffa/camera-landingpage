@@ -87,7 +87,7 @@ export default function useUserSupabase(): UseUserSupabaseReturn {
     );
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [fetchUser, supabase.auth]);
 
   return { user, isLoading, error, mutate };
 }

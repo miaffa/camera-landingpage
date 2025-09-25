@@ -1,13 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar, MapPin, CreditCard, Clock, User, Shield } from 'lucide-react';
+import { Calendar, MapPin, Shield } from 'lucide-react';
 import StripePayment from '@/components/payments/stripe-payment';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
@@ -40,7 +39,7 @@ interface RentalRequestModalProps {
   isOpen: boolean;
   onClose: () => void;
   gear: GearItem;
-  onRequestSent: (request: any) => void;
+  onRequestSent: (request: unknown) => void;
 }
 
 export default function RentalRequestModal({
@@ -51,13 +50,13 @@ export default function RentalRequestModal({
 }: RentalRequestModalProps) {
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
-  const [pickupLocation, setPickupLocation] = useState(gear.location.address);
+  const [pickupLocation] = useState(gear.location.address);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryRequested, setDeliveryRequested] = useState(false);
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
-  const [rentalRequest, setRentalRequest] = useState<any>(null);
+  const [rentalRequest, setRentalRequest] = useState<unknown>(null);
 
   const calculateTotal = () => {
     if (!startDate || !endDate) return 0;
@@ -136,11 +135,11 @@ export default function RentalRequestModal({
             </div>
             <StripePayment
               rentalRequest={{
-                id: rentalRequest.id,
+                id: (rentalRequest as { id?: string }).id || '',
                 gearName: gear.name,
-                totalCost: rentalRequest.totalCost,
-                startDate: rentalRequest.startDate,
-                endDate: rentalRequest.endDate,
+                totalCost: (rentalRequest as { totalCost?: number }).totalCost || 0,
+                startDate: (rentalRequest as { startDate?: string }).startDate || '',
+                endDate: (rentalRequest as { endDate?: string }).endDate || '',
                 ownerName: gear.owner.name,
               }}
               onSuccess={() => {

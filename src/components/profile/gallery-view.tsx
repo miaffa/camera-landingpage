@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid, Heart, MessageCircle, Share2, Plus } from 'lucide-react';
+import { Grid, Heart, MessageCircle, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Sample gallery data - only posts

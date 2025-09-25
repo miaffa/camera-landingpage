@@ -188,7 +188,7 @@ export default function SearchPage() {
     setSelectedGear(gearItem);
   };
 
-  const handleRequestSent = (request: any) => {
+  const handleRequestSent = (request: unknown) => {
     console.log('Rental request sent:', request);
     setSelectedGear(null);
   };

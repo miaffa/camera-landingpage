@@ -16,7 +16,8 @@ export function createMockSession() {
       stats: mockUser.stats,
       plan: mockUser.plan,
       joinedDate: mockUser.joinedDate
-    }
+    },
+    expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days from now
   };
 }
 

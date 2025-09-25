@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Bookmark, Heart, MessageCircle, Share2, MapPin, Calendar, Star, Filter } from 'lucide-react';
+import { Bookmark, Heart, MessageCircle, Share2, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';

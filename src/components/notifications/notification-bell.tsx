@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Bell, Check, X, MessageCircle, Heart, UserPlus, CreditCard, AlertCircle } from 'lucide-react';
+import { Bell, Check, MessageCircle, Heart, UserPlus, CreditCard, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+// import { Card, CardContent } from '@/components/ui/card'; // TODO: Implement card functionality
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { useUnreadCount } from '@/hooks/useMessages';
+// import { useUnreadCount } from '@/hooks/useMessages'; // TODO: Implement unread count functionality
 
 interface Notification {
   id: string;
@@ -28,7 +28,7 @@ interface Notification {
 export default function NotificationBell() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
-  const { unreadCount } = useUnreadCount();
+  // const { unreadCount } = useUnreadCount(); // TODO: Implement unread count functionality
 
   // Sample notifications
   useEffect(() => {
@@ -118,19 +118,19 @@ export default function NotificationBell() {
     }
   };
 
-  const getNotificationColor = (type: string) => {
-    switch (type) {
-      case 'like': return 'bg-red-50 border-red-200';
-      case 'comment': return 'bg-blue-50 border-blue-200';
-      case 'follow': return 'bg-green-50 border-green-200';
-      case 'rental_request': return 'bg-orange-50 border-orange-200';
-      case 'rental_approved': return 'bg-green-50 border-green-200';
-      case 'rental_completed': return 'bg-blue-50 border-blue-200';
-      case 'payment': return 'bg-green-50 border-green-200';
-      case 'system': return 'bg-gray-50 border-gray-200';
-      default: return 'bg-gray-50 border-gray-200';
-    }
-  };
+  // const getNotificationColor = (type: string) => {
+//     switch (type) {
+//       case 'like': return 'bg-red-50 border-red-200';
+//       case 'comment': return 'bg-blue-50 border-blue-200';
+//       case 'follow': return 'bg-green-50 border-green-200';
+//       case 'rental_request': return 'bg-orange-50 border-orange-200';
+//       case 'rental_approved': return 'bg-green-50 border-green-200';
+//       case 'rental_completed': return 'bg-blue-50 border-blue-200';
+//       case 'payment': return 'bg-green-50 border-green-200';
+//       case 'system': return 'bg-gray-50 border-gray-200';
+//       default: return 'bg-gray-50 border-gray-200';
+//     }
+//   };
 
   const formatTimeAgo = (timestamp: string) => {
     const now = new Date();

@@ -24,7 +24,7 @@ export const useAuth = () => {
     setIsLoading(false);
   }, []);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string) => {
     // Mock sign in
     console.log('Signing in with:', email);
     return { success: true };

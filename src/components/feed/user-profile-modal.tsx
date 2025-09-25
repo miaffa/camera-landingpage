@@ -59,7 +59,7 @@ export default function UserProfileModal({ user, onClose }: UserProfileModalProp
     if (user.userId) {
       loadUserProfile();
     }
-  }, [user.userId]);
+  }, [user.userId, loadUserProfile]);
 
   const loadUserProfile = async () => {
     setIsLoading(true);

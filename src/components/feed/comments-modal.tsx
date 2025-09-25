@@ -41,7 +41,7 @@ export default function CommentsModal({ postId, isOpen, onClose, onUserClick }: 
     if (isOpen && postId) {
       loadComments();
     }
-  }, [isOpen, postId]);
+  }, [isOpen, postId, loadComments]);
 
   // Scroll to bottom when new comments are added
   useEffect(() => {

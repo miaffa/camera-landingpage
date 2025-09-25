@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,7 +18,7 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const [email, setEmail] = React.useState<string>("");
 	const searchParams = useSearchParams();
-	const router = useRouter();
+	// const router = useRouter(); // TODO: Implement router functionality
 	const supabase = React.useMemo(() => supabaseBrowser(), []);
 
 	const redirectTo = callbackUrl || searchParams?.get("callbackUrl") || "/create";
@@ -31,7 +31,7 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
 	const handleGoogleSignIn = async () => {
 		setIsLoading(true);
 		try {
-			const { data, error } = await supabase.auth.signInWithOAuth({
+			const { error } = await supabase.auth.signInWithOAuth({
 				provider: "google",
 				options: { redirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}` },
 			});

@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import postgres from "postgres";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     console.log('DATABASE_URL:', process.env.DATABASE_URL);
     
@@ -18,10 +18,10 @@ export async function GET(request: NextRequest) {
       count: result[0].count,
       databaseUrl: process.env.DATABASE_URL ? 'set' : 'not set'
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error in test API:", error);
     return NextResponse.json(
-      { error: "Test failed", details: error.message },
+      { error: "Test failed", details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

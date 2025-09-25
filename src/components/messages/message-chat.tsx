@@ -64,7 +64,7 @@ export default function MessageChat({
   currentUserId
 }: MessageChatProps) {
   const [messageText, setMessageText] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  // const [isTyping, setIsTyping] = useState(false); // TODO: Implement typing indicator
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -122,7 +122,7 @@ export default function MessageChat({
     }
   };
 
-  const getRentalActionButtons = (rentalRequest: any) => {
+  const getRentalActionButtons = (rentalRequest: { status: string }) => {
     switch (rentalRequest.status) {
       case 'pending':
         return (

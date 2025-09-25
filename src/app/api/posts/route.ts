@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     if (BYPASS_AUTH && (!session?.user?.id)) {
       console.log("🚀 Posts API - Creating mock session");
       // Create a mock session for development
-      session = createMockSession() as any;
+      session = createMockSession();
     }
     
     console.log("🚀 Posts API - Current session:", session);
@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
       id: newPost.id,
       message: "Post created successfully",
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error creating post:", error);
     if (error instanceof z.ZodError) {
       return NextResponse.json(

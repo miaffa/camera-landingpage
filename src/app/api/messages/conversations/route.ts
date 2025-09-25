@@ -6,7 +6,7 @@ import { rentalRequests } from '@/db/schema/rental';
 import { eq, desc, and, or } from 'drizzle-orm';
 import { requireUser } from '@/lib/auth/requireUser';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const user = await requireUser();
     
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       .orderBy(desc(conversations.updatedAt));
 
     return NextResponse.json(userConversations);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error fetching conversations:', error);
     return NextResponse.json(
       { error: 'Failed to fetch conversations' },
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
       .returning();
 
     return NextResponse.json(newConversation[0]);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating conversation:', error);
     return NextResponse.json(
       { error: 'Failed to create conversation' },

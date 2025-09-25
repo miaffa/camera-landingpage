@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { Camera, X, MapPin, Tag, Send, Upload, User, ArrowLeft, Check, ChevronLeft, ChevronRight, Grid3x3 } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Camera, X, MapPin, Tag, Upload, User, ArrowLeft, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -53,11 +53,11 @@ export default function PostCreation() {
   const [imageGear, setImageGear] = useState<Record<number, string[]>>({});
   
   // UI state
-  const [isUploading, setIsUploading] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [showTagPeopleModal, setShowTagPeopleModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [showLocationSearch, setShowLocationSearch] = useState(false);
+  // const [isUploading, setIsUploading] = useState(false); // TODO: Implement upload functionality
+  // const [showLocationSearch, setShowLocationSearch] = useState(false); // TODO: Implement location search
 
   // Fetch gear data
   const { data: gearData } = useSWR('/api/gear');

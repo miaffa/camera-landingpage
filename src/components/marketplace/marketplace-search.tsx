@@ -42,26 +42,26 @@ interface GearResponse {
 }
 
 // Sample data matching the image - Sigma lenses
-const sampleGear = [
-  {
-    id: '1',
-    name: 'Sigma 70-200 f/2.8',
-    subtitle: 'Sigma 70-200 f/2.8',
-    price: 40,
-    rating: 4.5,
-    image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop&crop=center',
-    available: true
-  },
-  {
-    id: '2',
-    name: 'Sigma 24-70 f/2.8',
-    subtitle: 'Sigma 24-70 f/2.8',
-    price: 35,
-    rating: 4.5,
-    image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop&crop=center',
-    available: true
-  }
-];
+// const sampleGear = [
+//   {
+//     id: '1',
+//     name: 'Sigma 70-200 f/2.8',
+//     subtitle: 'Sigma 70-200 f/2.8',
+//     price: 40,
+//     rating: 4.5,
+//     image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop&crop=center',
+//     available: true
+//   },
+//   {
+//     id: '2',
+//     name: 'Sigma 24-70 f/2.8',
+//     subtitle: 'Sigma 24-70 f/2.8',
+//     price: 35,
+//     rating: 4.5,
+//     image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400&h=300&fit=crop&crop=center',
+//     available: true
+//   }
+// ];
 
 // Header Component
 function MarketplaceHeader() {

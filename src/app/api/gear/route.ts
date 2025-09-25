@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     let session = await auth();
     if (BYPASS_AUTH && !session?.user?.id) {
       // Create a comprehensive mock session for development
-      session = createMockSession() as any;
+      session = createMockSession();
     }
     
     if (!session?.user?.id) {
@@ -119,7 +119,7 @@ export async function GET(request: NextRequest) {
         hasMore: gearList.length === limit,
       },
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error fetching gear:", error);
     return NextResponse.json(
       { error: "Failed to fetch gear" },
@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
     let session = await auth();
     if (BYPASS_AUTH && !session?.user?.id) {
       // Create a comprehensive mock session for development
-      session = createMockSession() as any;
+      session = createMockSession();
     }
     
     if (!session?.user?.id) {
@@ -185,7 +185,7 @@ export async function POST(request: NextRequest) {
       id: result[0].id,
       message: "Gear created successfully",
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error creating gear:", error);
     if (error instanceof z.ZodError) {
       return NextResponse.json(

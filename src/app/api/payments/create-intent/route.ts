@@ -47,12 +47,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Create or get Stripe customer
-    let customerId = (user as any).stripeCustomerId;
+    let customerId = (user as { stripeCustomerId?: string }).stripeCustomerId;
     
     if (!customerId) {
       const customer = await stripe.customers.create({
         email: user.email,
-        name: (user as any).name || user.email,
+        name: (user as { name?: string }).name || user.email,
         metadata: {
           userId: user.id,
         },
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating payment intent:', error);
     return NextResponse.json(
       { error: 'Failed to create payment intent' },

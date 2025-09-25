@@ -13,7 +13,7 @@ interface GearLocation {
   id: string;
   name: string;
   price: number;
-  image: string;
+  images: string[];
   category: string;
   condition: string;
   owner: {
@@ -32,12 +32,13 @@ interface GearLocation {
   };
   distance: number;
   isAvailable: boolean;
+  availability: string[];
 }
 
 export default function MapPage() {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map] = useState<unknown>(null);
-  const [markers] = useState<unknown[]>([]);
+  // const [markers] = useState<unknown[]>([]); // TODO: Implement map markers
   const [selectedGear, setSelectedGear] = useState<GearLocation | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -50,7 +51,7 @@ export default function MapPage() {
         id: '1',
         name: 'Canon EOS R5',
         price: 150,
-        image: 'https://images.unsplash.com/photo-1510125594112-y6937f649492?w=400&h=300&fit=crop',
+        images: ['https://images.unsplash.com/photo-1510125594112-y6937f649492?w=400&h=300&fit=crop'],
         category: 'cameras',
         condition: 'excellent',
         owner: {
@@ -69,12 +70,13 @@ export default function MapPage() {
         },
         distance: 2.5,
         isAvailable: true,
+        availability: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'],
       },
       {
         id: '2',
         name: 'Sony 24-70mm f/2.8 GM',
         price: 75,
-        image: 'https://images.unsplash.com/photo-1516035069371-89a142294198?w=400&h=300&fit=crop',
+        images: ['https://images.unsplash.com/photo-1516035069371-89a142294198?w=400&h=300&fit=crop'],
         category: 'lenses',
         condition: 'excellent',
         owner: {
@@ -93,12 +95,13 @@ export default function MapPage() {
         },
         distance: 5.2,
         isAvailable: true,
+        availability: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'],
       },
       {
         id: '3',
         name: 'DJI Mavic Air 2',
         price: 100,
-        image: 'https://images.unsplash.com/photo-1507646871106-f5978cd457d6?w=400&h=300&fit=crop',
+        images: ['https://images.unsplash.com/photo-1507646871106-f5978cd457d6?w=400&h=300&fit=crop'],
         category: 'drones',
         condition: 'good',
         owner: {
@@ -117,6 +120,7 @@ export default function MapPage() {
         },
         distance: 8.7,
         isAvailable: true,
+        availability: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
       },
     ];
 
@@ -265,7 +269,7 @@ export default function MapPage() {
                   <CardContent className="p-3">
                     <div className="flex gap-3">
                       <img
-                        src={gear.image}
+                        src={gear.images[0]}
                         alt={gear.name}
                         className="w-16 h-16 object-cover rounded-lg"
                       />

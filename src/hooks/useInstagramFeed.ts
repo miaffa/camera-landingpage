@@ -55,7 +55,7 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
   const supabase = supabaseBrowser();
 
   // Create a stable key for SWR
-  const getKey = (pageIndex: number, previousPageData: any) => {
+  const getKey = (pageIndex: number, previousPageData: unknown) => {
     // If we've reached the end, return null
     if (previousPageData && (!previousPageData.data || previousPageData.data.length === 0)) {
       return null;
@@ -70,7 +70,7 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
     try {
       console.log('Fetching posts with key:', key);
       
-      const [_, pageIndex, locationStr] = key.split('-');
+      const [, pageIndex] = key.split('-');
       const page = parseInt(pageIndex);
       const offset = page * POSTS_PER_PAGE;
 
@@ -182,7 +182,7 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
       }
 
       // Production mode - use Supabase
-      let query = supabase
+      const query = supabase
         .from('posts')
         .select(`
           id,

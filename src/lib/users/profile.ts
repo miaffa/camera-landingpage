@@ -10,7 +10,7 @@ export interface UserProfile {
   updatedAt: Date;
 }
 
-export async function createOrUpdateUserProfile(supabaseUser: any): Promise<UserProfile | null> {
+export async function createOrUpdateUserProfile(supabaseUser: unknown): Promise<UserProfile | null> {
   try {
     const response = await fetch('/api/auth/profile', {
       method: 'POST',

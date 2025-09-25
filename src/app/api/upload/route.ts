@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     if (BYPASS_AUTH && (!session?.user?.id)) {
       console.log("🚀 Upload API - Creating mock session");
       // Create a mock session for development
-      session = createMockSession() as any;
+      session = createMockSession();
     }
     
     console.log("🚀 Upload API - Current session:", session);
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
       size: file.size,
       type: file.type,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error uploading file:", error);
     return NextResponse.json(
       { error: "Failed to upload file" },

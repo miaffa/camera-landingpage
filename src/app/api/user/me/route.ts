@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { createMockSession, getMockUserData } from "@/lib/mock-session";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Development bypass - set to true to disable authentication
     const BYPASS_AUTH = true;
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     let session = await auth();
     if (BYPASS_AUTH && !session?.user?.id) {
       // Create a comprehensive mock session for development
-      session = createMockSession() as any;
+      session = createMockSession();
     }
     
     if (!session?.user?.id) {
@@ -23,10 +23,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       user: userData
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching user profile:", error);
     return NextResponse.json(
-      { error: "Failed to fetch user profile", details: error?.message },
+      { error: "Failed to fetch user profile", details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

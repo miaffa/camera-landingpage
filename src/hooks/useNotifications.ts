@@ -10,7 +10,7 @@ interface Notification {
   message: string;
   is_read: boolean;
   created_at: string;
-  data?: any; // Additional data specific to notification type
+  data?: unknown; // Additional data specific to notification type
 }
 
 interface UseNotificationsReturn {
@@ -154,7 +154,7 @@ export function useNotifications(): UseNotificationsReturn {
   // Load notifications on mount
   useEffect(() => {
     loadNotifications();
-  }, []);
+  }, [loadNotifications]);
 
   // Calculate unread count
   const unreadCount = notifications.filter(notification => !notification.is_read).length;

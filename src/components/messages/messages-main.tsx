@@ -47,7 +47,7 @@ export default function MessagesMain() {
   const [currentView, setCurrentView] = useState<'inbox' | 'chat'>('inbox');
   const [selectedConversation, setSelectedConversation] = useState<typeof sampleConversation | null>(null);
 
-  const handleConversationSelect = (conversation: any) => {
+  const handleConversationSelect = (conversation: unknown) => {
     // Map the inbox conversation to the chat conversation format
     const chatConversation = {
       ...sampleConversation,

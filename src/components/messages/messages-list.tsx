@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { MessageCircle, Clock, Check, CheckCheck } from 'lucide-react';
+// import { useState, useEffect } from 'react'; // TODO: Implement state management
+import { MessageCircle, Check, CheckCheck } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button'; // TODO: Implement button functionality
 import { Card, CardContent } from '@/components/ui/card';
 
 interface Conversation {

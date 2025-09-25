@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     let session = await auth();
     if (BYPASS_AUTH && !session?.user?.id) {
       // Create a comprehensive mock session for development
-      session = createMockSession() as any;
+      session = createMockSession();
     }
     
     if (!session?.user?.id) {
@@ -84,12 +84,12 @@ export async function GET(request: NextRequest) {
         hasMore: feedPosts.length === limit,
       },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching feed:", error);
-    console.error("Error details:", error?.message);
-    console.error("Error stack:", error?.stack);
+    console.error("Error details:", error instanceof Error ? error.message : 'Unknown error');
+    console.error("Error stack:", error instanceof Error ? error.stack : 'No stack trace');
     return NextResponse.json(
-      { error: "Failed to fetch feed", details: error?.message },
+      { error: "Failed to fetch feed", details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

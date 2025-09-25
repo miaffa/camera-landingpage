@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from 'react';
-import { Settings, Camera, Star, Grid, Bookmark, MapPin, Share2, Plus } from 'lucide-react';
+import { Settings, Camera, Star, Grid, Bookmark, MapPin, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge'; // TODO: Implement badge functionality
 import useSWR from 'swr';
 import GearHubView from './gear-hub-view';
 import GalleryView from './gallery-view';

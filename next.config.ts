@@ -18,9 +18,7 @@ const nextConfig: NextConfig = {
     ],
   },
   // Enable access from other devices on the network
-  experimental: {
-    serverComponentsExternalPackages: [],
-  },
+  serverExternalPackages: [],
   // PWA Configuration
   async headers() {
     return [

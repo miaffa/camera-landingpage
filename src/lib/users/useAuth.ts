@@ -118,7 +118,7 @@ export function useAuth(): UseAuthReturn {
     );
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [supabase.auth]);
 
   return { user, profile, isLoading, error, signOut };
 }

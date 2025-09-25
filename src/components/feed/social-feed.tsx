@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Plus, Bell, MapPin, Heart, MessageCircle, Share, Bookmark, Home, Search, User } from 'lucide-react';
+import { Plus, Bell, MapPin, Heart, MessageCircle, Share, Bookmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import useSWR from 'swr';

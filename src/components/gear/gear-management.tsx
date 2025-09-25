@@ -1,18 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Eye, EyeOff, Calendar, MapPin, DollarSign, Star, Camera, Filter } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, EyeOff, DollarSign, Star, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
-import { Calendar as CalendarComponent } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { format } from 'date-fns';
 
 interface GearItem {
   id: string;
@@ -28,7 +23,7 @@ interface GearItem {
     lat: number;
     lng: number;
   };
-  specifications: Record<string, any>;
+  specifications: Record<string, unknown>;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -71,8 +66,8 @@ export default function GearManagement() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedGear, setSelectedGear] = useState<GearItem | null>(null);
-  const [showAddModal, setShowAddModal] = useState(false);
+  // const [selectedGear, setSelectedGear] = useState<GearItem | null>(null); // TODO: Implement gear selection
+  // const [showAddModal, setShowAddModal] = useState(false); // TODO: Implement add modal
 
   // Sample gear data
   useEffect(() => {
@@ -146,7 +141,7 @@ export default function GearManagement() {
 
   // Filter and sort gear
   useEffect(() => {
-    let filtered = gear.filter(item => {
+    const filtered = gear.filter(item => {
       const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            item.description.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = categoryFilter === 'all' || item.category === categoryFilter;
@@ -219,7 +214,7 @@ export default function GearManagement() {
           <h2 className="text-2xl font-bold text-black">Gear Management</h2>
           <p className="text-gray-600">Manage your rental equipment</p>
         </div>
-        <Button onClick={() => setShowAddModal(true)} className="bg-blue-500 hover:bg-blue-600 text-white">
+        <Button onClick={() => console.log('Add gear clicked')} className="bg-blue-500 hover:bg-blue-600 text-white">
           <Plus className="w-4 h-4 mr-2" />
           Add Gear
         </Button>
@@ -382,7 +377,7 @@ export default function GearManagement() {
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={() => setSelectedGear(item)}
+                    onClick={() => console.log('Edit gear clicked:', item.id)}
                   >
                     <Edit className="w-4 h-4" />
                   </Button>
@@ -434,7 +429,7 @@ export default function GearManagement() {
           <Camera className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-600 mb-2">No gear found</h3>
           <p className="text-gray-500 mb-4">Try adjusting your search criteria or add new gear</p>
-          <Button onClick={() => setShowAddModal(true)} className="bg-blue-500 hover:bg-blue-600 text-white">
+          <Button onClick={() => console.log('Add first gear clicked')} className="bg-blue-500 hover:bg-blue-600 text-white">
             <Plus className="w-4 h-4 mr-2" />
             Add Your First Gear
           </Button>
