@@ -1,6 +1,7 @@
 'use client';
 
 // import { useState } from 'react'; // TODO: Implement state management
+import Image from 'next/image';
 import { Camera, Plus, Edit, Trash2, Eye, Star, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -93,11 +94,12 @@ export default function GearHubView() {
             <CardContent className="p-0">
               <div className="flex">
                 {/* Image */}
-                <div className="w-24 h-24 bg-gray-100">
-                  <img
+                <div className="w-24 h-24 bg-gray-100 relative">
+                  <Image
                     src={gear.image}
                     alt={gear.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 

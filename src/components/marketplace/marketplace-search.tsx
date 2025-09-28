@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Search, Filter, Camera, User, MapPin, MessageCircle, Bookmark, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -199,11 +200,12 @@ function ProductCard({ gear }: { gear: Gear }) {
 
       {/* Product Image */}
       <div className="px-3 pb-3">
-        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-          <img
+        <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
+          <Image
             src={gear.images && gear.images.length > 0 ? gear.images[0] : '/placeholder.svg'}
             alt={gear.name}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         </div>
       </div>

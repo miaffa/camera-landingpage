@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Heart, MessageCircle, Share, Bookmark, MoreHorizontal, MapPin, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -112,11 +113,12 @@ export default function InstagramPost({ post, onCommentsClick, onUserClick }: In
       </div>
 
       {/* Image */}
-      <div className="relative">
-        <img
+      <div className="relative aspect-square">
+        <Image
           src={post.imageUrl}
           alt={post.imageAlt || 'Post image'}
-          className="w-full aspect-square object-cover"
+          fill
+          className="object-cover"
         />
         
         {/* Gear overlay - show if gear is available for rent */}

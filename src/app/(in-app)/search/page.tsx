@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Search, MapPin, Star, Camera, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -366,11 +367,14 @@ export default function SearchPage() {
                 >
                   <CardContent className="p-4">
                     <div className={viewMode === 'grid' ? '' : 'flex gap-4'}>
-                      <img
-                        src={item.images[0]}
-                        alt={item.name}
-                        className={viewMode === 'grid' ? 'w-full h-48 object-cover rounded-lg mb-4' : 'w-24 h-24 object-cover rounded-lg'}
-                      />
+                      <div className={viewMode === 'grid' ? 'relative w-full h-48 mb-4' : 'relative w-24 h-24'}>
+                        <Image
+                          src={item.images[0]}
+                          alt={item.name}
+                          fill
+                          className="object-cover rounded-lg"
+                        />
+                      </div>
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-2">
                           <h3 className="font-semibold text-black">{item.name}</h3>

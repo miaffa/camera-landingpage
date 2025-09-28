@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Send, Image, Paperclip, Smile, MoreVertical, Phone, Video } from 'lucide-react';
+import Image from 'next/image';
+import { Send, Image as ImageIcon, Paperclip, Smile, MoreVertical, Phone, Video } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -292,11 +293,15 @@ export default function MessageChat({
                     {message.text && <p className="text-sm">{message.text}</p>}
                     
                     {message.imageUrl && (
-                      <img
-                        src={message.imageUrl}
-                        alt="Message attachment"
-                        className="mt-2 rounded-lg max-w-full h-auto"
-                      />
+                      <div className="mt-2 relative max-w-full">
+                        <Image
+                          src={message.imageUrl}
+                          alt="Message attachment"
+                          width={400}
+                          height={300}
+                          className="rounded-lg max-w-full h-auto"
+                        />
+                      </div>
                     )}
                     
                     {message.fileUrl && (
@@ -359,7 +364,7 @@ export default function MessageChat({
               variant="outline"
               onClick={() => imageInputRef.current?.click()}
             >
-              <Image className="w-4 h-4" />
+              <ImageIcon className="w-4 h-4" />
             </Button>
             
             <Button

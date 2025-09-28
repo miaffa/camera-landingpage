@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { X, MapPin, Camera, MessageCircle, Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -305,11 +306,12 @@ export default function UserProfileModal({ user, onClose }: UserProfileModalProp
               <h3 className="font-semibold">Recent Posts</h3>
               <div className="grid grid-cols-2 gap-2">
                 {profile.recent_posts.map((post) => (
-                  <div key={post.id} className="aspect-square bg-gray-200 rounded-lg overflow-hidden">
-                    <img
+                  <div key={post.id} className="aspect-square bg-gray-200 rounded-lg overflow-hidden relative">
+                    <Image
                       src={post.imageUrl}
                       alt={post.caption || 'Post'}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                 ))}

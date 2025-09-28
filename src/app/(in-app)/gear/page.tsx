@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Plus, Edit, Trash2, Eye, Calendar, DollarSign, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -227,11 +228,12 @@ export default function GearManagementPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredGear.map((item) => (
               <Card key={item.id} className="overflow-hidden">
-                <div className="aspect-square bg-muted">
-                  <img
+                <div className="aspect-square bg-muted relative">
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 <CardHeader className="pb-2">

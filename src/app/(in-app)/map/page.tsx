@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { MapPin, Search, Filter, Navigation, ZoomIn, ZoomOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -268,11 +269,14 @@ export default function MapPage() {
                 >
                   <CardContent className="p-3">
                     <div className="flex gap-3">
-                      <img
-                        src={gear.images[0]}
-                        alt={gear.name}
-                        className="w-16 h-16 object-cover rounded-lg"
-                      />
+                      <div className="relative w-16 h-16">
+                        <Image
+                          src={gear.images[0]}
+                          alt={gear.name}
+                          fill
+                          className="object-cover rounded-lg"
+                        />
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between mb-1">
                           <h4 className="font-medium text-black truncate">{gear.name}</h4>

@@ -1,6 +1,7 @@
 "use client";
 
 // import { useState } from 'react'; // TODO: Implement state management
+import Image from 'next/image';
 import { ArrowLeft, Phone, MoreVertical, Camera, Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -120,11 +121,12 @@ function RentalRequestCard({ rentalRequest }: { rentalRequest: Conversation['ren
   return (
     <div className="mx-4 my-4 bg-gray-100 rounded-lg p-4">
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-12 h-12 bg-white rounded-lg overflow-hidden">
-          <img
-            src={rentalRequest?.image}
-            alt={rentalRequest?.gearName}
-            className="w-full h-full object-cover"
+        <div className="w-12 h-12 bg-white rounded-lg overflow-hidden relative">
+          <Image
+            src={rentalRequest?.image || '/placeholder.svg'}
+            alt={rentalRequest?.gearName || 'Gear image'}
+            fill
+            className="object-cover"
           />
         </div>
         

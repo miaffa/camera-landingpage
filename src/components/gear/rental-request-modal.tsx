@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Calendar, MapPin, Shield } from 'lucide-react';
 import StripePayment from '@/components/payments/stripe-payment';
 import { Button } from '@/components/ui/button';
@@ -173,11 +174,14 @@ export default function RentalRequestModal({
           <Card className="mb-6">
             <CardContent className="p-4">
               <div className="flex gap-4">
-                <img
-                  src={gear.images[0]}
-                  alt={gear.name}
-                  className="w-20 h-20 object-cover rounded-lg"
-                />
+                <div className="relative w-20 h-20">
+                  <Image
+                    src={gear.images[0]}
+                    alt={gear.name}
+                    fill
+                    className="object-cover rounded-lg"
+                  />
+                </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-black">{gear.name}</h3>
                   <p className="text-2xl font-bold text-black">${gear.price}/day</p>

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Grid, Heart, MessageCircle, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -70,10 +71,11 @@ export default function GalleryView() {
       <div className="grid grid-cols-3 gap-1">
         {sampleGallery.map((item) => (
           <div key={item.id} className="aspect-square bg-gray-100 overflow-hidden relative group">
-            <img
+            <Image
               src={item.image}
               alt={item.caption}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-200 flex items-center justify-center">
               <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex gap-2">

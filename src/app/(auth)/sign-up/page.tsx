@@ -1,3 +1,6 @@
+// Force dynamic rendering to avoid Supabase client issues during static generation
+export const dynamic = 'force-dynamic';
+
 import { Metadata } from "next";
 import Link from "next/link";
 import { appConfig } from "@/lib/config";

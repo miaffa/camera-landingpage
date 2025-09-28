@@ -1,5 +1,8 @@
 "use client";
 
+// Force dynamic rendering to avoid Supabase client issues during static generation
+export const dynamic = 'force-dynamic';
+
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabase/browser";

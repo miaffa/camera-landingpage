@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { Camera, X, MapPin, Tag, Upload, User, ArrowLeft, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -333,11 +334,14 @@ export default function PostCreation() {
                 <div className="grid grid-cols-3 gap-3">
                   {selectedImages.map((imageData, index) => (
                     <div key={imageData.id} className="relative group">
-                      <img
-                        src={imageData.preview}
-                        alt={`Selected ${index + 1}`}
-                        className="w-full h-24 object-cover rounded-lg border-2 border-purple-500"
-                      />
+                      <div className="relative w-full h-24">
+                        <Image
+                          src={imageData.preview}
+                          alt={`Selected ${index + 1}`}
+                          fill
+                          className="object-cover rounded-lg border-2 border-purple-500"
+                        />
+                      </div>
                       <div className="absolute top-1 left-1 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-xs font-bold text-white">
                         {index + 1}
                       </div>
@@ -383,11 +387,14 @@ export default function PostCreation() {
             <div className="grid grid-cols-2 gap-4">
               {orderedImages.map((image, index) => (
                 <div key={index} className="relative">
-                  <img
-                    src={image}
-                    alt={`Photo ${index + 1}`}
-                    className="w-full h-32 object-cover rounded-lg"
-                  />
+                  <div className="relative w-full h-32">
+                    <Image
+                      src={image}
+                      alt={`Photo ${index + 1}`}
+                      fill
+                      className="object-cover rounded-lg"
+                    />
+                  </div>
                   <div className="absolute top-2 left-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs font-bold">
                     {index + 1}
                   </div>
@@ -406,11 +413,14 @@ export default function PostCreation() {
           <div className="p-4 space-y-6">
             {/* Image Preview */}
             <div className="w-full max-w-xs mx-auto">
-              <img
-                src={orderedImages[0]}
-                alt="Post preview"
-                className="w-full h-64 object-cover rounded-lg"
-              />
+              <div className="relative w-full h-64">
+                <Image
+                  src={orderedImages[0]}
+                  alt="Post preview"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
             </div>
 
             {/* Caption */}
@@ -450,11 +460,14 @@ export default function PostCreation() {
             {/* Image Navigation */}
             {orderedImages.length > 1 && (
               <div className="relative">
-                <img
-                  src={orderedImages[currentImageIndex] || orderedImages[0]}
-                  alt={`Photo ${(currentImageIndex || 0) + 1}`}
-                  className="w-32 h-32 mx-auto rounded-lg object-cover"
-                />
+                <div className="relative w-32 h-32 mx-auto">
+                  <Image
+                    src={orderedImages[currentImageIndex] || orderedImages[0]}
+                    alt={`Photo ${(currentImageIndex || 0) + 1}`}
+                    fill
+                    className="rounded-lg object-cover"
+                  />
+                </div>
                 <div className="absolute top-2 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs font-bold">
                   Photo {(currentImageIndex || 0) + 1} of {orderedImages.length}
                 </div>
@@ -579,11 +592,14 @@ export default function PostCreation() {
             
             {/* Image Preview */}
             <div className="w-full max-w-xs mx-auto">
-              <img
-                src={orderedImages[0]}
-                alt="Post preview"
-                className="w-full h-64 object-cover rounded-lg"
-              />
+              <div className="relative w-full h-64">
+                <Image
+                  src={orderedImages[0]}
+                  alt="Post preview"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              </div>
             </div>
 
             {/* Post Details */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, Share, Bookmark, MoreHorizontal } from "lucide-react";
@@ -109,11 +110,12 @@ export function PostCard({ post }: PostCardProps) {
       </div>
 
       {/* Post Image */}
-      <div className="relative">
-        <img
+      <div className="relative aspect-square">
+        <Image
           src={post.imageUrl}
           alt={post.imageAlt || post.caption || "Post image"}
-          className="w-full aspect-square object-cover"
+          fill
+          className="object-cover"
         />
         
         {/* Gear Overlay - Show if gear is linked */}

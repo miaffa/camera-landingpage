@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { X, Camera, Image as ImageIcon, MapPin, Hash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -105,11 +106,14 @@ export default function PostCreation({ isOpen, onClose, onPostPublished }: PostC
               <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
                 {imagePreview ? (
                   <div className="space-y-4">
-                    <img
-                      src={imagePreview}
-                      alt="Preview"
-                      className="w-full h-64 object-cover rounded-lg"
-                    />
+                    <div className="relative w-full h-64">
+                      <Image
+                        src={imagePreview}
+                        alt="Preview"
+                        fill
+                        className="object-cover rounded-lg"
+                      />
+                    </div>
                     <Button
                       type="button"
                       variant="outline"

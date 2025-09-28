@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Plus, Edit, Trash2, Eye, EyeOff, DollarSign, Star, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -347,11 +348,12 @@ export default function GearManagement() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredGear.map((item) => (
           <Card key={item.id} className="overflow-hidden">
-            <div className="relative">
-              <img
+            <div className="relative h-48">
+              <Image
                 src={item.images[0]}
                 alt={item.name}
-                className="w-full h-48 object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute top-2 right-2 flex gap-1">
                 <Badge className={getStatusColor(item.availability)}>

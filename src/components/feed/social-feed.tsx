@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { Plus, Bell, MapPin, Heart, MessageCircle, Share, Bookmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -93,11 +94,12 @@ function PostCard({ post }: { post: Post }) {
   return (
     <div className="w-full max-w-md mx-auto bg-white">
       {/* Main Image */}
-      <div className="relative">
-        <img
+      <div className="relative aspect-square">
+        <Image
           src={post.imageUrl}
           alt={post.imageAlt || "Post image"}
-          className="w-full aspect-square object-cover"
+          fill
+          className="object-cover"
         />
       </div>
 
