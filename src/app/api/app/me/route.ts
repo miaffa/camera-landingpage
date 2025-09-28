@@ -15,6 +15,15 @@ export const GET = async () => {
 			email: user.email ?? "",
 			name: user.user_metadata?.full_name ?? user.email ?? "",
 			image: user.user_metadata?.avatar_url ?? null,
+			emailVerified: null,
+			createdAt: null,
+			stripeCustomerId: null,
+			stripeSubscriptionId: null,
+			lemonSqueezyCustomerId: null,
+			lemonSqueezySubscriptionId: null,
+			dodoCustomerId: null,
+			dodoSubscriptionId: null,
+			planId: null,
 		},
 	});
 };

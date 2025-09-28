@@ -18,6 +18,10 @@ export async function POST(request: NextRequest) {
     const { name, avatarUrl } = await request.json();
 
     // Check if user profile already exists
+    if (!user.email) {
+      return NextResponse.json({ error: "User email not found" }, { status: 400 });
+    }
+    
     const existingProfile = await db
       .select()
       .from(users)
@@ -84,6 +88,10 @@ export async function GET() {
     }
 
     // Get user profile from database
+    if (!user.email) {
+      return NextResponse.json({ error: "User email not found" }, { status: 400 });
+    }
+    
     const profile = await db
       .select()
       .from(users)

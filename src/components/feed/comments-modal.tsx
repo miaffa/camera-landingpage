@@ -37,19 +37,6 @@ export default function CommentsModal({ postId, isOpen, onClose, onUserClick }: 
   const commentsEndRef = useRef<HTMLDivElement>(null);
 
   // Load comments when modal opens
-  useEffect(() => {
-    if (isOpen && postId) {
-      loadComments();
-    }
-  }, [isOpen, postId, loadComments]);
-
-  // Scroll to bottom when new comments are added
-  useEffect(() => {
-    if (commentsEndRef.current) {
-      commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [comments]);
-
   const loadComments = async () => {
     setIsLoading(true);
     try {
@@ -93,6 +80,19 @@ export default function CommentsModal({ postId, isOpen, onClose, onUserClick }: 
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isOpen && postId) {
+      loadComments();
+    }
+  }, [isOpen, postId, loadComments]);
+
+  // Scroll to bottom when new comments are added
+  useEffect(() => {
+    if (commentsEndRef.current) {
+      commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [comments]);
 
   const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
