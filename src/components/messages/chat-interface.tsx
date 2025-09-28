@@ -45,13 +45,37 @@ import { Badge } from '@/components/ui/badge';
 //   ]
 // };
 
+interface Conversation {
+  id: string;
+  participant: {
+    name: string;
+    avatar: string;
+    initials: string;
+    online: boolean;
+  };
+  rentalRequest?: {
+    gearName: string;
+    image: string;
+    status: string;
+    date: string;
+    location: string;
+    price: string;
+  };
+  messages: Array<{
+    id: string;
+    text: string;
+    timestamp: string;
+    isOwn: boolean;
+  }>;
+}
+
 interface ChatInterfaceProps {
-  conversation: unknown; // TODO: Define proper conversation type
+  conversation: Conversation;
   onBack: () => void;
 }
 
 // Chat Header Component
-function ChatHeader({ conversation, onBack }: { conversation: typeof sampleConversation; onBack: () => void }) {
+function ChatHeader({ conversation, onBack }: { conversation: Conversation; onBack: () => void }) {
   return (
     <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
       <div className="flex items-center justify-between px-4 py-4">
@@ -92,14 +116,14 @@ function ChatHeader({ conversation, onBack }: { conversation: typeof sampleConve
 }
 
 // Rental Request Summary Card
-function RentalRequestCard({ rentalRequest }: { rentalRequest: typeof sampleConversation.rentalRequest }) {
+function RentalRequestCard({ rentalRequest }: { rentalRequest: Conversation['rentalRequest'] }) {
   return (
     <div className="mx-4 my-4 bg-gray-100 rounded-lg p-4">
       <div className="flex items-center gap-3 mb-3">
         <div className="w-12 h-12 bg-white rounded-lg overflow-hidden">
           <img
-            src={rentalRequest.image}
-            alt={rentalRequest.gearName}
+            src={rentalRequest?.image}
+            alt={rentalRequest?.gearName}
             className="w-full h-full object-cover"
           />
         </div>
@@ -107,22 +131,22 @@ function RentalRequestCard({ rentalRequest }: { rentalRequest: typeof sampleConv
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
             <Camera className="w-4 h-4 text-blue-500" />
-            <span className="font-bold text-sm text-black">{rentalRequest.gearName}</span>
+            <span className="font-bold text-sm text-black">{rentalRequest?.gearName}</span>
             <Badge className="bg-blue-500 text-white text-xs px-2 py-1">
-              {rentalRequest.status}
+              {rentalRequest?.status}
             </Badge>
           </div>
           
           <div className="flex items-center gap-4 text-xs text-gray-600">
             <div className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
-              <span>{rentalRequest.date}</span>
+              <span>{rentalRequest?.date}</span>
             </div>
             <div className="flex items-center gap-1">
               <MapPin className="w-3 h-3" />
-              <span>{rentalRequest.location}</span>
+              <span>{rentalRequest?.location}</span>
             </div>
-            <span className="ml-auto font-bold text-black">{rentalRequest.price}</span>
+            <span className="ml-auto font-bold text-black">{rentalRequest?.price}</span>
           </div>
         </div>
       </div>
@@ -135,7 +159,7 @@ function RentalRequestCard({ rentalRequest }: { rentalRequest: typeof sampleConv
 }
 
 // Message Bubble Component
-function MessageBubble({ message }: { message: typeof sampleConversation.messages[0] }) {
+function MessageBubble({ message }: { message: Conversation['messages'][0] }) {
   return (
     <div className={`flex ${message.isOwn ? 'justify-end' : 'justify-start'} mb-4`}>
       <div

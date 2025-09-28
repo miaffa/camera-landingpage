@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { User } from "@supabase/supabase-js";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 
@@ -18,7 +18,7 @@ export default function useUserSupabase(): UseUserSupabaseReturn {
 
   const supabase = supabaseBrowser();
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -63,7 +63,7 @@ export default function useUserSupabase(): UseUserSupabaseReturn {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [supabase]);
 
   const mutate = () => {
     fetchUser();

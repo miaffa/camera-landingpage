@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { X, MapPin, Camera, MessageCircle, Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -55,13 +55,7 @@ export default function UserProfileModal({ user, onClose }: UserProfileModalProp
   const [isLoading, setIsLoading] = useState(true);
   const [isFollowing, setIsFollowing] = useState(false);
 
-  useEffect(() => {
-    if (user.userId) {
-      loadUserProfile();
-    }
-  }, [user.userId, loadUserProfile]);
-
-  const loadUserProfile = async () => {
+  const loadUserProfile = useCallback(async () => {
     setIsLoading(true);
     try {
       // TODO: Implement user profile API
@@ -128,7 +122,13 @@ export default function UserProfileModal({ user, onClose }: UserProfileModalProp
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [user.userId, user.avatar, user.name, user.username]);
+
+  useEffect(() => {
+    if (user.userId) {
+      loadUserProfile();
+    }
+  }, [user.userId, loadUserProfile]);
 
   const handleFollow = async () => {
     try {

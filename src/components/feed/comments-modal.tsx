@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { X, Send, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -37,7 +37,7 @@ export default function CommentsModal({ postId, isOpen, onClose, onUserClick }: 
   const commentsEndRef = useRef<HTMLDivElement>(null);
 
   // Load comments when modal opens
-  const loadComments = async () => {
+  const loadComments = useCallback(async () => {
     setIsLoading(true);
     try {
       // TODO: Implement comments API
@@ -79,7 +79,7 @@ export default function CommentsModal({ postId, isOpen, onClose, onUserClick }: 
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [postId]);
 
   useEffect(() => {
     if (isOpen && postId) {

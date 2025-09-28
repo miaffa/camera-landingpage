@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabaseBrowser } from '@/lib/supabase/browser';
 
 interface Notification {
@@ -29,7 +29,7 @@ export function useNotifications(): UseNotificationsReturn {
   const [error, setError] = useState<Error | null>(null);
   const supabase = supabaseBrowser();
 
-  const loadNotifications = async () => {
+  const loadNotifications = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -115,7 +115,7 @@ export function useNotifications(): UseNotificationsReturn {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [supabase.auth]);
 
   const markAsRead = async (notificationId: string) => {
     try {
