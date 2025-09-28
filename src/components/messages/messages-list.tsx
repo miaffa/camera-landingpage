@@ -1,6 +1,6 @@
 'use client';
 
-// import { useState, useEffect } from 'react'; // TODO: Implement state management
+import { useState } from 'react';
 import { MessageCircle, Check, CheckCheck } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';

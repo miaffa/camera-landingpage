@@ -18,8 +18,10 @@ export async function createOrUpdateUserProfile(supabaseUser: unknown): Promise<
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: supabaseUser.user_metadata?.full_name || supabaseUser.user_metadata?.name || null,
-        avatarUrl: supabaseUser.user_metadata?.avatar_url || null,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        name: (supabaseUser as any).user_metadata?.full_name || (supabaseUser as any).user_metadata?.name || null,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        avatarUrl: (supabaseUser as any).user_metadata?.avatar_url || null,
       }),
     });
 

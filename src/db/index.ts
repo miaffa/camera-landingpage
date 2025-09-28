@@ -10,7 +10,7 @@ export * from "./schema/user";
 export * from "./schema/plans";
 export * from "./schema/contact";
 export * from "./schema/waitlist";
-export * from "./schema/roadmap";
+// export * from "./schema/roadmap";
 export * from "./schema/coupons";
 export * from "./schema/name-suggestions";
 export * from "./schema/paypal";

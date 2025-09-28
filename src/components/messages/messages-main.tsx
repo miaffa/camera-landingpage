@@ -4,6 +4,22 @@ import { useState } from 'react';
 import MessagesInbox from './messages-inbox';
 import ChatInterface from './chat-interface';
 
+interface InboxConversation {
+  id: string;
+  participant: {
+    name: string;
+    avatar: string;
+    initials: string;
+  };
+  lastMessage: string;
+  timestamp: string;
+  unreadCount: number;
+  rentalRequest: {
+    gearName: string;
+    status: string;
+  };
+}
+
 // Sample conversation data
 const sampleConversation = {
   id: '1',
@@ -47,7 +63,7 @@ export default function MessagesMain() {
   const [currentView, setCurrentView] = useState<'inbox' | 'chat'>('inbox');
   const [selectedConversation, setSelectedConversation] = useState<typeof sampleConversation | null>(null);
 
-  const handleConversationSelect = (conversation: unknown) => {
+  const handleConversationSelect = (conversation: InboxConversation) => {
     // Map the inbox conversation to the chat conversation format
     const chatConversation = {
       ...sampleConversation,

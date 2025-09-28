@@ -57,7 +57,8 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
   // Create a stable key for SWR
   const getKey = (pageIndex: number, previousPageData: unknown) => {
     // If we've reached the end, return null
-    if (previousPageData && (!previousPageData.data || previousPageData.data.length === 0)) {
+    const prevData = previousPageData as { data?: unknown[] } | null;
+    if (previousPageData && (!prevData?.data || prevData.data.length === 0)) {
       return null;
     }
     
@@ -274,7 +275,8 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
             `)
             .eq('post_id', post.id);
 
-          const gearUsed = gearData?.map(item => ({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const gearUsed = gearData?.map((item: any) => ({
             id: item.gear.id,
             name: item.gear.name,
             type: item.gear.type,
@@ -290,9 +292,12 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
             imageUrl: post.image_url,
             imageAlt: post.image_alt,
             createdAt: post.created_at,
-            profile_username: post.users.email.split('@')[0], // Use email prefix as username for now
-            profile_full_name: post.users.name,
-            profile_avatar_url: post.users.image,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            profile_username: (post.users as any).email.split('@')[0], // Use email prefix as username for now
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            profile_full_name: (post.users as any).name,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            profile_avatar_url: (post.users as any).image,
             likes_count: likesCount || 0,
             comments_count: commentsCount || 0,
             is_liked: isLiked,

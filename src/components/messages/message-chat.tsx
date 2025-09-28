@@ -122,7 +122,7 @@ export default function MessageChat({
     }
   };
 
-  const getRentalActionButtons = (rentalRequest: { status: string }) => {
+  const getRentalActionButtons = (rentalRequest: { id: string; status: string }) => {
     switch (rentalRequest.status) {
       case 'pending':
         return (
