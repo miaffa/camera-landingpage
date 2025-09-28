@@ -1,3 +1,6 @@
+// Force dynamic rendering to avoid database connection issues during static generation
+export const dynamic = 'force-dynamic';
+
 import { auth, signIn } from "@/auth";
 import { db } from "@/db";
 import { plans } from "@/db/schema/plans";

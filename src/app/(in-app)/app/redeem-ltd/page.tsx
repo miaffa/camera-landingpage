@@ -1,5 +1,8 @@
 "use client";
 
+// Force dynamic rendering to avoid API call issues during static generation
+export const dynamic = 'force-dynamic';
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
