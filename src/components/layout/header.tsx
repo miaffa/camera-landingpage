@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { appConfig } from "@/lib/config";
 // import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { UserButton } from "@/components/layout/user-button";
 
@@ -13,10 +13,15 @@ const navItems: { label: string; href: string }[] = [
 
 export function Header() {
   const [isMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/30 dark:border-white/20 bg-white/20 dark:bg-white/10 backdrop-blur-md supports-backdrop-filter:bg-white/20 dark:supports-backdrop-filter:bg-white/10">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
@@ -41,13 +46,13 @@ export function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
             <ThemeSwitcher />
-            <UserButton />
+            {isClient && <UserButton />}
           </div>
 
           {/* Mobile Actions */}
           <div className="flex items-center gap-2 md:hidden">
             <ThemeSwitcher />
-            <UserButton />
+            {isClient && <UserButton />}
             {/* <button
               className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
               onClick={() => setIsMenuOpen(!isMenuOpen)}

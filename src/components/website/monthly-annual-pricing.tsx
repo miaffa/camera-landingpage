@@ -13,7 +13,7 @@ const MonthlyAnnualPricing = () => {
   return (
     <section className="py-32">
       <div className="container">
-        <div className="mx-auto mb-20 max-w-(--breakpoint-md) text-center">
+        <div className="mx-auto mb-20 max-w-4xl text-center">
           <p className="text-primary font-medium mb-4">Photographer Pricing</p>
           <h2 className="mb-4 text-4xl tracking-tight font-bold lg:text-5xl">
             Simple, Transparent Pricing
@@ -67,7 +67,7 @@ const MonthlyAnnualPricing = () => {
               </div>
             </RadioGroup>
           </div>
-          <div className="mt-12 grid max-w-(--breakpoint-md) gap-8 md:grid-cols-2">
+          <div className="mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
             <div className="rounded-xl border border-2 border-gray-400 p-8 hover:border-primary transition-colors">
               <div className="flex h-full flex-col justify-between gap-6">
                 <div>

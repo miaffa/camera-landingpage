@@ -35,7 +35,7 @@ export function CTA4() {
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-primary/10 to-primary/5" />
 
-      <div className="relative mx-auto max-w-(--breakpoint-xl) px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
         <div className="mx-auto grid max-w-lg gap-8 lg:max-w-none lg:grid-cols-2 lg:gap-16">
           <div>
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">

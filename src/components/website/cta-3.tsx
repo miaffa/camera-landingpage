@@ -12,7 +12,7 @@ export function CTA3() {
 
   return (
     <section className="overflow-hidden bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col justify-center">
             <h2 className="text-3xl font-bold sm:text-4xl">

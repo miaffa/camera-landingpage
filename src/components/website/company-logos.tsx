@@ -39,7 +39,7 @@ const companies = [
 export function CompanyLogos() {
   return (
     <div className="bg-muted/40 py-8" aria-label="Company Logos">
-      <div className="mx-auto max-w-(--breakpoint-xl) px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm font-medium text-muted-foreground">
           Trusted by photographers using
         </p>
