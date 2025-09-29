@@ -222,7 +222,7 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
 
       // Get additional data for each post
       const enrichedPosts = await Promise.all(
-        posts.map(async (post) => {
+        (posts as Record<string, unknown>[]).map(async (post: Record<string, unknown>) => {
           // Get likes count
           const { count: likesCount } = await supabase
             .from('post_likes')
@@ -333,7 +333,7 @@ export function useInstagramFeed(options?: UseInstagramFeedOptions): UseInstagra
   });
 
   // Flatten all posts from all pages
-  const posts = data ? data.flatMap(page => page.data) : [];
+  const posts = data ? data.flatMap(page => page.data as Post[]) : [];
   const isLoadingMore = isValidating && size > 1;
   const hasMore = data ? data[data.length - 1]?.hasMore : false;
 
