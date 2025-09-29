@@ -4,8 +4,8 @@ import { createMockSession, getMockUserData } from "@/lib/mock-session";
 
 export async function GET() {
   try {
-    // Development bypass - set to true to disable authentication
-    const BYPASS_AUTH = true;
+    // Authentication is now enabled
+    const BYPASS_AUTH = false;
     
     let session = await auth();
     if (BYPASS_AUTH && !session?.user?.id) {

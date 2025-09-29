@@ -1,8 +1,8 @@
 import { AuthGuard } from "@/components/auth/auth-guard";
 import React from "react";
 
-// Development bypass - set to false to enable authentication
-const BYPASS_AUTH = true;
+// Authentication is now enabled
+const BYPASS_AUTH = false;
 
 
 function AppLayout({ children }: { children: React.ReactNode }) {

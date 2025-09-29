@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
   try {
     console.log("🚀 Posts API - Starting request");
     
-    // Development bypass - set to true to disable authentication
-    const BYPASS_AUTH = true;
+    // Authentication is now enabled
+    const BYPASS_AUTH = false;
     
     let session = await auth();
     console.log("🚀 Posts API - Original session:", session);

@@ -9,8 +9,8 @@ export async function POST(request: NextRequest) {
   try {
     console.log("🚀 Upload API - Starting request");
     
-    // Development bypass - set to true to disable authentication
-    const BYPASS_AUTH = true;
+    // Authentication is now enabled
+    const BYPASS_AUTH = false;
     
     let session = await auth();
     console.log("🚀 Upload API - Original session:", session);

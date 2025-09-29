@@ -3,11 +3,7 @@ import { auth } from "./auth";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  // Development bypass - skip all auth checks
-  if (process.env.NODE_ENV === 'development') {
-    console.log("🚧 MIDDLEWARE BYPASS - Authentication disabled for development");
-    return NextResponse.next();
-  }
+  // Authentication is now enabled for all environments
 
   const session = await auth();
   const isAuth = !!session?.user;

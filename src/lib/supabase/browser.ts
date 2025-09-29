@@ -5,19 +5,10 @@ export function supabaseBrowser(): SupabaseClient {
 	const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 	const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-	// Debug logging
-	console.log("🔍 Supabase Debug Info:");
-	console.log("- Environment:", process.env.NODE_ENV);
-	console.log("- Supabase URL present:", !!supabaseUrl);
-	console.log("- Supabase Key present:", !!supabaseKey);
-	console.log("- All env keys:", Object.keys(process.env).filter(key => key.includes('SUPABASE')));
-
 	if (!supabaseUrl || !supabaseKey) {
 		// During build time, return a mock client to prevent build failures
 		// This will be replaced with the real client at runtime when env vars are available
-		console.warn("⚠️ Supabase environment variables not available - using mock client");
-		console.warn("URL:", supabaseUrl || "MISSING");
-		console.warn("Key:", supabaseKey ? "Present" : "MISSING");
+		console.warn("Supabase environment variables not available - using mock client");
 		return {
 			auth: {
 				getSession: () => Promise.resolve({ data: { session: null }, error: null }),

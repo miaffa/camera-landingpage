@@ -26,8 +26,8 @@ const createGearSchema = z.object({
 // GET - Fetch gear with search and filters
 export async function GET(request: NextRequest) {
   try {
-    // Development bypass - set to true to disable authentication
-    const BYPASS_AUTH = true;
+    // Authentication is now enabled
+    const BYPASS_AUTH = false;
     
     let session = await auth();
     if (BYPASS_AUTH && !session?.user?.id) {
@@ -131,8 +131,8 @@ export async function GET(request: NextRequest) {
 // POST - Create new gear
 export async function POST(request: NextRequest) {
   try {
-    // Development bypass - set to true to disable authentication
-    const BYPASS_AUTH = true;
+    // Authentication is now enabled
+    const BYPASS_AUTH = false;
     
     let session = await auth();
     if (BYPASS_AUTH && !session?.user?.id) {
