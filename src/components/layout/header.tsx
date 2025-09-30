@@ -12,7 +12,7 @@ const navItems: { label: string; href: string }[] = [
 ];
 
 const CTAText = "Get Started";
-const CTAHref = "/#pricing";
+const CTAHref = "/sign-up";
 
 const signInEnabled = process.env.NEXT_PUBLIC_SIGNIN_ENABLED === "true";
 

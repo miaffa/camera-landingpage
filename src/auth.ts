@@ -41,20 +41,33 @@ const emailProvider: EmailConfig = {
   type: "email",
   name: "Email",
   async sendVerificationRequest(params) {
+    console.log("🔐 [EmailProvider] Starting verification request...");
+    console.log("🔐 [EmailProvider] Identifier:", params.identifier);
+    console.log("🔐 [EmailProvider] URL:", params.url);
+    console.log("🔐 [EmailProvider] Expires:", params.expires);
+    
     if (process.env.NODE_ENV === "development") {
       console.log(
         `Magic link for ${params.identifier}: ${params.url} expires at ${params.expires}`
       );
     }
-    const html = await render(
-      MagicLinkEmail({ url: params.url, expiresAt: params.expires })
-    );
+    
+    try {
+      const html = await render(
+        MagicLinkEmail({ url: params.url, expiresAt: params.expires })
+      );
+      console.log("🔐 [EmailProvider] HTML rendered successfully");
 
-    await sendMail(
-      params.identifier,
-      `Sign in to ${appConfig.projectName}`,
-      html
-    );
+      await sendMail(
+        params.identifier,
+        `Sign in to ${appConfig.projectName}`,
+        html
+      );
+      console.log("🔐 [EmailProvider] Email sent successfully");
+    } catch (error) {
+      console.error("❌ [EmailProvider] Error in sendVerificationRequest:", error);
+      throw error;
+    }
   },
 };
 

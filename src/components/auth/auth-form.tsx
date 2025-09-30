@@ -21,7 +21,7 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
   const router = useRouter();
 
 
-  const handleImpersonation = async (token: string) => {
+  const handleImpersonation = React.useCallback(async (token: string) => {
     setIsLoading(true);
     try {
       const result = await signIn("credentials", {
@@ -41,7 +41,7 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [callbackUrl, searchParams, router]);
 
   
   React.useEffect(() => {
@@ -69,6 +69,10 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
     e.preventDefault();
     setIsLoading(true);
 
+    console.log("🔍 Starting email sign in process...");
+    console.log("📧 Email:", email);
+    console.log("🔗 Callback URL:", callbackUrl || searchParams?.get("callbackUrl") || "/app");
+
     try {
       const result = await signIn("email", {
         email,
@@ -76,14 +80,18 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
         callbackUrl: callbackUrl || searchParams?.get("callbackUrl") || "/app",
       });
 
+      console.log("📤 SignIn result:", result);
+
       if (result?.error) {
+        console.error("❌ SignIn error:", result.error);
         toast.error("Failed to send login email");
       } else {
+        console.log("✅ SignIn successful, email should be sent");
         toast.success("Check your email for the login link");
         setEmail("");
       }
     } catch (error) {
-      console.error("Authentication error:", error);
+      console.error("❌ Authentication error:", error);
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
@@ -91,7 +99,7 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
   };
 
   return (
-    <div className={cn("flex flex-col space-y-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Button
         variant="outline"
         type="button"
@@ -118,8 +126,8 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
         </div>
       </div>
 
-      <form onSubmit={handleEmailSignIn} className="space-y-4">
-        <div className="space-y-2">
+      <form onSubmit={handleEmailSignIn} className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="email">Email address</Label>
           <Input
             id="email"
