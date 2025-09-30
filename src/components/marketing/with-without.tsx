@@ -8,67 +8,67 @@ interface ComparisonItem {
 export function WithWithout() {
   const withProduct: ComparisonItem[] = [
     {
-      title: "Ready-to-Use Components",
+      title: "Peer-to-Peer Rentals",
       description:
-        "Get access to 100s of pre-built, responsive UI components (powered by shadcn/ui) and email templates",
+        "Rent camera gear directly from local creators with secure payments and insurance coverage",
     },
     {
-      title: "Authentication & Payments",
+      title: "Social Community",
       description:
-        "Secure login system and payment processing ready out of the box",
+        "Showcase your work, tag gear, and connect with fellow photographers and videographers",
     },
     {
-      title: "Background Processing",
+      title: "Trust & Safety",
       description:
-        "Efficient job queues and scheduled tasks handled automatically",
+        "ID verification, user reviews, and comprehensive insurance for peace of mind",
     },
     {
-      title: "SEO Optimization",
+      title: "Mobile-First PWA",
       description:
-        "Built-in SEO features, sitemaps, and structured data for better rankings",
+        "Native app experience with offline support, push notifications, and camera integration",
     },
     {
-      title: "Database & Storage",
+      title: "Fair Commission",
       description:
-        "Pre-configured database setup with migrations and file storage solutions",
+        "Only 10% total commission (5% each) - lower than industry standard of 15%",
     },
     {
-      title: "Developer Experience",
+      title: "Local Community",
       description:
-        "Well-documented codebase with TypeScript and best practices implemented",
+        "Louisville-focused launch with local events, meetups, and founding creator perks",
     },
   ];
 
   const withoutProduct: ComparisonItem[] = [
     {
-      title: "Start From Scratch",
+      title: "Expensive Gear Purchases",
       description:
-        "Spend weeks building basic components and designing email templates",
+        "Spend thousands on camera equipment you only use occasionally",
     },
     {
-      title: "Complex Integrations",
+      title: "Idle Equipment",
       description:
-        "Struggle with authentication providers and payment gateway setups",
+        "Watch your expensive gear collect dust while missing out on passive income",
     },
     {
-      title: "Manual Processing",
+      title: "Limited Access",
       description:
-        "Build your own job scheduling system and handle background tasks",
+        "Struggle to access professional equipment for specific projects or learning",
     },
     {
-      title: "Basic SEO",
+      title: "No Community",
       description:
-        "Miss out on important SEO features and struggle with search rankings",
+        "Miss out on networking opportunities and creative inspiration from peers",
     },
     {
-      title: "Database Headaches",
+      title: "High Commission Fees",
       description:
-        "Deal with database setup, migrations, and storage configuration manually",
+        "Pay 15% or more commission on existing rental platforms",
     },
     {
-      title: "Technical Debt",
+      title: "Trust Issues",
       description:
-        "Risk building without proper structure, leading to maintenance issues",
+        "Worry about damage, theft, or unreliable renters without proper protection",
     },
   ];
 
@@ -87,7 +87,7 @@ export function WithWithout() {
                 <X className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-red-700 dark:text-red-400">
-                Without Indie Kit
+                Without LensFlare
               </h3>
             </div>
             <div className="space-y-6">
@@ -110,7 +110,7 @@ export function WithWithout() {
                 <Check className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-semibold text-green-700 dark:text-green-400">
-                With Indie Kit
+                With LensFlare
               </h3>
             </div>
             <div className="space-y-6">

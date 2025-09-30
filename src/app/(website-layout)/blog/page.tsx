@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Tag } from "lucide-react";
 import { Metadata } from "next";
-import { CTA2 } from "@/components/website/cta-2";
+import { CTA2 } from "@/components/marketing/cta-2";
 import { appConfig } from "@/lib/config";
 import { WebPageJsonLd, BreadcrumbJsonLd } from "next-seo";
 import { notFound } from "next/navigation";

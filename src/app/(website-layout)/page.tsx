@@ -1,20 +1,19 @@
-import { WebsiteFAQs } from "@/components/website/faqs";
-import { CTA2 } from "@/components/website/cta-2";
-import { WithWithout } from "@/components/website/with-without";
-import Hero2 from "@/components/sections/hero-2";
-import CTA1 from "@/components/website/cta-1";
-import MonthlyAnnualPricing from "@/components/website/monthly-annual-pricing";
+import { WebsiteFAQs } from "@/components/marketing/faqs";
+import { CTA2 } from "@/components/marketing/cta-2";
+import { WithWithout } from "@/components/marketing/with-without";
+import Hero from "@/components/sections/hero";
+import CTA1 from "@/components/marketing/cta-1";
+import MonthlyAnnualPricing from "@/components/marketing/monthly-annual-pricing";
 import TextRevealByWord from "@/components/ui/text-reveal";
 
 export default function WebsiteHomepage() {
   return (
     <>
-      <Hero2 />
+      <Hero />
       <CTA1 />
       <MonthlyAnnualPricing />
-      <TextRevealByWord text="Still not sure? My users are able to create their own blogs and websites with ease. It was very difficult to find a solution that was easy to use and affordable." />
+      <TextRevealByWord text="Still not sure? Join 200+ photographers and videographers who are already monetizing their gear and discovering new equipment. The Louisville community is growing fast!" />
       <WithWithout />
-      <MonthlyAnnualPricing />
       <WebsiteFAQs />
       <CTA2 />
     </>

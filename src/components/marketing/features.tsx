@@ -19,29 +19,30 @@ import HyperText from "../ui/hyper-text";
 const tabs = [
   {
     id: 1,
-    tabName: "Emails",
-    icon: Mail,
-    heading: "Email Setup & Design",
+    tabName: "Gear Listings",
+    icon: Search,
+    heading: "Discover & List Camera Gear",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Beautiful, responsive email templates</b> design using{" "}
-          <code>react-email</code>
+          • <b>High-quality gear photos</b> with detailed specifications
         </li>
         <li>
-          • Automated welcome & onboarding <b>sequences</b>
+          • <b>Smart search filters</b> by camera type, lens, price, location
         </li>
-        <li>• SES integration guide.</li>
-        <li>• Resend integration guide</li>
+        <li>• <b>Availability calendar</b> for easy booking</li>
+        <li>• <b>Map view</b> to find gear near you</li>
+        <li>• <b>AI-powered recommendations</b> based on your needs</li>
       </ul>
     ),
-    timeSaved: "4 hours",
+    timeSaved: "Instant",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>Resend</Badge>
-        <Badge>SES</Badge>
-        <Badge>Mailgun</Badge>
-        <Badge>Mailchimp</Badge>
+        <Badge>Cameras</Badge>
+        <Badge>Lenses</Badge>
+        <Badge>Lighting</Badge>
+        <Badge>Audio</Badge>
+        <Badge>Drones</Badge>
       </div>
     ),
   },
@@ -49,202 +50,193 @@ const tabs = [
     id: 2,
     tabName: "Payments",
     icon: CreditCard,
-    heading: "Payment Processing",
+    heading: "Secure Payment Processing",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Plan and Quota management</b> on user level.
+          • <b>Escrow-style payments</b> for secure transactions
         </li>
         <li>
-          • Handle <b>subscriptions and one-time payments</b>.
+          • <b>10% total commission</b> (5% from each party)
         </li>
-        <li>• Stripe integration with webhooks and checkout.</li>
-        <li>• Lemon Squeezy integration with webhooks and checkout.</li>
-        <li>
-          • Subscription management & billing using <b>Customer Portal</b>.
-        </li>
+        <li>• <b>Insurance integration</b> for damage protection</li>
+        <li>• <b>Automatic payouts</b> to gear owners</li>
+        <li>• <b>Dispute resolution</b> in 72 hours</li>
       </ul>
     ),
-    timeSaved: "8 hours",
+    timeSaved: "Secure",
     footer: (
       <div className="flex items-center gap-2">
         <Badge>Stripe</Badge>
-        <Badge>Lemon Squeezy</Badge>
-        <Badge>PayPal (coming soon)</Badge>
+        <Badge>Escrow</Badge>
+        <Badge>Insurance</Badge>
+        <Badge>Dispute Resolution</Badge>
       </div>
     ),
   },
   {
     id: 3,
-    tabName: "Login",
+    tabName: "Trust",
     icon: UserCheck,
-    heading: "Secure Authentication",
+    heading: "Trust & Safety",
     featureList: (
       <ul className="mt-4 space-y-3">
-        <li>• Social login (Google, GitHub etc.)</li>
-        <li>• Magic link authentication</li>
-        <li>• Save user data to database</li>
-        <li>• Private API route for protected routes</li>
-        <li>• Super Admin dashboard for managing users</li>
+        <li>• <b>ID verification</b> for all users</li>
+        <li>• <b>User reviews & ratings</b> system</li>
+        <li>• <b>Trust badges</b> for verified creators</li>
+        <li>• <b>Community verification</b> process</li>
+        <li>• <b>Timestamped gear photos</b> for condition tracking</li>
       </ul>
     ),
-    timeSaved: "12 hours",
+    timeSaved: "Safe",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>NextAuth</Badge>
-        <Badge>Google Auth</Badge>
-        <Badge>Custom Pages</Badge>
+        <Badge>ID Verification</Badge>
+        <Badge>Reviews</Badge>
+        <Badge>Trust Badges</Badge>
+        <Badge>Community</Badge>
       </div>
     ),
   },
   {
     id: 4,
-    tabName: "Database",
-    icon: Database,
-    heading: "Database & Storage",
+    tabName: "Social Feed",
+    icon: Mail,
+    heading: "Social Community",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>PostgreSQL/MySQL/MongoDB</b> database
+          • <b>Instagram-style feed</b> for showcasing work
         </li>
         <li>
-          • <b>Drizzle</b> ORM
+          • <b>Gear tagging</b> in every post
         </li>
         <li>
-          • <b>Automated migrations</b>
+          • <b>Direct rental CTAs</b> from posts
         </li>
         <li>
-          • <b>Connection pooling</b> for better performance
+          • <b>Creator incentives</b> for gear-linked content
         </li>
         <li>
-          • <b>File uploads</b> to S3 for cheap storage
+          • <b>Professional networking</b> opportunities
         </li>
       </ul>
     ),
-    timeSaved: "6 hours",
+    timeSaved: "Engaging",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>PostgreSQL</Badge>
-        <Badge>Drizzle</Badge>
-        <Badge>NeonDB</Badge>
-        <Badge>MongoDB</Badge>
-        <Badge>PlanetScale</Badge>
+        <Badge>Social Feed</Badge>
+        <Badge>Gear Tagging</Badge>
+        <Badge>Networking</Badge>
+        <Badge>Community</Badge>
       </div>
     ),
   },
   {
     id: 5,
-    tabName: "SEO",
-    icon: Search,
-    heading: "Search Engine Optimization",
+    tabName: "Messaging",
+    icon: Database,
+    heading: "In-App Communication",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Entire blog structure</b> (MDX)
+          • <b>Real-time messaging</b> between renters and owners
         </li>
         <li>
-          • <b>Automated Sitemap generation</b>
+          • <b>Photo attachments</b> for gear coordination
         </li>
         <li>
-          • <b>Structured data (JSON-LD)</b> for SEO
+          • <b>Rental status updates</b> and notifications
         </li>
         <li>
-          • <b>Open Graph</b> for social media pre-setup
+          • <b>Pickup/dropoff coordination</b>
         </li>
         <li>
-          • <b>SEO Optimised</b> UI components
+          • <b>Built-in support</b> for any issues
         </li>
       </ul>
     ),
-    timeSaved: "5 hours",
+    timeSaved: "Seamless",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>MDX</Badge>
-        <Badge>Schema.org</Badge>
-        <Badge>Open Graph</Badge>
-        <Badge>@vercel/og</Badge>
+        <Badge>Real-time Chat</Badge>
+        <Badge>Photo Sharing</Badge>
+        <Badge>Notifications</Badge>
+        <Badge>Support</Badge>
       </div>
     ),
   },
   {
     id: 6,
-    tabName: "Design",
+    tabName: "Mobile",
     icon: Palette,
-    heading: "Modern UI Components",
+    heading: "Mobile-First PWA",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Responsive layouts</b>
+          • <b>Progressive Web App</b> for mobile experience
         </li>
         <li>
-          • <b>Custom Themes</b> as per your brand
+          • <b>Add to home screen</b> functionality
         </li>
         <li>
-          • <b>Email designer</b> for beautiful emails
+          • <b>Offline caching</b> for better performance
         </li>
         <li>
-          • <b>Dark mode support</b>
+          • <b>Push notifications</b> for updates
         </li>
         <li>
-          • <b>SEO Optimised</b> UI components
+          • <b>Camera integration</b> for gear photos
         </li>
         <li>
-          • Powered by <b>Shadcn/UI</b>
-        </li>
-        <li>
-          • <b>Magic UI</b> for more components
-        </li>
-        <li>
-          • <b>TailwindCSS</b> for styling
+          • <b>Location services</b> for nearby gear
         </li>
       </ul>
     ),
-    timeSaved: "10 hours",
+    timeSaved: "Native-like",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>TailwindCSS</Badge>
-        <Badge>Shadcn UI</Badge>
-        <Badge>Magic UI</Badge>
+        <Badge>PWA</Badge>
+        <Badge>Offline</Badge>
+        <Badge>Push Notifications</Badge>
+        <Badge>Mobile-First</Badge>
       </div>
     ),
   },
   {
     id: 7,
-    tabName: "Background Jobs",
+    tabName: "Insurance",
     icon: Cog,
-    heading: "Serverless Job Processing",
+    heading: "Comprehensive Protection",
     featureList: (
       <ul className="mt-4 space-y-3">
         <li>
-          • <b>Queue management</b>
+          • <b>Damage protection</b> for all rentals
         </li>
         <li>
-          • <b>Scheduled tasks</b>
+          • <b>Theft coverage</b> with quick claims
         </li>
         <li>
-          • <b>Error handling & retries</b>
+          • <b>72-hour resolution</b> process
         </li>
         <li>
-          • Powered by <b>Inngest</b>
+          • <b>Third-party insurance</b> partnerships
         </li>
         <li>
-          • Optional <b>Upstash</b> for rate limiting
+          • <b>Clear liability</b> terms and conditions
         </li>
         <li>
-          • Implement heavy tasks in <b>background</b>
-        </li>
-        <li>
-          • Email sequences in <b>background</b>
+          • <b>Automated claims</b> processing
         </li>
       </ul>
     ),
-    timeSaved: "7 hours",
+    timeSaved: "Protected",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>Upstash</Badge>
-        <Badge>Inngest</Badge>
-        <Badge>Schedule Tasks</Badge>
-        <Badge>Background Jobs</Badge>
+        <Badge>Damage Protection</Badge>
+        <Badge>Theft Coverage</Badge>
+        <Badge>Quick Claims</Badge>
+        <Badge>Insurance Partners</Badge>
       </div>
     ),
   },
@@ -255,41 +247,37 @@ const tabs = [
     heading: "And Much More...",
     featureList: (
       <ul className="mt-4 space-y-3">
-        <li>• API rate limiting (optional)</li>
-        <li>• File uploads (S3)</li>
+        <li>• <b>Louisville launch</b> with local focus</li>
+        <li>• <b>Founding creators</b> badge program</li>
         <li>
-          • <b>Discord community</b> for accountability and support.
+          • <b>Referral rewards</b> for bringing in users
         </li>
         <li>
-          • <b>Super Admin dashboard</b> for managing users, plans, and more.
+          • <b>Local events</b> and meetups
         </li>
         <li>
-          • <b>Roadmap Manager</b> for tracking your roadmap
+          • <b>Gear condition</b> checklists
         </li>
         <li>
-          • <b>Waitlist Manager</b> for managing your waitlist
+          • <b>Booking management</b> tools
         </li>
         <li>
-          • <b>Privacy Policy and other legal documents</b> ChatGPT prompts
+          • <b>Analytics dashboard</b> for owners
         </li>
         <li>
-          • <b>Contact Us</b> messages manager.
-        </li>
-        <li>
-          • <b>Common Email Templates</b> for your emails
+          • <b>Community guidelines</b> and support
         </li>
         <li>• And much more...</li>
       </ul>
     ),
-    timeSaved: "15+ hours",
+    timeSaved: "Complete",
     footer: (
       <div className="flex items-center gap-2">
-        <Badge>Discord</Badge>
-        <Badge>Email Templates</Badge>
-        <Badge>Roadmap Manager</Badge>
-        <Badge>Waitlist Manager</Badge>
-        <Badge>Privacy Policy</Badge>
-        <Badge>Contact Us</Badge>
+        <Badge>Louisville</Badge>
+        <Badge>Founding Creators</Badge>
+        <Badge>Referrals</Badge>
+        <Badge>Events</Badge>
+        <Badge>Analytics</Badge>
       </div>
     ),
   },
@@ -303,24 +291,22 @@ export const WebsiteFeatures = () => {
       <div className="container">
         <div className="mx-auto flex max-w-(--breakpoint-md) flex-col items-center gap-6">
           <h2 className="mb-4 text-center text-4xl font-semibold md:text-5xl">
-            Bootstrap your app instantly,{" "}
+            Rent camera gear from creators,{" "}
             <HyperText
               startOnView
               delay={1000}
               as="span"
               className="text-primary"
             >
-              launch faster
+              showcase your work
             </HyperText>
-            , make $
+            , build community
           </h2>
           <p className="text-center text-lg text-muted-foreground md:text-xl">
-            Login users, process payments, send emails at lightspeed. Spend your
-            time building your startup, not integrating APIs.{" "}
-            <span className="text-primary">Indie Kit</span> provides you with
-            the boilerplate code you need to launch,{" "}
+            Discover professional equipment, monetize your gear, and connect with fellow creators.{" "}
+            <span className="text-primary">LensFlare</span> is the peer-to-peer platform that makes camera gear accessible,{" "}
             <HyperText startOnView delay={2500} as="span" className="text-sm">
-              Faster than ever.
+              One rental at a time.
             </HyperText>
           </p>
         </div>

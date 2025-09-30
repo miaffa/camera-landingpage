@@ -4,22 +4,26 @@ import React from "react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
-const Hero2 = () => {
+const Hero = () => {
   return (
     <section className="py-32">
       <div className="container text-center">
         <div className="mx-auto flex max-w-(--breakpoint-lg) flex-col gap-6">
           <h1 className="text-3xl font-extrabold lg:text-6xl">
-            Generate your website in minutes with AI in your browser
+            Rent Camera Gear from Creators, Showcase Your Work
           </h1>
           <p className="text-balance text-muted-foreground lg:text-lg">
-            We are a team of developers who are passionate about creating
-            beautiful and functional websites with AI in your browser.
+            The peer-to-peer camera gear rental platform where photographers and videographers can monetize their equipment, discover new gear, and build a creative community.
           </p>
         </div>
-        <Button size="lg" className="mt-10">
-            Get Started
-        </Button>
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+          <Button size="lg">
+            Start Renting Gear
+          </Button>
+          <Button size="lg" variant="outline">
+            List Your Equipment
+          </Button>
+        </div>
         <div className="mx-auto mt-10 flex w-fit flex-col items-center gap-4 sm:flex-row">
           <span className="mx-4 inline-flex items-center -space-x-4">
             <Avatar className="size-14 border bg-white">
@@ -63,7 +67,7 @@ const Hero2 = () => {
               <span className="font-semibold">5.0</span>
             </div>
             <p className="text-left font-medium text-muted-foreground">
-              from 200+ reviews
+              from 200+ photographers
             </p>
           </div>
         </div>
@@ -72,4 +76,4 @@ const Hero2 = () => {
   );
 };
 
-export default Hero2;
+export default Hero;

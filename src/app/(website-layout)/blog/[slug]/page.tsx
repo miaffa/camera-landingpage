@@ -7,7 +7,7 @@ import { ShareButton } from "@/components/share-button";
 import { Metadata } from "next";
 import { TableOfContents } from "@/components/table-of-contents";
 import { cn } from "@/lib/utils";
-import { CTA2 } from "@/components/website/cta-2";
+import { CTA2 } from "@/components/marketing/cta-2";
 import { WebPageJsonLd, ArticleJsonLd, BreadcrumbJsonLd } from "next-seo";
 import { appConfig } from "@/lib/config";
 
