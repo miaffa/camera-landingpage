@@ -1,4 +1,4 @@
-import client from "./client";
+import getDodoPaymentsClient from "./client";
 import { countries } from "countries-list";
 interface CreateCheckoutSessionResponse {
   payment_link: string;
@@ -36,7 +36,7 @@ export const createOneTimePaymentCheckout = async (params: {
           create_new_customer: true,
         };
 
-    const response = await client.payments.create({
+    const response = await getDodoPaymentsClient().payments.create({
       product_cart: [
         {
           product_id: productId,
@@ -90,7 +90,7 @@ export const createSubscriptionCheckout = async (params: {
           create_new_customer: true,
         };
 
-    const response = await client.subscriptions.create({
+    const response = await getDodoPaymentsClient().subscriptions.create({
       product_id: productId,
       quantity: 1,
       customer,

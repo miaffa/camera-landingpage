@@ -2,10 +2,10 @@ import { db } from "@/db";
 import { users } from "@/db/schema/user";
 import withAuthRequired from "@/lib/auth/withAuthRequired";
 import { eq } from "drizzle-orm";
-import stripe from "@/lib/stripe";
+import getStripeClient from "@/lib/stripe";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
-import client from "@/lib/dodopayments/client";
+import getDodoPaymentsClient from "@/lib/dodopayments/client";
 import { paypalContext } from "@/db/schema/paypal";
 
 export const GET = withAuthRequired(async (req, context) => {
@@ -20,7 +20,7 @@ export const GET = withAuthRequired(async (req, context) => {
 
   if (stripeCustomerId) {
     // create customer portal link
-    const portalSession = await stripe.billingPortal.sessions.create({
+    const portalSession = await getStripeClient().billingPortal.sessions.create({
       customer: stripeCustomerId,
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/app`,
     });
@@ -34,7 +34,7 @@ export const GET = withAuthRequired(async (req, context) => {
   const dodoCustomerId = user.dodoCustomerId;
   if (dodoCustomerId) {
     const customerPortalSession =
-      await client.customers.customerPortal.create(dodoCustomerId);
+      await getDodoPaymentsClient().customers.customerPortal.create(dodoCustomerId);
     return redirect(customerPortalSession.link);
   }
 

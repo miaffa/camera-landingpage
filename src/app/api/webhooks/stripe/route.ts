@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import stripe from "@/lib/stripe";
+import getStripeClient from "@/lib/stripe";
 import { NextRequest, NextResponse } from "next/server";
 import APIError from "@/lib/api/errors";
 import getOrCreateUser from "@/lib/users/getOrCreateUser";
@@ -128,7 +128,7 @@ class StripeWebhookHandler {
     customer: string | Stripe.Customer | Stripe.DeletedCustomer
   ): Promise<Stripe.Customer | null> {
     if (typeof customer === "string") {
-      const response = await stripe.customers.retrieve(customer);
+      const response = await getStripeClient().customers.retrieve(customer);
       if (response.deleted) {
         return null;
       }
@@ -233,7 +233,7 @@ class StripeWebhookHandler {
       .where(eq(users.id, user.id));
 
     // Get line items to find the plan
-    const lineItems = await stripe.checkout.sessions.listLineItems(object.id);
+    const lineItems = await getStripeClient().checkout.sessions.listLineItems(object.id);
 
     if (lineItems.data.length === 0) {
       throw new APIError("No line items found in checkout session");
@@ -271,7 +271,7 @@ async function handler(req: NextRequest) {
 
       try {
         const body = await req.text();
-        event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
+        event = getStripeClient().webhooks.constructEvent(body, signature, webhookSecret);
       } catch (err) {
         console.error(`⚠️ Webhook signature verification failed.`, err);
         return NextResponse.json({

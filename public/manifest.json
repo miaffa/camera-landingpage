@@ -1,7 +1,7 @@
 {
-  "name": "LensFlare - Next.js SaaS Boilerplate",
+  "name": "LensFlare - Camera Gear Rental Platform",
   "short_name": "LensFlare",
-  "description": "A modern, full-stack Next.js boilerplate with authentication, database integration, and payment processing capabilities.",
+  "description": "Peer-to-peer camera gear rental platform where photographers and videographers can monetize their equipment and discover new gear.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

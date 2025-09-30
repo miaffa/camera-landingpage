@@ -17,7 +17,7 @@ import {
   subscribeParams,
   SubscribeParams,
 } from "@/lib/plans/getSubscribeUrl";
-import stripe from "@/lib/stripe";
+import getStripeClient from "@/lib/stripe";
 import { eq } from "drizzle-orm";
 import { notFound, redirect } from "next/navigation";
 import React from "react";
@@ -136,7 +136,7 @@ async function SubscribePage({
       }
 
       //  Create checkout session
-      const stripeCheckoutSession = await stripe.checkout.sessions.create({
+      const stripeCheckoutSession = await getStripeClient().checkout.sessions.create({
         mode: type === PlanType.ONETIME ? "payment" : "subscription",
         line_items: [
           {
