@@ -20,6 +20,10 @@ export const users = pgTable("app_user", {
   image: text("image"),
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 
+  // Password authentication fields (optional for future use)
+  passwordHash: text("passwordHash"),
+  passwordSetAt: timestamp("passwordSetAt", { mode: "date" }),
+
   stripeCustomerId: text("stripeCustomerId"),
   stripeSubscriptionId: text("stripeSubscriptionId"),
   lemonSqueezyCustomerId: text("lemonSqueezyCustomerId"),

@@ -16,6 +16,7 @@ import MagicLinkEmail from "./emails/MagicLinkEmail";
 import sendMail from "./lib/email/sendMail";
 import { appConfig } from "./lib/config";
 import { decryptJson } from "./lib/encryption/edge-jwt";
+import { eq } from "drizzle-orm";
 
 // Overrides default session type
 declare module "next-auth" {
@@ -78,17 +79,17 @@ const adapter = DrizzleAdapter(db, {
   verificationTokensTable: verificationTokens,
 });
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+const authConfig = {
   pages: {
     signIn: "/sign-in",
     signOut: "/sign-out",
   },
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
   },
   adapter: {
     ...adapter,
-    createUser: async (user) => {
+    createUser: async (user: any) => {
       if (!adapter.createUser) {
         throw new Error("Adapter is not initialized");
       }
@@ -101,9 +102,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn() {
-      return process.env.NEXT_PUBLIC_SIGNIN_ENABLED === "true";
+      // Allow signin if explicitly enabled or if not set (default to true for development)
+      return process.env.NEXT_PUBLIC_SIGNIN_ENABLED !== "false";
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       if (token.sub) {
         session.user.id = token.sub;
       }
@@ -115,7 +117,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
       // If user object is available (after sign in), check if impersonation is happening
       if (user && "impersonatedBy" in user) {
         token.impersonatedBy = user.impersonatedBy;
@@ -181,4 +183,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
     // TIP: Add more providers here as needed like Apple, Facebook, etc.
   ],
-});
+};
+
+
+export const { handlers, signIn, signOut, auth } = NextAuth(authConfig);
