@@ -42,6 +42,116 @@
 - **Coupons** - Discount and promotion system
 - **Waitlist** - Early access signups
 
+## 🏗️ Component Architecture
+
+### Design Principles
+- **Single Responsibility Principle** - Each component has one clear purpose
+- **Composition over Inheritance** - Build complex UIs by combining simple components
+- **Separation of Concerns** - Separate data, UI, and business logic
+- **Reusability** - Components should be reusable across different contexts
+- **Type Safety** - All components use TypeScript interfaces for props
+
+### File Structure
+```
+src/
+├── lib/data/                    # Centralized mock data
+│   ├── mock-data.ts            # Profile and general data
+│   ├── marketplace-data.ts     # Marketplace-specific data
+│   ├── messages-data.ts        # Messages and conversations
+│   ├── create-data.ts          # Gear categories and creation data
+│   └── feed-data.ts            # Social feed data
+├── components/
+│   ├── profile/                # Profile page components
+│   │   ├── GearTabContent.tsx
+│   │   ├── PostsTabContent.tsx
+│   │   ├── SavedTabContent.tsx
+│   │   ├── ProfileStats.tsx
+│   │   ├── VerificationCTA.tsx
+│   │   └── ProfileSkeleton.tsx
+│   ├── marketplace/            # Marketplace page components
+│   │   ├── SearchBar.tsx
+│   │   ├── FocusTabs.tsx
+│   │   ├── CategoryPills.tsx
+│   │   ├── GearResults.tsx
+│   │   ├── PeopleResults.tsx
+│   │   └── LocationFilter.tsx
+│   ├── messages/               # Messages page components
+│   │   ├── MessagesHeader.tsx
+│   │   ├── ConversationSearch.tsx
+│   │   ├── ConversationItem.tsx
+│   │   └── ConversationsList.tsx
+│   ├── create/                 # Create page components
+│   │   ├── CreateHeader.tsx
+│   │   ├── GearCategoryCard.tsx
+│   │   ├── GearCategoriesGrid.tsx
+│   │   ├── CreateCTA.tsx
+│   │   └── EmptyState.tsx
+│   ├── feed/                   # Home/Feed page components
+│   │   ├── FeedHeader.tsx
+│   │   ├── StoryItem.tsx
+│   │   ├── StoriesSection.tsx
+│   │   ├── FeedPost.tsx
+│   │   └── FeedPosts.tsx
+│   └── ui/                     # Reusable UI components (shadcn/ui)
+└── app/(in-app)/app/           # Main page components
+    ├── page.tsx                # Home/Feed page (58 lines)
+    ├── marketplace/page.tsx     # Marketplace page (87 lines)
+    ├── messages/page.tsx        # Messages page (46 lines)
+    ├── create/page.tsx          # Create page (44 lines)
+    └── profile/page.tsx         # Profile page (116 lines)
+```
+
+### Component Patterns
+
+#### 1. Data Separation
+- **Mock data** is centralized in `src/lib/data/` files
+- **Type definitions** are co-located with components
+- **Business logic** is separated from UI components
+
+#### 2. Component Composition
+- **Small, focused components** (typically 20-80 lines)
+- **Clear prop interfaces** with TypeScript
+- **Event handlers** passed down as props
+- **Conditional rendering** handled at the component level
+
+#### 3. Page Structure
+- **Main page files** are thin orchestrators (40-120 lines)
+- **State management** handled at the page level
+- **Component composition** used for complex layouts
+- **Clear separation** between data fetching and presentation
+
+#### 4. Reusability Patterns
+- **Generic components** like `SearchBar`, `EmptyState`
+- **Composable components** like `GearCategoryCard`
+- **Consistent interfaces** across similar components
+- **Shared data structures** for common entities
+
+### Benefits of This Architecture
+
+#### Maintainability
+- **Easy to locate** specific functionality
+- **Simple to modify** individual components
+- **Clear dependencies** between components
+- **Reduced coupling** between different features
+
+#### Performance
+- **Smaller bundle sizes** per component
+- **Better tree-shaking** opportunities
+- **Easier code splitting** for lazy loading
+- **Optimized re-renders** with focused components
+
+#### Developer Experience
+- **Faster development** with smaller files
+- **Better IDE performance** with focused components
+- **Easier debugging** with clear component boundaries
+- **Simplified testing** with isolated components
+
+#### Scalability
+- **Easy to add new features** without affecting existing code
+- **Consistent patterns** for new developers
+- **Reusable components** reduce duplication
+- **Clear architecture** supports team collaboration
+
 ### Email & Communication
 - **React Email** - Email template system
 - **Resend** - Email delivery service

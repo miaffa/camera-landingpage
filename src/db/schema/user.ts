@@ -21,7 +21,7 @@ export const users = pgTable("app_user", {
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 
   // Password authentication fields (optional for future use)
-  passwordHash: text("passwordHash"),
+  passwordHash: text("passwordHash").notNull(),
   passwordSetAt: timestamp("passwordSetAt", { mode: "date" }),
 
   stripeCustomerId: text("stripeCustomerId"),

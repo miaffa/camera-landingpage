@@ -1,11 +1,38 @@
 "use client";
 
-import React from "react";
-import { Search, Filter, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import React, { useState } from "react";
+import { SearchBar } from "@/components/marketplace/SearchBar";
+import { FocusTabs } from "@/components/marketplace/FocusTabs";
+import { CategoryPills } from "@/components/marketplace/CategoryPills";
+import { GearResults } from "@/components/marketplace/GearResults";
+import { PeopleResults } from "@/components/marketplace/PeopleResults";
+import { LocationFilter } from "@/components/marketplace/LocationFilter";
+import { mockGear, mockUsers } from "@/lib/data/marketplace-data";
 
 export default function MarketplacePage() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchFocus, setSearchFocus] = useState<"gear" | "people">("gear");
+
+  // Filter gear based on selected category and search
+  const filteredGear = mockGear.filter(gear => {
+    const matchesCategory = selectedCategory === "all" || gear.category === selectedCategory;
+    const matchesSearch = gear.title.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  // Filter users based on search
+  const filteredUsers = mockUsers.filter(user => {
+    const matchesSearch = 
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.bio.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesSearch;
+  });
+
+  // Show focus tabs only when there's a search query
+  const showFocusTabs = searchQuery.length > 0;
+
   return (
     <div className="flex flex-col gap-6 pb-20">
       {/* Header */}
@@ -17,38 +44,43 @@ export default function MarketplacePage() {
       </div>
 
       {/* Search Bar */}
-      <div className="flex gap-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search for gear..."
-            className="pl-10"
-          />
-        </div>
-        <Button variant="outline" size="icon">
-          <Filter className="h-4 w-4" />
-        </Button>
+      <SearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+
+      {/* Focus Tabs */}
+      <FocusTabs 
+        searchFocus={searchFocus} 
+        onFocusChange={setSearchFocus} 
+        showTabs={showFocusTabs} 
+      />
+
+      {/* Category Pills */}
+      <CategoryPills 
+        selectedCategory={selectedCategory} 
+        onCategoryChange={setSelectedCategory} 
+        showPills={!showFocusTabs || searchFocus === "gear"} 
+      />
+
+      {/* Results Count */}
+      <div className="text-sm text-muted-foreground">
+        {searchFocus === "gear" ? filteredGear.length : filteredUsers.length} {searchFocus === "gear" ? "items" : "people"} found
       </div>
 
       {/* Location Filter */}
-      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <MapPin className="h-4 w-4" />
-        <span>Louisville, KY</span>
-        <Button variant="ghost" size="sm" className="h-auto p-1">
-          Change
-        </Button>
-      </div>
+      <LocationFilter />
 
-      {/* Placeholder Content */}
-      <div className="flex flex-col items-center justify-center py-12 text-center">
-        <div className="rounded-full bg-muted p-6 mb-4">
-          <Search className="h-8 w-8 text-muted-foreground" />
-        </div>
-        <h3 className="text-lg font-semibold mb-2">No gear found</h3>
-        <p className="text-muted-foreground max-w-sm">
-          Start by listing your gear or check back later for new listings in your area.
-        </p>
-      </div>
+      {/* Results */}
+      {searchFocus === "gear" ? (
+        <GearResults 
+          gear={filteredGear} 
+          searchQuery={searchQuery} 
+          selectedCategory={selectedCategory} 
+        />
+      ) : (
+        <PeopleResults 
+          users={filteredUsers} 
+          searchQuery={searchQuery} 
+        />
+      )}
     </div>
   );
 }
