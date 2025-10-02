@@ -4,6 +4,7 @@ import { type EmailConfig } from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "./db";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import type { AdapterUser } from "next-auth/adapters";
 import {
   accounts,
   sessions,
@@ -89,7 +90,7 @@ const authConfig = {
   },
   adapter: {
     ...adapter,
-    createUser: async (user: { id: string; email: string; name?: string; image?: string }) => {
+    createUser: async (user: AdapterUser) => {
       if (!adapter.createUser) {
         throw new Error("Adapter is not initialized");
       }
@@ -105,7 +106,8 @@ const authConfig = {
       // Allow signin if explicitly enabled or if not set (default to true for development)
       return process.env.NEXT_PUBLIC_SIGNIN_ENABLED !== "false";
     },
-    async session({ session, token }: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async session({ session, token }: { session: any; token: any }) {
       if (token.sub) {
         session.user.id = token.sub;
       }
@@ -117,7 +119,8 @@ const authConfig = {
       }
       return session;
     },
-    async jwt({ token, user }: any) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async jwt({ token, user }: { token: any; user: any }) {
       // If user object is available (after sign in), check if impersonation is happening
       if (user && "impersonatedBy" in user) {
         token.impersonatedBy = user.impersonatedBy;

@@ -2,35 +2,35 @@ import React from "react";
 import { FeedPost } from "./FeedPost";
 import { mockPosts } from "@/lib/data/feed-data";
 
-interface Author {
-  name: string;
-  username: string;
-  avatar: string;
-  location?: string;
-}
+// interface Author {
+//   name: string;
+//   username: string;
+//   avatar: string;
+//   location?: string;
+// }
 
-interface GearItem {
-  id: string;
-  name: string;
-  price: number;
-  category: string;
-  status: string;
-  rating: number;
-  image: string;
-  location: string;
-}
+// interface GearItem {
+//   id: string;
+//   name: string;
+//   price: number;
+//   category: string;
+//   status: string;
+//   rating: number;
+//   image: string;
+//   location: string;
+// }
 
 // interface Post {
-  id: string;
-  author: Author;
-  timestamp: string;
-  content: string;
-  hashtags: string[];
-  likes: number;
-  comments: number;
-  image: string;
-  gearUsed?: GearItem[];
-}
+//   id: string;
+//   author: Author;
+//   timestamp: string;
+//   content: string;
+//   hashtags: string[];
+//   likes: number;
+//   comments: number;
+//   image: string;
+//   gearUsed?: GearItem[];
+// }
 
 interface FeedPostsProps {
   onLike: (postId: string) => void;

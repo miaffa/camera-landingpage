@@ -13,8 +13,8 @@ import { ProfileDropdown } from "@/components/profile/ProfileDropdown";
 import { EditProfileModal } from "@/components/profile/EditProfileModal";
 import { SettingsModal } from "@/components/profile/SettingsModal";
 import useUser from "@/lib/users/useUser";
-import useCurrentPlan from "@/lib/users/useCurrentPlan";
-import { ProfileFormData } from "@/lib/validations/profile.schema";
+// import useCurrentPlan from "@/lib/users/useCurrentPlan"; // TODO: Use for plan-specific features
+// import { ProfileFormData } from "@/lib/validations/profile.schema"; // TODO: Use for form validation
 
 export default function ProfilePage() {
   const { user, isLoading: userLoading, error: userError } = useUser();
