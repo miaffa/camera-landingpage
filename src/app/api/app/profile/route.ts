@@ -9,9 +9,9 @@ export const PUT = withAuthRequired(async (request: NextRequest, { session }) =>
     const formData = await request.formData();
     const name = formData.get("name") as string;
     const username = formData.get("username") as string;
-    const bio = formData.get("bio") as string;
-    const location = formData.get("location") as string;
-    const image = formData.get("image") as File | null;
+    // const bio = formData.get("bio") as string; // TODO: Uncomment after migration
+    // const location = formData.get("location") as string; // TODO: Uncomment after migration
+    // const image = formData.get("image") as File | null; // TODO: Implement image upload
 
     // Validate required fields
     if (!name || !username) {

@@ -5,22 +5,22 @@ import { FeedPosts } from "@/components/feed/FeedPosts";
 
 export default function HomePage() {
 
-  const handlePostLike = (postId: string) => {
+  const handlePostLike = () => {
     // TODO: Toggle like for post
     // Like functionality will be implemented in future iteration
   };
 
-  const handlePostComment = (postId: string) => {
+  const handlePostComment = () => {
     // TODO: Navigate to comments or open comment modal
     // Comment functionality will be implemented in future iteration
   };
 
-  const handlePostShare = (postId: string) => {
+  const handlePostShare = () => {
     // TODO: Open share modal
     // Share functionality will be implemented in future iteration
   };
 
-  const handlePostMore = (postId: string) => {
+  const handlePostMore = () => {
     // TODO: Open post options menu
     // More options functionality will be implemented in future iteration
   };

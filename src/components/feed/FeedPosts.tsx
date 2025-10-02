@@ -20,7 +20,7 @@ interface GearItem {
   location: string;
 }
 
-interface Post {
+// interface Post {
   id: string;
   author: Author;
   timestamp: string;

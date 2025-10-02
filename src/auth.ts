@@ -16,7 +16,7 @@ import MagicLinkEmail from "./emails/MagicLinkEmail";
 import sendMail from "./lib/email/sendMail";
 import { appConfig } from "./lib/config";
 import { decryptJson } from "./lib/encryption/edge-jwt";
-import { eq } from "drizzle-orm";
+// import { eq } from "drizzle-orm"; // TODO: Use for user queries
 
 // Overrides default session type
 declare module "next-auth" {
@@ -89,7 +89,7 @@ const authConfig = {
   },
   adapter: {
     ...adapter,
-    createUser: async (user: any) => {
+    createUser: async (user: { id: string; email: string; name?: string; image?: string }) => {
       if (!adapter.createUser) {
         throw new Error("Adapter is not initialized");
       }

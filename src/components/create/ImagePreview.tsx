@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface ImagePreviewProps {
   images: File[];
@@ -25,12 +26,6 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
   }, [images]);
 
   // Reset current index when images change
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [images.length]);
-
-  if (images.length === 0) return null;
-
   const nextImage = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
   }, [images.length]);
@@ -38,6 +33,12 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
   const prevImage = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   }, [images.length]);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [images.length]);
+
+  if (images.length === 0) return null;
 
   // Touch/swipe handling
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -71,12 +72,13 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-                <img
-                  src={imageUrls[currentIndex]}
-                  alt={`Preview ${currentIndex + 1}`}
-                  className="w-full h-full object-cover rounded-lg select-none"
-                  draggable={false}
-                />
+            <Image 
+              src={imageUrls[currentIndex]} 
+              alt={`Preview ${currentIndex + 1}`}
+              fill
+              className="object-cover rounded-lg select-none"
+              draggable={false}
+            />
         
         {/* Remove Button */}
         <Button
@@ -131,10 +133,11 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
                   : "border-gray-200 hover:border-gray-300"
               }`}
             >
-                      <img
+                      <Image
                         src={imageUrls[index]}
                         alt={`Thumbnail ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                       />
             </button>
           ))}

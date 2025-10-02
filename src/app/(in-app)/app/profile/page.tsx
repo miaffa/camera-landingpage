@@ -18,7 +18,7 @@ import { ProfileFormData } from "@/lib/validations/profile.schema";
 
 export default function ProfilePage() {
   const { user, isLoading: userLoading, error: userError } = useUser();
-  const { currentPlan } = useCurrentPlan();
+  // const { currentPlan } = useCurrentPlan(); // TODO: Use for plan-specific features
   
   // Modal states
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
@@ -75,7 +75,7 @@ export default function ProfilePage() {
     // Sign out functionality will be implemented in future iteration
   };
 
-  const handleSaveProfile = (profileData: ProfileFormData) => {
+  const handleSaveProfile = () => {
     // Profile is already saved by the modal, this is just for any additional handling
     // User data will be automatically refreshed by the useProfileUpdate hook
   };

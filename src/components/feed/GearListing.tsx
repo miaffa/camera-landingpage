@@ -1,7 +1,7 @@
 import React from "react";
 import { Camera, Star, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button"; // TODO: Use for gear actions
 
 interface GearItem {
   id: string;
