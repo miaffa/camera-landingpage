@@ -4,13 +4,15 @@ import { Badge } from "@/components/ui/badge";
 
 interface Conversation {
   id: string;
+  bookingId: string;
   name: string;
-  username: string;
+  email: string;
   avatar: string;
   lastMessage: string;
   timestamp: string;
   unreadCount: number;
   isOnline: boolean;
+  status: string;
 }
 
 interface ConversationItemProps {
@@ -38,7 +40,17 @@ export function ConversationItem({ conversation, onClick }: ConversationItemProp
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold truncate">{conversation.name}</h3>
-          <span className="text-xs text-muted-foreground">{conversation.timestamp}</span>
+          <div className="flex items-center gap-2">
+            <Badge 
+              variant={conversation.status === 'pending' ? 'secondary' : 
+                      conversation.status === 'approved' ? 'default' : 
+                      conversation.status === 'cancelled' ? 'destructive' : 'outline'}
+              className="text-xs"
+            >
+              {conversation.status}
+            </Badge>
+            <span className="text-xs text-muted-foreground">{conversation.timestamp}</span>
+          </div>
         </div>
         <p className="text-sm text-muted-foreground truncate">
           {conversation.lastMessage}

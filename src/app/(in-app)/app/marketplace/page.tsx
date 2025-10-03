@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GearMapView } from "@/components/map/GearMapView";
 import { BookingRequestModal } from "@/components/rental/BookingRequestModal";
-import { useUserGear } from "@/lib/gear/useUserGear";
+import useSWR from "swr";
 import dynamic from "next/dynamic";
 
 // Lazy load the map component to improve initial page load
@@ -35,47 +35,23 @@ export default function MarketplacePage() {
   const [selectedGear, setSelectedGear] = useState<GearItem | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-  const { gear, isLoading } = useUserGear();
+  // Fetch all available gear from the API
+  const fetcher = async (url: string) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Failed to fetch gear");
+    }
+    const data = await response.json();
+    return data.results || [];
+  };
 
-  // Mock additional gear for marketplace (in real app, this would come from API)
-  const mockGear: GearItem[] = [
-    {
-      id: "marketplace-1",
-      name: "Sigma 70-200 f/2.8",
-      category: "Lens",
-      description: "Professional telephoto zoom lens perfect for sports and portrait photography. Excellent condition with minimal wear.",
-      pricePerDay: "40",
-      condition: "Excellent",
-      location: "Georgetown, Washington DC",
-      images: [],
-      isAvailable: true,
-    },
-    {
-      id: "marketplace-2", 
-      name: "Canon EOS R5",
-      category: "Camera",
-      description: "High-resolution mirrorless camera with 45MP sensor. Perfect for professional photography and videography.",
-      pricePerDay: "65",
-      condition: "Good",
-      location: "Brooklyn, NY",
-      images: [],
-      isAvailable: true,
-    },
-    {
-      id: "marketplace-3",
-      name: "DJI Mavic Pro 3",
-      category: "Drone", 
-      description: "Professional drone with 4K camera and advanced flight features. Great for aerial photography and videography.",
-      pricePerDay: "80",
-      condition: "Excellent",
-      location: "Los Angeles, CA",
-      images: [],
-      isAvailable: false,
-    },
-  ];
+  const { data: gear, error, isLoading } = useSWR<GearItem[]>(
+    "/api/gear/search",
+    fetcher
+  );
 
-  // Memoize the combined gear data to prevent unnecessary recalculations
-  const marketplaceGear = useMemo(() => [...gear, ...mockGear], [gear]);
+  // Use the real gear data from the API
+  const marketplaceGear = gear || [];
 
   // Memoize the filtered gear to prevent unnecessary filtering on every render
   const filteredGear = useMemo(() => {

@@ -125,6 +125,7 @@ export async function GET(request: NextRequest) {
         images: gearListings.images,
         availableFrom: gearListings.availableFrom,
         availableUntil: gearListings.availableUntil,
+        isAvailable: gearListings.isAvailable,
         createdAt: gearListings.createdAt,
         // Owner details
         ownerId: gearListings.ownerId,
@@ -137,6 +138,12 @@ export async function GET(request: NextRequest) {
       .orderBy(gearListings.createdAt)
       .limit(validatedData.limit)
       .offset(validatedData.offset);
+
+    // Debug logging
+    console.log("🔍 [GearSearch] Search results:", searchResults.length);
+    searchResults.forEach(gear => {
+      console.log(`🔍 [GearSearch] ${gear.name}: isAvailable=${gear.isAvailable}, availableFrom=${gear.availableFrom}, availableUntil=${gear.availableUntil}`);
+    });
 
     // Get total count for pagination
     const totalCount = await db

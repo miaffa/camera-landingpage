@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { bookings, rentalBlocks } from "@/db/schema/bookings";
+import { bookings, rentalBlocks, rentalMessages } from "@/db/schema/bookings";
 import { gearListings } from "@/db/schema/gear";
 import { eq, and, gte, lte, or } from "drizzle-orm";
 import { z } from "zod";
@@ -224,6 +224,26 @@ export async function POST(request: NextRequest) {
         note: "Booking request created"
       }],
     }).returning();
+
+    // Create initial message in rentalMessages table
+    if (validatedData.renterMessage) {
+      await db.insert(rentalMessages).values({
+        bookingId: newBooking[0].id,
+        senderId: session.user.id,
+        message: validatedData.renterMessage,
+        messageType: "text",
+        isSystemMessage: false,
+      });
+    }
+
+    // Also create a system message about the booking
+    await db.insert(rentalMessages).values({
+      bookingId: newBooking[0].id,
+      senderId: session.user.id,
+      message: `Booking request created for ${gearData.name} from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`,
+      messageType: "system",
+      isSystemMessage: true,
+    });
 
     return NextResponse.json(newBooking[0], { status: 201 });
   } catch (error) {
