@@ -17,11 +17,23 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
 
   // Clean up object URLs on unmount or when images change
   useEffect(() => {
-    const urls = images.map(file => URL.createObjectURL(file));
-    setImageUrls(urls);
+    if (images && images.length > 0) {
+      const urls = images.map(file => {
+        if (file && file instanceof File) {
+          return URL.createObjectURL(file);
+        }
+        return '';
+      }).filter(url => url !== '');
+      setImageUrls(urls);
+    } else {
+      setImageUrls([]);
+    }
 
+    // Cleanup function to revoke URLs when component unmounts or images change
     return () => {
-      urls.forEach(url => URL.revokeObjectURL(url));
+      imageUrls.forEach(url => {
+        if (url) URL.revokeObjectURL(url);
+      });
     };
   }, [images]);
 
@@ -38,7 +50,7 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
     setCurrentIndex(0);
   }, [images.length]);
 
-  if (images.length === 0) return null;
+  if (!images || images.length === 0 || imageUrls.length === 0) return null;
 
   // Touch/swipe handling
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -66,19 +78,23 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
   return (
     <div className="space-y-3">
       {/* Main Image Display */}
-      <div 
-        ref={containerRef}
-        className="relative aspect-square w-full max-w-sm mx-auto"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-            <Image 
-              src={imageUrls[currentIndex]} 
-              alt={`Preview ${currentIndex + 1}`}
-              fill
-              className="object-cover rounded-lg select-none"
-              draggable={false}
-            />
+      <div className="flex justify-center">
+        <div 
+          ref={containerRef}
+          className="relative aspect-square w-80 h-80 rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-gray-50"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+            {imageUrls[currentIndex] && (
+              <Image 
+                src={imageUrls[currentIndex]} 
+                alt={`Preview ${currentIndex + 1}`}
+                fill
+                className="object-cover select-none"
+                draggable={false}
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+              />
+            )}
         
         {/* Remove Button */}
         <Button
@@ -118,27 +134,31 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
             {currentIndex + 1} / {images.length}
           </div>
         )}
+        </div>
       </div>
 
       {/* Thumbnail Strip */}
       {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-2">
+        <div className="flex justify-center gap-2 overflow-x-auto pb-2">
           {images.map((image, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
+              className={`relative flex-shrink-0 w-12 h-12 rounded-md overflow-hidden border-2 transition-colors ${
                 index === currentIndex
                   ? "border-blue-500"
                   : "border-gray-200 hover:border-gray-300"
               }`}
             >
-                      <Image
-                        src={imageUrls[index]}
-                        alt={`Thumbnail ${index + 1}`}
-                        fill
-                        className="object-cover"
-                      />
+                      {imageUrls[index] && (
+                        <Image
+                          src={imageUrls[index]}
+                          alt={`Thumbnail ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                        />
+                      )}
             </button>
           ))}
         </div>

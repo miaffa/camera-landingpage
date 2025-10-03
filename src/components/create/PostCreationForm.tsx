@@ -136,8 +136,10 @@ function PostCreationForm({
       <div className="space-y-4">
         {selectedImages.length > 0 ? (
           <div className="space-y-3">
-            {/* Image Preview */}
-            <ImagePreview images={selectedImages} onRemoveImage={onRemoveImage} />
+            {/* Image Preview Card */}
+            <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+              <ImagePreview images={selectedImages} onRemoveImage={onRemoveImage} />
+            </div>
             
             {/* Add More Photos Button */}
             <DropdownMenu>
@@ -160,17 +162,18 @@ function PostCreationForm({
             </DropdownMenu>
           </div>
         ) : (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div 
-                className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
-              >
-                <div className="space-y-2">
-                  <Camera className="h-8 w-8 text-gray-400 mx-auto" />
-                  <p className="text-sm text-gray-500">Tap to add photo</p>
+          <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div 
+                  className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
+                >
+                  <div className="space-y-2">
+                    <Camera className="h-8 w-8 text-gray-400 mx-auto" />
+                    <p className="text-sm text-gray-500">Tap to add photo</p>
+                  </div>
                 </div>
-              </div>
-            </DropdownMenuTrigger>
+              </DropdownMenuTrigger>
             <DropdownMenuContent align="center" className="w-56">
               <DropdownMenuItem onClick={handleUploadFromDevice} disabled={isLoading}>
                 <Upload className="h-4 w-4 mr-2" />
@@ -182,6 +185,7 @@ function PostCreationForm({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          </div>
         )}
 
         {/* Hidden File Input */}

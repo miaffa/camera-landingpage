@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import React from "react";
 import "./globals.css";
 import { appConfig } from "@/lib/config";
 import Providers from "./Providers";
 import PWAInstallPrompt from "@/components/pwa/PWAInstallPrompt";
 
-const inter = Inter({
-  variable: "--font-inter",
+const jakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-jakarta-sans",
   subsets: ["latin"],
 });
 
@@ -71,7 +71,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
-      <body className={`${inter.variable} antialiased bg-background`}>
+      <body className={`${jakartaSans.variable} antialiased bg-background`}>
         <Providers>
           {children}
           <PWAInstallPrompt />

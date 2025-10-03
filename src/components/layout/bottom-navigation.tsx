@@ -2,8 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { appConfig } from "@/lib/config";
 import { 
   Home, 
   Search, 
@@ -85,9 +87,27 @@ export function BottomNavigation() {
       </nav>
 
       {/* Desktop Sidebar Navigation */}
-      <nav className="hidden md:block fixed left-0 top-16 bottom-0 w-64 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-r border-border/40">
-        <div className="flex flex-col p-4 space-y-2">
-          {navigationItems.map((item) => {
+      <nav className="hidden md:block fixed left-0 top-0 bottom-0 w-64 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-r border-border/40">
+        <div className="flex flex-col h-full">
+          {/* Brand Header */}
+          <div className="p-4 border-b border-border/40">
+            <Link href="/app" className="flex items-center gap-3">
+              <Image
+                src="/assets/logo.png"
+                alt="LensFlare"
+                width={32}
+                height={32}
+                className="rounded-lg"
+              />
+              <span className="text-lg font-bold text-foreground">
+                {appConfig.projectName}
+              </span>
+            </Link>
+          </div>
+          
+          {/* Navigation Items */}
+          <div className="flex-1 p-4 space-y-2">
+            {navigationItems.map((item) => {
             const isActive = pathname === item.href || 
               (item.href !== "/app" && pathname.startsWith(item.href));
             
@@ -108,6 +128,7 @@ export function BottomNavigation() {
               </Link>
             );
           })}
+          </div>
         </div>
       </nav>
     </>

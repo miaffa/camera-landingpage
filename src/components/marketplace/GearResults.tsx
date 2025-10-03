@@ -43,8 +43,16 @@ export function GearResults({ gear, searchQuery, selectedCategory }: GearResults
       {gear.map((item) => (
         <div key={item.id} className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
           <div className="flex items-start gap-4">
-            <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-              <Camera className="h-8 w-8 text-gray-400" />
+            <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+              {item.image ? (
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Camera className="h-8 w-8 text-gray-400" />
+              )}
             </div>
             <div className="flex-1">
               <div className="flex items-start justify-between mb-2">

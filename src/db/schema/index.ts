@@ -6,3 +6,4 @@ export * from "./paypal";
 export * from "./roadmap";
 export * from "./waitlist";
 export * from "./posts";
+export * from "./gear";

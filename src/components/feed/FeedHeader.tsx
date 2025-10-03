@@ -6,7 +6,7 @@ export function FeedHeader() {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h1 className="text-2xl font-bold text-black">LensFlare</h1>
+        <h1 className="text-2xl font-bold text-black">Home</h1>
       </div>
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="icon" className="h-8 w-8">

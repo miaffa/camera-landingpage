@@ -1,7 +1,7 @@
 "use client";
 
 // import { Footer } from "@/components/layout/footer"; // TODO: Use for desktop layout
-import { AppHeader } from "@/components/layout/app-header";
+// import { AppHeader } from "@/components/layout/app-header";
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import React from "react";
 import useUser from "@/lib/users/useUser";
@@ -99,7 +99,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-col h-screen">
-      <AppHeader />
+      {/* <AppHeader /> */}
       <div className="flex-1 flex">
         <div className="flex-1 md:ml-64 p-4 sm:p-2 max-w-7xl mx-auto w-full overflow-y-auto">
           {children}

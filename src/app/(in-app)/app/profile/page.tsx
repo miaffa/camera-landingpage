@@ -13,6 +13,7 @@ import { ProfileDropdown } from "@/components/profile/ProfileDropdown";
 import { EditProfileModal } from "@/components/profile/EditProfileModal";
 import { SettingsModal } from "@/components/profile/SettingsModal";
 import useUser from "@/lib/users/useUser";
+import { signOut } from "next-auth/react";
 // import useCurrentPlan from "@/lib/users/useCurrentPlan"; // TODO: Use for plan-specific features
 // import { ProfileFormData } from "@/lib/validations/profile.schema"; // TODO: Use for form validation
 
@@ -70,9 +71,12 @@ export default function ProfilePage() {
     setIsSettingsOpen(true);
   };
 
-  const handleSignOut = () => {
-    // TODO: Implement sign out functionality
-    // Sign out functionality will be implemented in future iteration
+  const handleSignOut = async () => {
+    try {
+      await signOut({ callbackUrl: "/" });
+    } catch (error) {
+      console.error("Sign out error:", error);
+    }
   };
 
   const handleSaveProfile = () => {
@@ -151,6 +155,7 @@ export default function ProfilePage() {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
         onEditProfile={handleEditProfile}
+        onSignOut={handleSignOut}
       />
     </div>
   );

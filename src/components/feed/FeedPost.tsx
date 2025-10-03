@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Heart, MessageCircle, Share, MoreHorizontal, Camera, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -7,33 +7,31 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { GearListing } from "./GearListing";
 
 interface Author {
-  name: string;
-  username: string;
-  avatar: string;
+  name: string | null;
+  username: string | null;
+  avatar: string | null;
   location?: string;
-}
-
-interface GearItem {
-  id: string;
-  name: string;
-  price: number;
-  category: string;
-  status: string;
-  rating: number;
-  image: string;
-  location: string;
 }
 
 interface Post {
   id: string;
-  author: Author;
-  timestamp: string;
+  authorId: string;
   content: string;
-  hashtags: string[];
-  likes: number;
-  comments: number;
-  image: string;
-  gearUsed?: GearItem[];
+  images: string[];
+  location: string | null;
+  taggedUsers: string[];
+  taggedGear: string[];
+  likesCount: number;
+  commentsCount: number;
+  sharesCount: number;
+  isPublic: boolean;
+  isArchived: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  // Author information
+  authorName: string | null;
+  authorUsername: string | null;
+  authorAvatar: string | null;
 }
 
 interface FeedPostProps {
@@ -44,28 +42,63 @@ interface FeedPostProps {
   onMore: (postId: string) => void;
 }
 
+function PostImage({ src, alt, className }: { src: string; alt: string; className: string }) {
+  const [hasError, setHasError] = useState(false);
+  
+  if (hasError) {
+    return (
+      <div className={`${className} bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center`}>
+        <div className="text-center">
+          <Camera className="h-16 w-16 text-blue-400 mx-auto mb-2" />
+          <p className="text-sm text-blue-600 font-medium">Photo Shared</p>
+        </div>
+      </div>
+    );
+  }
+  
+  return (
+    <img 
+      src={src} 
+      alt={alt} 
+      className={className}
+      onError={() => setHasError(true)}
+    />
+  );
+}
+
 export function FeedPost({ post, onLike, onComment, onShare, onMore }: FeedPostProps) {
+  const formatDate = (date: Date) => {
+    const now = new Date();
+    const diffInHours = Math.floor((now.getTime() - new Date(date).getTime()) / (1000 * 60 * 60));
+    
+    if (diffInHours < 1) return "Just now";
+    if (diffInHours < 24) return `${diffInHours}h ago`;
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `${diffInDays}d ago`;
+    return new Date(date).toLocaleDateString();
+  };
+
   return (
     <Card>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10">
-              <AvatarImage src={post.author.avatar} />
+              <AvatarImage src={post.authorAvatar || ""} />
               <AvatarFallback>
-                {post.author.name.split(' ').map(n => n[0]).join('')}
+                {post.authorName ? post.authorName.split(' ').map(n => n[0]).join('') : 'U'}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-semibold">{post.author.name}</h3>
+              <h3 className="font-semibold">{post.authorName || "Unknown User"}</h3>
               <div className="flex items-center gap-2">
-                {post.author.location && (
+                {post.location && (
                   <div className="flex items-center gap-1">
                     <MapPin className="h-3 w-3 text-gray-500" />
-                    <span className="text-xs text-gray-500">{post.author.location}</span>
+                    <span className="text-xs text-gray-500">{post.location}</span>
                   </div>
                 )}
-                <span className="text-xs text-muted-foreground">{post.timestamp}</span>
+                <span className="text-xs text-muted-foreground">{formatDate(post.createdAt)}</span>
               </div>
             </div>
           </div>
@@ -75,10 +108,26 @@ export function FeedPost({ post, onLike, onComment, onShare, onMore }: FeedPostP
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        {/* Post Image Placeholder */}
-        <div className="aspect-square bg-muted flex items-center justify-center">
-          <Camera className="h-12 w-12 text-muted-foreground" />
+        {/* Post Content */}
+        <div className="px-4 pb-2">
+          <p className="text-sm">{post.content}</p>
         </div>
+        
+        {/* Post Images */}
+        {post.images && post.images.length > 0 ? (
+          <div className="aspect-square bg-gray-100 flex items-center justify-center border-b relative overflow-hidden">
+            <PostImage 
+              src={post.images[0]} 
+              alt="Post image" 
+              className="w-full h-full object-cover"
+            />
+            {post.images.length > 1 && (
+              <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                +{post.images.length - 1}
+              </div>
+            )}
+          </div>
+        ) : null}
         
         {/* Post Actions */}
         <div className="p-4 space-y-3">
@@ -97,23 +146,15 @@ export function FeedPost({ post, onLike, onComment, onShare, onMore }: FeedPostP
           </div>
           
           <div className="space-y-2">
-            <p className="text-sm">
-              <span className="font-semibold">{post.author.name}</span> {post.content}
-            </p>
-            <div className="flex flex-wrap gap-1">
-              {post.hashtags.map((hashtag, index) => (
-                <Badge key={index} variant="secondary" className="text-xs">
-                  {hashtag}
-                </Badge>
-              ))}
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <span>{post.likesCount} likes</span>
+              <span>{post.commentsCount} comments</span>
+              <span>{post.sharesCount} shares</span>
             </div>
             
-            {/* Gear Listings */}
-            {post.gearUsed && post.gearUsed.length > 0 && (
-              <GearListing gear={post.gearUsed} />
+            {post.commentsCount > 0 && (
+              <p className="text-xs text-muted-foreground">View all {post.commentsCount} comments</p>
             )}
-            
-            <p className="text-xs text-muted-foreground">View all {post.comments} comments</p>
           </div>
         </div>
       </CardContent>

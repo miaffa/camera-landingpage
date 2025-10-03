@@ -1,5 +1,5 @@
 import React from "react";
-import { X, User, Shield, Bell, CreditCard, DollarSign, Calendar, FileText } from "lucide-react";
+import { X, User, Shield, Bell, CreditCard, DollarSign, Calendar, FileText, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,6 +12,7 @@ interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
   onEditProfile: () => void;
+  onSignOut?: () => void;
 }
 
 interface SettingsItem {
@@ -21,7 +22,7 @@ interface SettingsItem {
   onClick: () => void;
 }
 
-export function SettingsModal({ isOpen, onClose, onEditProfile }: SettingsModalProps) {
+export function SettingsModal({ isOpen, onClose, onEditProfile, onSignOut }: SettingsModalProps) {
   const accountSettings: SettingsItem[] = [
     {
       id: "edit-profile",
@@ -55,6 +56,15 @@ export function SettingsModal({ isOpen, onClose, onEditProfile }: SettingsModalP
       label: "Payment Account",
       icon: DollarSign,
       onClick: () => console.log("Payment Account clicked"),
+    },
+    {
+      id: "sign-out",
+      label: "Sign Out",
+      icon: LogOut,
+      onClick: () => {
+        onClose();
+        onSignOut?.();
+      },
     },
   ];
 
