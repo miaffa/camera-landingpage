@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GearMapView } from "@/components/map/GearMapView";
+import { BookingRequestModal } from "@/components/rental/BookingRequestModal";
 import { useUserGear } from "@/lib/gear/useUserGear";
 import dynamic from "next/dynamic";
 
@@ -33,6 +34,7 @@ interface GearItem {
 export default function MarketplacePage() {
   const [selectedGear, setSelectedGear] = useState<GearItem | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const { gear, isLoading } = useUserGear();
 
   // Mock additional gear for marketplace (in real app, this would come from API)
@@ -92,12 +94,34 @@ export default function MarketplacePage() {
     setSearchQuery(e.target.value);
   }, []);
 
+  // Handle rent button click
+  const handleRentClick = useCallback(() => {
+    if (selectedGear) {
+      setIsBookingModalOpen(true);
+    }
+  }, [selectedGear]);
+
+  // Handle booking modal close
+  const handleCloseBookingModal = useCallback(() => {
+    setIsBookingModalOpen(false);
+  }, []);
+
   if (selectedGear) {
     return (
-      <LazyGearMapView
-        gear={selectedGear}
-        onClose={() => setSelectedGear(null)}
-      />
+      <>
+        <LazyGearMapView
+          gear={selectedGear}
+          onClose={() => setSelectedGear(null)}
+          onRentClick={handleRentClick}
+        />
+        {isBookingModalOpen && (
+          <BookingRequestModal
+            isOpen={isBookingModalOpen}
+            onClose={handleCloseBookingModal}
+            gear={selectedGear}
+          />
+        )}
+      </>
     );
   }
 

@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import { MapPin, Star, X, ChevronUp, ChevronDown } from "lucide-react";
+import React, { useCallback, useState, useEffect } from "react";
+import { MapPin, Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MapboxMap } from "./MapboxMap";
@@ -25,21 +24,68 @@ interface GearItem {
 interface GearMapViewProps {
   gear: GearItem;
   onClose: () => void;
+  onRentClick?: () => void;
 }
 
-// Mock coordinates for demonstration - in real app, you'd geocode the location
-const getCoordinates = (location: string) => {
-  // For demo purposes, return SF coordinates
-  // In production, you'd use a geocoding service
-  return {
-    latitude: 37.7749,
-    longitude: -122.4194,
-  };
+// Geocode location string to coordinates using OpenStreetMap Nominatim
+const getCoordinates = async (location: string) => {
+  try {
+    // Use OpenStreetMap Nominatim API (free, no API key required)
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}&limit=1`
+    );
+    
+    if (!response.ok) {
+      throw new Error('Geocoding failed');
+    }
+    
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      return {
+        latitude: parseFloat(data[0].lat),
+        longitude: parseFloat(data[0].lon),
+      };
+    }
+    
+    // Fallback to default coordinates if geocoding fails
+    console.warn(`Could not geocode location: ${location}`);
+    return {
+      latitude: 37.7749,
+      longitude: -122.4194,
+    };
+  } catch (error) {
+    console.error('Geocoding error:', error);
+    // Fallback to default coordinates
+    return {
+      latitude: 37.7749,
+      longitude: -122.4194,
+    };
+  }
 };
 
-export function GearMapView({ gear, onClose }: GearMapViewProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const coordinates = getCoordinates(gear.location);
+export function GearMapView({ gear, onClose, onRentClick }: GearMapViewProps) {
+  const [coordinates, setCoordinates] = useState({
+    latitude: 37.7749,
+    longitude: -122.4194,
+  });
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCoordinates = async () => {
+      setIsLoading(true);
+      try {
+        const coords = await getCoordinates(gear.location);
+        setCoordinates(coords);
+      } catch (error) {
+        console.error('Failed to geocode location:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCoordinates();
+  }, [gear.location]);
 
   const handleMapClick = useCallback((event: any) => {
     // Handle map interactions if needed
@@ -71,100 +117,103 @@ export function GearMapView({ gear, onClose }: GearMapViewProps) {
         </div>
       </div>
 
-      {/* Map Container */}
-      <div className="relative flex-1 min-h-0">
-        <MapboxMap 
-          latitude={coordinates.latitude}
-          longitude={coordinates.longitude}
-          zoom={14}
-          className="w-full h-full"
-        />
-
-        {/* Location Info Overlay */}
-        <div className="absolute top-4 left-4 right-4">
-          <Card className="bg-white/95 backdrop-blur-sm">
-            <CardContent className="p-3">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-gray-600" />
-                <span className="text-sm font-medium">{gear.location}</span>
-              </div>
-            </CardContent>
-          </Card>
+      {/* Main Content - Scrollable */}
+      <div className="flex-1 overflow-y-auto">
+        {/* Gear Image */}
+        <div className="h-64 w-full bg-gray-100 flex items-center justify-center">
+          <span className="text-4xl">📷</span>
         </div>
 
-        {/* Price Overlay */}
-        <div className="absolute bottom-4 left-4">
-          <Card className="bg-white/95 backdrop-blur-sm">
-            <CardContent className="p-3">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold">${gear.pricePerDay}</span>
-                <span className="text-sm text-gray-600">/day</span>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Expandable Description Section */}
-      <div className="bg-white border-t flex-shrink-0">
-        <div className="p-4">
-          <Button
-            variant="ghost"
-            className="w-full justify-between p-0 h-auto"
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            <span className="font-medium">Description</span>
-            {isExpanded ? (
-              <ChevronDown className="h-4 w-4" />
-            ) : (
-              <ChevronUp className="h-4 w-4" />
-            )}
-          </Button>
-          
-          {isExpanded && (
-            <div className="mt-4 space-y-4">
-              <div className="flex items-center gap-2">
-                <Badge variant="secondary" className="bg-blue-100 text-blue-700">
-                  {gear.category}
-                </Badge>
-                <Badge
-                  variant={gear.isAvailable ? "default" : "destructive"}
-                  className={cn(
-                    gear.isAvailable
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-800"
-                  )}
-                >
-                  {gear.isAvailable ? "Available" : "Unavailable"}
-                </Badge>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold mb-2">About this gear</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {gear.description || "No description provided."}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-4 text-sm text-gray-600">
-                <div className="flex items-center gap-1">
-                  <MapPin className="h-3 w-3" />
-                  {gear.location}
-                </div>
-                <div className="flex items-center gap-1">
-                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                  {gear.condition}
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <Button className="flex-1">Contact Owner</Button>
-                <Button variant="outline" className="flex-1">
-                  Save
-                </Button>
-              </div>
+        {/* Gear Details */}
+        <div className="p-4 space-y-4">
+          {/* Price and Availability */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-3xl font-bold">${gear.pricePerDay}</span>
+              <span className="text-lg text-gray-600">/day</span>
             </div>
-          )}
+            <Badge
+              variant={gear.isAvailable ? "default" : "destructive"}
+              className={cn(
+                "text-sm px-3 py-1",
+                gear.isAvailable
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              )}
+            >
+              {gear.isAvailable ? "Available" : "Unavailable"}
+            </Badge>
+          </div>
+
+          {/* Category and Condition */}
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+              {gear.category}
+            </Badge>
+            <div className="flex items-center gap-1 text-sm text-gray-600">
+              <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+              <span>{gear.condition}</span>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div>
+            <h3 className="font-semibold mb-2">About this gear</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {gear.description || "No description provided."}
+            </p>
+          </div>
+
+          {/* Location */}
+          <div className="flex items-center gap-1 text-sm text-gray-600">
+            <MapPin className="h-4 w-4" />
+            <span>{gear.location}</span>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2 pt-2">
+            <Button 
+              className="flex-1" 
+              onClick={onRentClick}
+              disabled={!gear.isAvailable}
+              size="lg"
+            >
+              {gear.isAvailable ? "Rent Now" : "Not Available"}
+            </Button>
+            <Button variant="outline" className="flex-1" size="lg">
+              Contact Owner
+            </Button>
+            <Button variant="outline" size="lg">
+              Save
+            </Button>
+          </div>
+        </div>
+
+        {/* Map Section - Smaller at bottom */}
+        <div className="border-t bg-gray-50 pb-20">
+          <div className="p-4">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <MapPin className="h-4 w-4" />
+              Location
+            </h3>
+            <div className="h-48 w-full rounded-lg overflow-hidden border relative">
+              {isLoading ? (
+                <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
+                    <p className="text-sm text-gray-600">Loading location...</p>
+                  </div>
+                </div>
+              ) : (
+                <MapboxMap 
+                  latitude={coordinates.latitude}
+                  longitude={coordinates.longitude}
+                  zoom={12}
+                  className="w-full h-full"
+                />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
