@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { X, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 interface GearCreationModalProps {
   isOpen: boolean;
@@ -63,6 +65,25 @@ export function GearCreationModal({ isOpen, onClose, onSave }: GearCreationModal
       available: true,
     },
   });
+  const [paymentSetupComplete, setPaymentSetupComplete] = useState<boolean | null>(null);
+
+  // Check payment setup status when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      const checkPaymentStatus = async () => {
+        try {
+          const response = await fetch("/api/stripe/connect/account-status");
+          if (response.ok) {
+            const data = await response.json();
+            setPaymentSetupComplete(data.onboardingComplete);
+          }
+        } catch (error) {
+          console.error("Error checking payment status:", error);
+        }
+      };
+      checkPaymentStatus();
+    }
+  }, [isOpen]);
 
   const handleInputChange = (field: keyof GearData, value: any) => {
     setGearData(prev => ({
@@ -129,6 +150,16 @@ export function GearCreationModal({ isOpen, onClose, onSave }: GearCreationModal
             Add New Gear
           </DialogTitle>
         </DialogHeader>
+
+        {/* Payment Setup Warning */}
+        {paymentSetupComplete === false && (
+          <Alert className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              You need to set up payments before listing gear. Complete payment setup to start receiving money from rentals.
+            </AlertDescription>
+          </Alert>
+        )}
 
         <Tabs defaultValue="basic" className="w-full">
           <TabsList className="grid w-full grid-cols-4">

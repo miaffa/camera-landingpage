@@ -1,17 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BookingStatusCard } from "@/components/rental/BookingStatusCard";
+import { MessageCircle, X } from "lucide-react";
 import { useBookings } from "@/lib/bookings/useBookings";
 import { updateBookingStatus, cancelBooking } from "@/lib/bookings/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const statusOptions = [
-  { value: "", label: "All Status" },
+  { value: "all", label: "All Status" },
   { value: "pending", label: "Pending" },
   { value: "approved", label: "Approved" },
   { value: "paid", label: "Paid" },
@@ -23,17 +24,18 @@ const statusOptions = [
 
 export default function BookingsPage() {
   const router = useRouter();
-  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("all");
   const [activeTab, setActiveTab] = useState("rented");
+  const [isMessagesOpen, setIsMessagesOpen] = useState(false);
 
   const { bookings: rentedBookings, isLoading: rentedLoading } = useBookings({
     type: "rented",
-    status: selectedStatus || undefined,
+    status: selectedStatus === "all" ? undefined : selectedStatus,
   });
 
   const { bookings: ownedBookings, isLoading: ownedLoading } = useBookings({
     type: "owned",
-    status: selectedStatus || undefined,
+    status: selectedStatus === "all" ? undefined : selectedStatus,
   });
 
   const handleBookingAction = async (action: string, bookingId: string) => {
@@ -64,7 +66,7 @@ export default function BookingsPage() {
 
         case "pay":
           // Navigate to payment page
-          router.push(`/bookings/${bookingId}/payment`);
+          router.push(`/app/bookings/${bookingId}/payment`);
           break;
 
         case "confirm-pickup":
@@ -166,9 +168,20 @@ export default function BookingsPage() {
     <div className="flex flex-col gap-6 pb-20">
       {/* Header */}
       <div className="flex flex-col gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Bookings</h1>
-          <p className="text-gray-600">Manage your gear rentals and requests</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">My Bookings</h1>
+            <p className="text-gray-600">Manage your gear rentals and requests</p>
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setIsMessagesOpen(true)}
+            className="relative"
+          >
+            <MessageCircle className="h-5 w-5" />
+            {/* Unread indicator could go here */}
+          </Button>
         </div>
 
         {/* Filters */}
@@ -219,6 +232,43 @@ export default function BookingsPage() {
           </div>
         </TabsContent>
       </Tabs>
+
+      {/* Messages Slide-out */}
+      {isMessagesOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 z-40 bg-black/20"
+            onClick={() => setIsMessagesOpen(false)}
+          />
+          
+          {/* Slide-out Panel */}
+          <div className="fixed right-0 top-0 z-50 h-full w-full max-w-md bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+            <div className="flex flex-col h-full">
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b bg-white">
+                <h2 className="text-lg font-semibold">Messages</h2>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setIsMessagesOpen(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              {/* Messages Content */}
+              <div className="flex-1 overflow-hidden">
+                <iframe
+                  src="/app/messages"
+                  className="w-full h-full border-0"
+                  title="Messages"
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

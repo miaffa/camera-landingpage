@@ -15,7 +15,7 @@ import { TaggedUser, TaggedGear } from "@/lib/types/index";
 
 export default function CreatePage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState("gear"); // "gear" or "post"
+  const [activeTab, setActiveTab] = useState("gear"); // "gear", "post", or "requests"
   const [isGearModalOpen, setIsGearModalOpen] = useState(false);
   
   // Post creation state
@@ -81,7 +81,7 @@ export default function CreatePage() {
   }, [createGear, refreshGear]);
 
   const tabOptions = [
-    { value: "gear", label: "List Gear" },
+    { value: "gear", label: "My Gear" },
     { value: "post", label: "New Post" },
   ];
 

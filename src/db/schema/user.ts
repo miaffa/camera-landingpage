@@ -31,6 +31,11 @@ export const users = pgTable("app_user", {
   dodoCustomerId: text("dodoCustomerId"),
   dodoSubscriptionId: text("dodoSubscriptionId"),
   
+  // Stripe Connect fields for marketplace payments
+  stripeConnectAccountId: text("stripeConnectAccountId"),
+  stripeConnectAccountStatus: text("stripeConnectAccountStatus"), // 'pending', 'active', 'restricted', 'rejected'
+  stripeConnectOnboardingComplete: boolean("stripeConnectOnboardingComplete").default(false),
+  
   planId: text("planId").references(() => plans.id),
 });
 

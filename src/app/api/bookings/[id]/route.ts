@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { bookings, rentalMessages } from "@/db/schema/bookings";
-import { eq, and } from "drizzle-orm";
+import { bookings } from "@/db/schema/bookings";
+import { gearListings } from "@/db/schema/gear";
+import { users } from "@/db/schema/user";
+import { eq } from "drizzle-orm";
 
-// GET /api/bookings/[id] - Get specific booking details
+// GET /api/bookings/[id] - Get booking details
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -16,12 +18,46 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const bookingId = params.id;
+    const { id: bookingId } = await params;
 
-    // Get booking with all related data
+    // Get booking with gear and user details
     const booking = await db
-      .select()
+      .select({
+        id: bookings.id,
+        renterId: bookings.renterId,
+        ownerId: bookings.ownerId,
+        gearId: bookings.gearId,
+        startDate: bookings.startDate,
+        endDate: bookings.endDate,
+        totalDays: bookings.totalDays,
+        dailyRate: bookings.dailyRate,
+        totalAmount: bookings.totalAmount,
+        platformFee: bookings.platformFee,
+        ownerAmount: bookings.ownerAmount,
+        renterAmount: bookings.renterAmount,
+        renterMessage: bookings.renterMessage,
+        pickupLocation: bookings.pickupLocation,
+        returnLocation: bookings.returnLocation,
+        status: bookings.status,
+        statusHistory: bookings.statusHistory,
+        createdAt: bookings.createdAt,
+        updatedAt: bookings.updatedAt,
+        // Gear details
+        gearName: gearListings.name,
+        gearCategory: gearListings.category,
+        gearDescription: gearListings.description,
+        gearPricePerDay: gearListings.pricePerDay,
+        gearCondition: gearListings.condition,
+        gearLocation: gearListings.location,
+        gearImages: gearListings.images,
+        // Renter details
+        renterName: users.name,
+        renterEmail: users.email,
+        renterImage: users.image,
+      })
       .from(bookings)
+      .leftJoin(gearListings, eq(bookings.gearId, gearListings.id))
+      .leftJoin(users, eq(bookings.renterId, users.id))
       .where(eq(bookings.id, bookingId))
       .limit(1);
 
@@ -34,7 +70,7 @@ export async function GET(
 
     const bookingData = booking[0];
 
-    // Check if user has permission to view this booking
+    // Check if user has access to this booking
     if (bookingData.renterId !== session.user.id && bookingData.ownerId !== session.user.id) {
       return NextResponse.json(
         { error: "Unauthorized to view this booking" },
@@ -42,97 +78,12 @@ export async function GET(
       );
     }
 
-    // Get messages for this booking
-    const messages = await db
-      .select()
-      .from(rentalMessages)
-      .where(eq(rentalMessages.bookingId, bookingId))
-      .orderBy(rentalMessages.createdAt);
+    return NextResponse.json(bookingData);
 
-    return NextResponse.json({
-      ...bookingData,
-      messages
-    });
   } catch (error) {
     console.error("Error fetching booking:", error);
     return NextResponse.json(
       { error: "Failed to fetch booking" },
-      { status: 500 }
-    );
-  }
-}
-
-// DELETE /api/bookings/[id] - Cancel booking
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    const session = await auth();
-    
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const bookingId = params.id;
-
-    // Get booking details
-    const booking = await db
-      .select()
-      .from(bookings)
-      .where(eq(bookings.id, bookingId))
-      .limit(1);
-
-    if (booking.length === 0) {
-      return NextResponse.json(
-        { error: "Booking not found" },
-        { status: 404 }
-      );
-    }
-
-    const bookingData = booking[0];
-
-    // Check if user has permission to cancel this booking
-    if (bookingData.renterId !== session.user.id && bookingData.ownerId !== session.user.id) {
-      return NextResponse.json(
-        { error: "Unauthorized to cancel this booking" },
-        { status: 403 }
-      );
-    }
-
-    // Only allow cancellation if booking is pending or approved
-    if (!["pending", "approved"].includes(bookingData.status)) {
-      return NextResponse.json(
-        { error: "Cannot cancel booking in current status" },
-        { status: 400 }
-      );
-    }
-
-    // Update booking status to cancelled
-    const statusHistory = [
-      ...bookingData.statusHistory,
-      {
-        status: "cancelled" as const,
-        timestamp: new Date(),
-        note: "Booking cancelled by user"
-      }
-    ];
-
-    const updatedBooking = await db
-      .update(bookings)
-      .set({
-        status: "cancelled",
-        statusHistory,
-        updatedAt: new Date(),
-      })
-      .where(eq(bookings.id, bookingId))
-      .returning();
-
-    return NextResponse.json(updatedBooking[0]);
-  } catch (error) {
-    console.error("Error cancelling booking:", error);
-    return NextResponse.json(
-      { error: "Failed to cancel booking" },
       { status: 500 }
     );
   }

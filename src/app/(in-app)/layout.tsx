@@ -5,6 +5,7 @@
 import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import React from "react";
 import useUser from "@/lib/users/useUser";
+import { SidebarProvider, useSidebar } from "@/contexts/SidebarContext";
 
 function DashboardSkeleton() {
   return (
@@ -90,6 +91,24 @@ function DashboardSkeleton() {
   );
 }
 
+function AppLayoutContent({ children }: { children: React.ReactNode }) {
+  const { isCollapsed } = useSidebar();
+
+  return (
+    <div className="flex flex-col h-screen">
+      {/* <AppHeader /> */}
+      <div className="flex-1 flex">
+        <div className={`flex-1 p-4 sm:p-2 max-w-7xl mx-auto w-full overflow-y-auto transition-all duration-300 ${
+          isCollapsed ? 'md:ml-16' : 'md:ml-64'
+        }`}>
+          {children}
+        </div>
+      </div>
+      <BottomNavigation />
+    </div>
+  );
+}
+
 function AppLayout({ children }: { children: React.ReactNode }) {
   const { isLoading } = useUser();
 
@@ -98,15 +117,9 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="flex flex-col h-screen">
-      {/* <AppHeader /> */}
-      <div className="flex-1 flex">
-        <div className="flex-1 md:ml-64 p-4 sm:p-2 max-w-7xl mx-auto w-full overflow-y-auto">
-          {children}
-        </div>
-      </div>
-      <BottomNavigation />
-    </div>
+    <SidebarProvider>
+      <AppLayoutContent>{children}</AppLayoutContent>
+    </SidebarProvider>
   );
 }
 

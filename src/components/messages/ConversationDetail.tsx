@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { ArrowLeft, Send, Paperclip } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
+import { BookingActions } from "./BookingActions";
 
 interface Message {
   id: string;
@@ -34,31 +35,72 @@ interface Conversation {
 interface ConversationDetailProps {
   conversation: Conversation;
   onBack: () => void;
+  onRefresh?: () => void;
 }
 
-export function ConversationDetail({ conversation, onBack }: ConversationDetailProps) {
+export function ConversationDetail({ conversation, onBack, onRefresh }: ConversationDetailProps) {
   const [newMessage, setNewMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
   const { data: session } = useSession();
 
   // Fetch messages for this conversation
-  const fetcher = async (url: string): Promise<Message[]> => {
+  const fetcher = useCallback(async (url: string): Promise<Message[]> => {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error("Failed to fetch messages");
+      throw new Error(`Failed to fetch messages: ${response.status}`);
     }
     return response.json();
-  };
+  }, []);
 
   const { data: messages, error, isLoading, mutate } = useSWR<Message[]>(
     `/api/bookings/${conversation.bookingId}/messages`,
     fetcher,
     {
       refreshInterval: 5000, // Refresh every 5 seconds for real-time updates
+      revalidateOnFocus: false,
+      revalidateOnReconnect: true,
     }
   );
 
-  const handleSendMessage = async () => {
+  // Fetch booking details to check if user is owner
+  const bookingFetcher = useCallback(async (url: string) => {
+    const response = await fetch(url);
+    if (!response.ok) return null;
+    return response.json();
+  }, []);
+
+  const { data: bookingDetails } = useSWR(
+    `/api/bookings/${conversation.bookingId}`,
+    bookingFetcher
+  );
+
+  const isOwner = useMemo(() => 
+    bookingDetails?.ownerId === session?.user?.id, 
+    [bookingDetails?.ownerId, session?.user?.id]
+  );
+
+  // Mark messages as read when conversation is opened
+  const markAsRead = useCallback(async () => {
+    try {
+      await fetch(`/api/bookings/${conversation.bookingId}/mark-read`, {
+        method: "POST",
+      });
+      // Refresh conversations list to update unread count
+      if (onRefresh) {
+        onRefresh();
+      }
+    } catch (error) {
+      console.error("Error marking messages as read:", error);
+    }
+  }, [conversation.bookingId, onRefresh]);
+
+  useEffect(() => {
+    if (conversation.bookingId) {
+      markAsRead();
+    }
+  }, [conversation.bookingId, markAsRead]);
+
+  const handleSendMessage = useCallback(async () => {
     if (!newMessage.trim() || isSending) return;
 
     setIsSending(true);
@@ -77,27 +119,30 @@ export function ConversationDetail({ conversation, onBack }: ConversationDetailP
       if (response.ok) {
         setNewMessage("");
         mutate(); // Refresh messages
+        if (onRefresh) {
+          onRefresh(); // Refresh parent to update unread counts
+        }
       } else {
-        console.error("Failed to send message");
+        console.error(`Failed to send message: ${response.status}`);
       }
     } catch (error) {
       console.error("Error sending message:", error);
     } finally {
       setIsSending(false);
     }
-  };
+  }, [newMessage, isSending, conversation.bookingId, mutate, onRefresh]);
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
     }
-  };
+  }, [handleSendMessage]);
 
-  const formatTime = (timestamp: string) => {
+  const formatTime = useCallback((timestamp: string) => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
+  }, []);
 
   return (
     <div className="flex flex-col h-full pb-20">
@@ -135,6 +180,22 @@ export function ConversationDetail({ conversation, onBack }: ConversationDetailP
             </span>
           </div>
         </div>
+
+        {/* Booking Actions for Owners */}
+        {isOwner && (
+          <div className="ml-4">
+            <BookingActions
+              bookingId={conversation.bookingId}
+              status={conversation.status}
+              onStatusChange={() => {
+                mutate(); // Refresh messages
+                if (onRefresh) {
+                  onRefresh(); // Refresh conversation list
+                }
+              }}
+            />
+          </div>
+        )}
       </div>
 
       {/* Messages */}

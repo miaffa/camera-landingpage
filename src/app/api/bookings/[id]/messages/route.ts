@@ -15,7 +15,7 @@ const sendMessageSchema = z.object({
 // GET /api/bookings/[id]/messages - Get messages for a booking
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -24,7 +24,7 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const bookingId = params.id;
+    const { id: bookingId } = await params;
 
     // Verify user has access to this booking
     const booking = await db
@@ -69,7 +69,7 @@ export async function GET(
 // POST /api/bookings/[id]/messages - Send a message
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -78,7 +78,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const bookingId = params.id;
+    const { id: bookingId } = await params;
     const body = await request.json();
     const validatedData = sendMessageSchema.parse(body);
 

@@ -22,6 +22,7 @@ interface Conversation {
 export default function MessagesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleConversationClick = (conversation: Conversation) => {
     setSelectedConversation(conversation);
@@ -29,17 +30,20 @@ export default function MessagesPage() {
 
   const handleBackToList = () => {
     setSelectedConversation(null);
+    // Trigger refresh of conversations list
+    setRefreshKey(prev => prev + 1);
   };
 
   // Show conversation detail if one is selected
   if (selectedConversation) {
     return (
-      <div className="h-screen flex flex-col">
-        <ConversationDetail 
-          conversation={selectedConversation}
-          onBack={handleBackToList}
-        />
-      </div>
+        <div className="h-screen flex flex-col">
+          <ConversationDetail
+            conversation={selectedConversation}
+            onBack={handleBackToList}
+            onRefresh={() => setRefreshKey(prev => prev + 1)}
+          />
+        </div>
     );
   }
 
@@ -55,11 +59,12 @@ export default function MessagesPage() {
         onSearchChange={setSearchQuery} 
       />
 
-      {/* Conversations List */}
-      <ConversationsList 
-        searchQuery={searchQuery} 
-        onConversationClick={handleConversationClick} 
-      />
+          {/* Conversations List */}
+          <ConversationsList
+            key={refreshKey}
+            searchQuery={searchQuery}
+            onConversationClick={handleConversationClick}
+          />
     </div>
   );
 }

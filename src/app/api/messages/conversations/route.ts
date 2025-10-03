@@ -66,14 +66,15 @@ export async function GET(request: NextRequest) {
           .orderBy(desc(rentalMessages.createdAt))
           .limit(1);
 
-        // Get unread count for this booking
+        // Get unread count for this booking (messages from the other person)
+        const otherPersonId = session.user.id === booking.renterId ? booking.ownerId : booking.renterId;
         const unreadCount = await db
           .select({ count: sql<number>`count(*)` })
           .from(rentalMessages)
           .where(
             and(
               eq(rentalMessages.bookingId, booking.id),
-              eq(rentalMessages.senderId, booking.ownerId), // Messages from owner
+              eq(rentalMessages.senderId, otherPersonId), // Messages from the other person
               isNull(rentalMessages.readAt) // Not read yet
             )
           );

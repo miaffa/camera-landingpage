@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { bookings, users } from "@/db/schema/bookings";
+import { bookings } from "@/db/schema/bookings";
+import { users } from "@/db/schema/user";
 import { eq } from "drizzle-orm";
 import { getStripeClient } from "@/lib/stripe/client";
 import { z } from "zod";
@@ -14,7 +15,7 @@ const createPaymentIntentSchema = z.object({
 // POST /api/bookings/[id]/payment - Create payment intent for booking
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -23,7 +24,7 @@ export async function POST(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const bookingId = params.id;
+    const { id: bookingId } = await params;
     const body = await request.json();
     const validatedData = createPaymentIntentSchema.parse(body);
 
@@ -73,16 +74,23 @@ export async function POST(
       );
     }
 
-    // Get owner's Stripe customer ID
+    // Get owner's Stripe Connect account
     const owner = await db
       .select()
       .from(users)
       .where(eq(users.id, bookingData.ownerId))
       .limit(1);
 
-    if (owner.length === 0 || !owner[0].stripeCustomerId) {
+    if (owner.length === 0 || !owner[0].stripeConnectAccountId) {
       return NextResponse.json(
-        { error: "Owner must have a Stripe customer account" },
+        { error: "Owner must have a Stripe Connect account to receive payments" },
+        { status: 400 }
+      );
+    }
+
+    if (!owner[0].stripeConnectOnboardingComplete) {
+      return NextResponse.json(
+        { error: "Owner must complete payment setup before receiving payments" },
         { status: 400 }
       );
     }
@@ -97,7 +105,7 @@ export async function POST(
       customer: renter[0].stripeCustomerId,
       application_fee_amount: Math.round(parseFloat(bookingData.platformFee) * 100),
       transfer_data: {
-        destination: owner[0].stripeCustomerId, // Transfer to owner's account
+        destination: owner[0].stripeConnectAccountId, // Transfer to owner's Connect account
       },
       metadata: {
         bookingId,
@@ -142,7 +150,7 @@ export async function POST(
 // PUT /api/bookings/[id]/payment - Confirm payment
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await auth();
@@ -151,7 +159,7 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const bookingId = params.id;
+    const { id: bookingId } = await params;
 
     // Get booking details
     const booking = await db
@@ -199,7 +207,7 @@ export async function PUT(
 
     // Update booking status to paid
     const statusHistory = [
-      ...bookingData.statusHistory,
+      ...(Array.isArray(bookingData.statusHistory) ? bookingData.statusHistory : []),
       {
         status: "paid" as const,
         timestamp: new Date(),
