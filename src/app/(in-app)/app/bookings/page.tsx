@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,6 +10,7 @@ import { useBookings } from "@/lib/bookings/useBookings";
 import { updateBookingStatus, cancelBooking } from "@/lib/bookings/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { BookingWithGear } from "@/lib/bookings/useBookings";
 
 const statusOptions = [
   { value: "all", label: "All Status" },
@@ -36,6 +37,27 @@ export default function BookingsPage() {
   const { bookings: ownedBookings, isLoading: ownedLoading } = useBookings({
     type: "owned",
     status: selectedStatus === "all" ? undefined : selectedStatus,
+  });
+
+  // Transform database booking to component format
+  const transformBooking = (booking: BookingWithGear) => ({
+    id: booking.id,
+    status: booking.status || "pending",
+    startDate: booking.startDate,
+    endDate: booking.endDate,
+    totalDays: booking.totalDays,
+    totalAmount: booking.totalAmount,
+    renterAmount: booking.renterAmount,
+    renterMessage: booking.renterMessage || undefined,
+    ownerMessage: booking.ownerMessage || undefined,
+    pickupLocation: booking.pickupLocation || undefined,
+    returnLocation: booking.returnLocation || undefined,
+    createdAt: booking.createdAt || new Date(),
+    gearName: booking.gearName,
+    gearCategory: booking.gearCategory,
+    gearImages: booking.gearImages,
+    ownerName: undefined, // This would need to be joined from users table
+    ownerImage: undefined, // This would need to be joined from users table
   });
 
   const handleBookingAction = async (action: string, bookingId: string) => {
@@ -115,10 +137,10 @@ export default function BookingsPage() {
     }
   };
 
-  const renderBookings = (bookings: any[], isLoading: boolean, userRole: "renter" | "owner") => {
+  const renderBookings = (bookings: BookingWithGear[], isLoading: boolean, userRole: "renter" | "owner") => {
     if (isLoading) {
       return (
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           {[1, 2, 3].map((i) => (
             <div key={i} className="h-32 bg-gray-100 rounded-lg animate-pulse" />
           ))}
@@ -151,11 +173,11 @@ export default function BookingsPage() {
     }
 
     return (
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4">
         {bookings.map((booking) => (
           <BookingStatusCard
             key={booking.id}
-            booking={booking}
+            booking={transformBooking(booking)}
             userRole={userRole}
             onAction={handleBookingAction}
           />
@@ -209,9 +231,9 @@ export default function BookingsPage() {
         </TabsList>
 
         <TabsContent value="rented" className="mt-6">
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold">Gear You're Renting</h2>
+              <h2 className="text-lg font-semibold">Gear You&apos;re Renting</h2>
               <span className="text-sm text-gray-600">
                 {rentedBookings.length} booking{rentedBookings.length !== 1 ? 's' : ''}
               </span>
@@ -221,7 +243,7 @@ export default function BookingsPage() {
         </TabsContent>
 
         <TabsContent value="owned" className="mt-6">
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-semibold">Your Gear Rentals</h2>
               <span className="text-sm text-gray-600">

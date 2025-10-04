@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import { MapPin } from "lucide-react";
 
 interface MapboxMapProps {
@@ -12,7 +12,7 @@ interface MapboxMapProps {
 
 export function MapboxMap({ latitude, longitude, zoom = 14, className = "" }: MapboxMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<any>(null);
+  const map = useRef<unknown>(null);
 
   useEffect(() => {
     if (!mapContainer.current) return;
@@ -38,12 +38,12 @@ export function MapboxMap({ latitude, longitude, zoom = 14, className = "" }: Ma
       // Add marker
       new mapboxgl.default.Marker()
         .setLngLat([longitude, latitude])
-        .addTo(map.current);
+        .addTo(map.current as mapboxgl.Map);
     });
 
     return () => {
       if (map.current) {
-        map.current.remove();
+        (map.current as mapboxgl.Map).remove();
       }
     };
   }, [latitude, longitude, zoom]);

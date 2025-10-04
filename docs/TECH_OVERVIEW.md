@@ -1,11 +1,11 @@
-# Tech Overview
+# LensFlare - Technical Overview
 
 ## 🛠️ Technology Stack
 
 ### Frontend
 - **Next.js 15.3.0** - React framework with App Router
 - **React 19.1.0** - UI library
-- **TypeScript 5.8.3** - Type safety
+- **TypeScript 5.8.3** - Type safety (strict mode)
 - **Tailwind CSS 4.1.12** - Utility-first CSS framework
 - **Radix UI** - Accessible component primitives
 - **Lucide React** - Icon library
@@ -14,33 +14,49 @@
 
 ### Backend
 - **Next.js API Routes** - Server-side logic
-- **Supabase** - Backend-as-a-Service (Database & Auth)
+- **Supabase** - Backend-as-a-Service (Database & Storage)
 - **Drizzle ORM 0.38.4** - Type-safe database ORM
-- **PostgreSQL** - Primary database
-- **Neon Database** - Serverless PostgreSQL driver
+- **PostgreSQL** - Primary database with fallback support
+- **postgres-js** - Database driver with connection pooling
 
 ### Authentication & Authorization
 - **NextAuth.js 5.0.0-beta.25** - Authentication framework
 - **Drizzle Adapter** - NextAuth database adapter
 - **Google OAuth** - Social authentication
-- **Magic Link Email** - Passwordless authentication
+- **Magic Link Email** - Passwordless authentication via Resend
 - **JWT** - Token-based authentication
 - **Iron Session** - Session management
 - **Jose** - JWT encryption/decryption
 
 ### Payment Processing
-- **Stripe** - Primary payment processor
-- **LemonSqueezy** - Digital product sales
-- **DodoPayments** - Alternative payment gateway
-- **PayPal** - Payment gateway integration
+- **Stripe** - Primary payment processor with Connect
+- **Stripe Connect** - Marketplace payments for gear owners
+- **Application Fees** - 5% platform fee on all transactions
+- **Webhook Integration** - Real-time payment processing
 
 ### Database Schema
-- **Users** - User management with multiple payment provider IDs
-- **Plans** - Subscription plans with flexible pricing models
-- **Contacts** - Contact form submissions
-- **Roadmap** - Product roadmap items
-- **Coupons** - Discount and promotion system
-- **Waitlist** - Early access signups
+
+#### Core Tables
+- **users** - User profiles with Stripe Connect integration
+- **gearListings** - Equipment listings with availability, pricing, location
+- **bookings** - Rental transactions with status tracking
+- **rentalMessages** - Real-time messaging between users
+- **posts** - Social media posts with image support
+- **reviews** - User ratings and feedback system
+
+#### Key Relationships
+- Users can own multiple gear listings
+- Bookings connect renters to gear owners
+- Messages are linked to specific bookings
+- Posts can tag users and gear items
+
+### Additional Services
+- **Resend** - Email delivery service for magic links
+- **React Email** - Component-based email templates
+- **Mapbox GL JS** - Interactive maps for location features
+- **OpenStreetMap Nominatim** - Geocoding API for address lookup
+- **Supabase Storage** - File upload and image management
+- **FilePond** - Advanced file upload component
 
 ## 🏗️ Component Architecture
 
@@ -54,51 +70,54 @@
 ### File Structure
 ```
 src/
-├── lib/data/                    # Centralized mock data
-│   ├── mock-data.ts            # Profile and general data
-│   ├── marketplace-data.ts     # Marketplace-specific data
-│   ├── messages-data.ts        # Messages and conversations
-│   ├── create-data.ts          # Gear categories and creation data
-│   └── feed-data.ts            # Social feed data
+├── app/                        # Next.js App Router
+│   ├── (auth)/                # Authentication pages
+│   ├── (in-app)/              # Protected application pages
+│   │   ├── app/               # Main app pages
+│   │   │   ├── page.tsx       # Home/Feed page
+│   │   │   ├── marketplace/   # Gear marketplace
+│   │   │   ├── create/        # Gear creation & management
+│   │   │   ├── bookings/      # Rental bookings & payments
+│   │   │   ├── messages/      # Real-time messaging
+│   │   │   └── profile/       # User profiles
+│   │   └── layout.tsx         # App layout with navigation
+│   ├── api/                   # API routes
+│   │   ├── gear/              # Gear management endpoints
+│   │   ├── bookings/          # Rental booking endpoints
+│   │   ├── messages/          # Messaging endpoints
+│   │   ├── stripe/            # Payment processing
+│   │   └── webhooks/          # Webhook handlers
+│   └── (website-layout)/      # Public website pages
 ├── components/
-│   ├── profile/                # Profile page components
-│   │   ├── GearTabContent.tsx
-│   │   ├── PostsTabContent.tsx
-│   │   ├── SavedTabContent.tsx
-│   │   ├── ProfileStats.tsx
-│   │   ├── VerificationCTA.tsx
-│   │   └── ProfileSkeleton.tsx
-│   ├── marketplace/            # Marketplace page components
-│   │   ├── SearchBar.tsx
-│   │   ├── FocusTabs.tsx
-│   │   ├── CategoryPills.tsx
-│   │   ├── GearResults.tsx
-│   │   ├── PeopleResults.tsx
-│   │   └── LocationFilter.tsx
-│   ├── messages/               # Messages page components
-│   │   ├── MessagesHeader.tsx
-│   │   ├── ConversationSearch.tsx
-│   │   ├── ConversationItem.tsx
-│   │   └── ConversationsList.tsx
-│   ├── create/                 # Create page components
-│   │   ├── CreateHeader.tsx
-│   │   ├── GearCategoryCard.tsx
-│   │   ├── GearCategoriesGrid.tsx
-│   │   ├── CreateCTA.tsx
-│   │   └── EmptyState.tsx
-│   ├── feed/                   # Home/Feed page components
-│   │   ├── FeedHeader.tsx
-│   │   ├── StoryItem.tsx
-│   │   ├── StoriesSection.tsx
-│   │   ├── FeedPost.tsx
-│   │   └── FeedPosts.tsx
-│   └── ui/                     # Reusable UI components (shadcn/ui)
-└── app/(in-app)/app/           # Main page components
-    ├── page.tsx                # Home/Feed page (58 lines)
-    ├── marketplace/page.tsx     # Marketplace page (87 lines)
-    ├── messages/page.tsx        # Messages page (46 lines)
-    ├── create/page.tsx          # Create page (44 lines)
-    └── profile/page.tsx         # Profile page (116 lines)
+│   ├── ui/                    # Base UI components (shadcn/ui)
+│   ├── auth/                  # Authentication components
+│   ├── rental/                # Booking & rental components
+│   ├── messages/              # Chat & messaging components
+│   ├── feed/                  # Social feed components
+│   ├── map/                   # Map & location components
+│   ├── stripe/                # Payment & Stripe components
+│   ├── create/                # Gear creation components
+│   ├── layout/                # Layout & navigation components
+│   └── magicui/               # Advanced UI components
+├── lib/                       # Utility functions and configurations
+│   ├── auth/                  # Authentication utilities
+│   ├── stripe/                # Payment processing utilities
+│   ├── gear/                  # Gear management utilities
+│   ├── bookings/              # Rental booking logic
+│   ├── messaging/             # Chat functionality
+│   ├── supabase/              # File storage utilities
+│   └── utils.ts               # General utilities
+├── db/                        # Database layer
+│   ├── index.ts               # Database connection
+│   └── schema/                # Drizzle ORM schemas
+│       ├── user.ts            # User profiles & auth
+│       ├── gear.ts            # Gear listings
+│       ├── bookings.ts        # Rental bookings & messages
+│       └── plans.ts           # Subscription plans
+├── contexts/                  # React Context providers
+│   └── SidebarContext.tsx     # Sidebar state management
+└── emails/                    # Email templates
+    └── magic-link.tsx         # Magic link email template
 ```
 
 ### Component Patterns
@@ -414,39 +433,68 @@ src/
 - Users → Sessions (one-to-many)
 - Plans → Multiple pricing models
 
-## 🎯 Key Features
+## 🎯 Key Features Implemented
 
-### Authentication System
-- Multi-provider authentication
-- Magic link email authentication
-- User impersonation for admins
-- Secure session management
+### 1. Gear Rental Marketplace
+- **Browse & Search**: Advanced filtering by category, price, location, availability
+- **Interactive Maps**: Mapbox integration with geocoding for location-based discovery
+- **Gear Listings**: High-quality photos, detailed specs, pricing, availability calendar
+- **Real-time Availability**: Dynamic availability checking and booking prevention
 
-### Payment Processing
-- Multiple payment providers
-- Subscription management
-- One-time payments
-- Webhook handling
+### 2. Complete Booking System
+- **Request-based Workflow**: Renters request → Owner approves → Payment → Rental
+- **Status Tracking**: pending → approved → paid → active → returned → completed
+- **Owner Dashboard**: Integrated booking management in "My Gear" section
+- **Payment Integration**: Stripe Connect for secure marketplace payments
 
-### Content Management
-- MDX blog system
-- Dynamic sitemap generation
-- SEO optimization
-- Policy page management
+### 3. Real-time Messaging System
+- **Booking-specific Conversations**: Messages tied to specific rental transactions
+- **Unread Tracking**: Badge indicators and notification system
+- **System Messages**: Automated status updates and notifications
+- **Mobile-optimized Interface**: Slide-out panel similar to Instagram DMs
 
-### Admin Dashboard
-- Super admin functionality
-- User management
-- Plan management
-- Contact form management
-- Waitlist management
+### 4. Stripe Connect Integration
+- **Marketplace Payments**: Direct transfers to owner's Connect accounts
+- **Platform Fees**: 5% application fee on all transactions
+- **Onboarding Flow**: Complete payment setup for gear owners
+- **Webhook Processing**: Real-time payment event handling
 
-### Developer Experience
-- Type-safe database operations
-- Comprehensive error handling
-- Hot reload development
-- Automated code formatting
-- ESLint integration
+### 5. User Authentication & Onboarding
+- **Magic Link Authentication**: Passwordless email-based login via Resend
+- **Google OAuth**: Social authentication option
+- **Profile Management**: User profiles with gear ownership tracking
+- **Payment Setup**: Required Stripe Connect onboarding for gear owners
+
+### 6. File Upload & Management
+- **Supabase Storage**: Secure file upload and storage
+- **Image Optimization**: Next.js Image component for performance
+- **FilePond Integration**: Advanced file upload with drag-and-drop
+- **Multiple Image Support**: Gear listings with multiple photos
+
+### 7. Mobile-First Responsive Design
+- **Bottom Navigation**: Mobile-optimized navigation
+- **Collapsible Sidebar**: Desktop navigation with toggle functionality
+- **Touch-friendly Interface**: Optimized for mobile interactions
+- **Progressive Web App**: PWA capabilities with service worker
+
+### 8. Advanced UI Components
+- **Custom Components**: Built on shadcn/ui with Tailwind CSS
+- **Form Validation**: React Hook Form with Zod schema validation
+- **Loading States**: Comprehensive loading and error states
+- **Toast Notifications**: User feedback with Sonner
+
+### 9. Database Architecture
+- **Type-safe Operations**: Drizzle ORM with comprehensive type safety
+- **Fallback Support**: Dual database URL support for reliability
+- **Real-time Updates**: SWR for data fetching and caching
+- **Optimized Queries**: Efficient database operations with proper indexing
+
+### 10. Development Experience
+- **TypeScript Strict Mode**: Maximum type safety throughout
+- **ESLint Integration**: Code quality enforcement
+- **Hot Reload**: Fast development iteration
+- **Error Boundaries**: Graceful error handling
+- **Comprehensive Logging**: Debug and error tracking
 
 ---
 

@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Plus, Camera, MapPin, Calendar, MoreVertical, Edit, MessageSquare, Clock, CheckCircle, XCircle } from "lucide-react";
+import { Plus, Camera, MapPin, Calendar, MoreVertical, Edit, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
 import { useUserGear } from "@/lib/gear/useUserGear";
 import { GearEditModal } from "./GearEditModal";
 import { BookingActions } from "@/components/messages/BookingActions";
@@ -44,7 +43,7 @@ interface GearListingViewProps {
 
 export function GearListingView({ onAddGear }: GearListingViewProps) {
   const { gear, isLoading, mutate: refreshGear } = useUserGear();
-  const [editingGear, setEditingGear] = useState<any>(null);
+  const [editingGear, setEditingGear] = useState<unknown>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Fetch booking requests
@@ -57,7 +56,7 @@ export function GearListingView({ onAddGear }: GearListingViewProps) {
     }
   );
 
-  const handleEditGear = (gearItem: any) => {
+  const handleEditGear = (gearItem: unknown) => {
     setEditingGear(gearItem);
     setIsEditModalOpen(true);
   };
@@ -69,7 +68,7 @@ export function GearListingView({ onAddGear }: GearListingViewProps) {
 
   // Get booking requests for a specific gear item
   const getRequestsForGear = (gearId: string) => {
-    return bookingRequests?.filter(request => request.gearId === gearId) || [];
+    return bookingRequests?.filter((request: { gearId: string }) => request.gearId === gearId) || [];
   };
 
   // Get the most recent request for a gear item
@@ -283,7 +282,7 @@ export function GearListingView({ onAddGear }: GearListingViewProps) {
                               </div>
                               {latestRequest.renterMessage && (
                                 <p className="text-xs text-gray-700 mt-1 truncate">
-                                  "{latestRequest.renterMessage}"
+                                  &quot;{latestRequest.renterMessage}&quot;
                                 </p>
                               )}
                               <div className="flex items-center gap-2 mt-1 text-xs text-gray-600">

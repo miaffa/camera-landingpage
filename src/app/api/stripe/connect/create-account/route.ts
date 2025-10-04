@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema/user";
 import { eq } from "drizzle-orm";
 import { getStripeClient } from "@/lib/stripe/client";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     const session = await auth();
     

@@ -1,6 +1,6 @@
 "use client";
 
-import { Booking, NewBooking } from "@/db/schema/bookings";
+import { Booking } from "@/db/schema/bookings";
 
 interface CreateBookingData {
   gearId: string;
@@ -84,7 +84,7 @@ export async function cancelBooking(bookingId: string): Promise<Booking> {
 }
 
 // Message API functions
-export async function sendMessage(bookingId: string, data: SendMessageData): Promise<any> {
+export async function sendMessage(bookingId: string, data: SendMessageData): Promise<unknown> {
   const response = await fetch(`/api/bookings/${bookingId}/messages`, {
     method: "POST",
     headers: {
@@ -136,7 +136,7 @@ export async function confirmPayment(bookingId: string): Promise<Booking> {
 }
 
 // Review API functions
-export async function createReview(bookingId: string, data: CreateReviewData): Promise<any> {
+export async function createReview(bookingId: string, data: CreateReviewData): Promise<unknown> {
   const response = await fetch(`/api/bookings/${bookingId}/review`, {
     method: "POST",
     headers: {
@@ -153,7 +153,7 @@ export async function createReview(bookingId: string, data: CreateReviewData): P
   return response.json();
 }
 
-export async function getReviews(bookingId: string): Promise<any[]> {
+export async function getReviews(bookingId: string): Promise<unknown[]> {
   const response = await fetch(`/api/bookings/${bookingId}/review`);
 
   if (!response.ok) {

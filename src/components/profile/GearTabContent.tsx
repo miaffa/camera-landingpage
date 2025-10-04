@@ -10,11 +10,10 @@ import { GearCreationModal } from "@/components/create/GearCreationModal";
 import { GearEditModal } from "@/components/create/GearEditModal";
 import { useUserGear } from "@/lib/gear/useUserGear";
 import { useGearCreate } from "@/lib/gear/useGearCreate";
-import { toast } from "sonner";
 
 export function GearTabContent() {
   const [isGearModalOpen, setIsGearModalOpen] = useState(false);
-  const [editingGear, setEditingGear] = useState<any>(null);
+  const [editingGear, setEditingGear] = useState<unknown>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { gear, isLoading, mutate } = useUserGear();
   const { createGear } = useGearCreate();
@@ -23,9 +22,9 @@ export function GearTabContent() {
     setIsGearModalOpen(true);
   };
 
-  const handleSaveGear = async (gearData: any) => {
+  const handleSaveGear = async (gearData: unknown) => {
     try {
-      await createGear(gearData);
+      await createGear(gearData as { name: string; category: string; description: string; pricePerDay: number; condition: string; location: string; images: string[]; isAvailable: boolean; availability: { availableFrom: string; availableUntil: string } });
       // Refresh the gear list
       mutate();
     } catch (err) {
@@ -33,7 +32,7 @@ export function GearTabContent() {
     }
   };
 
-  const handleEditGear = (gearItem: any) => {
+  const handleEditGear = (gearItem: unknown) => {
     setEditingGear(gearItem);
     setIsEditModalOpen(true);
   };
@@ -101,12 +100,32 @@ export function GearTabContent() {
               </div>
             </CardContent>
           </Card>
+        ) : gear.length === 0 ? (
+          <Card className="p-8 text-center">
+            <CardContent className="flex flex-col items-center gap-4">
+              <div className="rounded-full bg-gray-100 p-4">
+                <Camera className="h-8 w-8 text-gray-400" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  No gear listed yet
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Start by adding your first piece of equipment to rent out
+                </p>
+                <Button onClick={handleAddGear} className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  Add Your First Gear
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         ) : (
           gear.map((gearItem) => (
-          <Card key={gearItem.id} className="bg-white border-0 shadow-sm">
-            <CardContent className="p-4">
-              <div className="flex items-start gap-4">
-                <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+            <Card key={gearItem.id} className="bg-white border-0 shadow-sm">
+              <CardContent className="p-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
                   {gearItem.images && gearItem.images.length > 0 ? (
                     <img
                       src={gearItem.images[0]}
@@ -183,7 +202,7 @@ export function GearTabContent() {
         <GearEditModal
           isOpen={isEditModalOpen}
           onClose={handleCloseEditModal}
-          gear={editingGear}
+          gear={editingGear as { id: string; name: string; category: string; description: string; pricePerDay: number; condition: string; location: string; images: string[]; isAvailable: boolean; availableFrom: string; availableUntil: string }}
         />
       )}
     </div>

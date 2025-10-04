@@ -63,7 +63,7 @@ export function AuthForm({ className, callbackUrl, ...props }: AuthFormProps) {
       
       return () => clearTimeout(timeoutId);
     }
-  }, [searchParams?.get("impersonateToken"), handleImpersonation]);
+  }, [searchParams, handleImpersonation]);
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true);

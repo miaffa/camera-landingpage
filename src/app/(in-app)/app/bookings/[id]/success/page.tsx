@@ -73,7 +73,7 @@ export default function PaymentSuccessPage() {
           <Card>
             <CardContent className="p-8 text-center">
               <h2 className="text-xl font-semibold text-red-600 mb-4">Booking Not Found</h2>
-              <p className="text-gray-600 mb-4">The booking you're looking for doesn't exist.</p>
+              <p className="text-gray-600 mb-4">The booking you&apos;re looking for doesn&apos;t exist.</p>
               <Button onClick={() => router.push("/app")}>
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Go Home
@@ -96,7 +96,7 @@ export default function PaymentSuccessPage() {
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Payment Successful!</h1>
             <p className="text-gray-600 mt-2">
-              Your rental has been confirmed. You'll receive a confirmation email shortly.
+              Your rental has been confirmed. You&apos;ll receive a confirmation email shortly.
             </p>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function PaymentSuccessPage() {
         {/* Next Steps */}
         <Card>
           <CardHeader>
-            <CardTitle>What's Next?</CardTitle>
+            <CardTitle>What&apos;s Next?</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">

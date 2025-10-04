@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { bookings } from "@/db/schema/bookings";
@@ -7,7 +7,7 @@ import { users } from "@/db/schema/user";
 import { eq, desc } from "drizzle-orm";
 
 // GET /api/bookings/owner-requests - Get all booking requests for the current user's gear
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await auth();
     

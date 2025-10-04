@@ -35,7 +35,7 @@ export function ImagePreview({ images, onRemoveImage }: ImagePreviewProps) {
         if (url) URL.revokeObjectURL(url);
       });
     };
-  }, [images]);
+  }, [images, imageUrls]);
 
   // Reset current index when images change
   const nextImage = useCallback(() => {

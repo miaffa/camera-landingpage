@@ -34,7 +34,7 @@ interface BookingDetails {
   returnLocation: string;
 }
 
-function PaymentForm({ booking, clientSecret }: { booking: BookingDetails; clientSecret: string }) {
+function PaymentForm({ booking }: { booking: BookingDetails; clientSecret: string }) {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();

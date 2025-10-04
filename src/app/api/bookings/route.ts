@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { bookings, rentalBlocks, rentalMessages } from "@/db/schema/bookings";
+import { bookings, rentalMessages } from "@/db/schema/bookings";
 import { gearListings } from "@/db/schema/gear";
 import { eq, and, gte, lte, or } from "drizzle-orm";
 import { z } from "zod";
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
 
     // Filter by status if provided
     if (status) {
-      query = query.where(eq(bookings.status, status as any));
+      query = query.where(eq(bookings.status, status as "pending" | "approved" | "paid" | "active" | "returned" | "completed" | "cancelled" | "disputed"));
     }
 
     const userBookings = await query.orderBy(bookings.createdAt);

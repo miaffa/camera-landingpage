@@ -9,6 +9,7 @@ import { useUserPosts } from "@/lib/posts/useUserPosts";
 import { PostEditModal } from "@/components/create/PostEditModal";
 import { PostDetailModal } from "@/components/feed/PostDetailModal";
 import { useSession } from "next-auth/react";
+import { Post } from "@/db/schema/posts";
 
 function PostImage({ src, alt, className }: { src: string; alt: string; className: string }) {
   const [hasError, setHasError] = useState(false);
@@ -37,9 +38,9 @@ function PostImage({ src, alt, className }: { src: string; alt: string; classNam
 export function PostsTabContent() {
   const { posts, isLoading } = useUserPosts();
   const { data: session } = useSession();
-  const [editingPost, setEditingPost] = useState<any>(null);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [viewingPost, setViewingPost] = useState<any>(null);
+  const [viewingPost, setViewingPost] = useState<Post | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   if (isLoading) {
@@ -70,7 +71,7 @@ export function PostsTabContent() {
     );
   }
 
-  const handleEditPost = (post: any) => {
+  const handleEditPost = (post: Post) => {
     setEditingPost(post);
     setIsEditModalOpen(true);
   };
@@ -80,7 +81,7 @@ export function PostsTabContent() {
     setEditingPost(null);
   };
 
-  const handleViewPost = (post: any) => {
+  const handleViewPost = (post: Post) => {
     console.log("Viewing post:", post.id);
     setViewingPost(post);
     setIsDetailModalOpen(true);
@@ -90,6 +91,36 @@ export function PostsTabContent() {
     setIsDetailModalOpen(false);
     setViewingPost(null);
   };
+
+  // Transform database post to component format for PostDetailModal
+  const transformPostForDetail = (post: Post) => ({
+    ...post,
+    location: post.location,
+    images: post.images || [],
+    taggedUsers: post.taggedUsers || [],
+    taggedGear: post.taggedGear || [],
+    createdAt: post.createdAt || new Date(),
+    updatedAt: post.updatedAt || new Date(),
+    likesCount: post.likesCount || 0,
+    commentsCount: post.commentsCount || 0,
+    sharesCount: post.sharesCount || 0,
+    isPublic: post.isPublic || true,
+    isArchived: post.isArchived || false,
+    // Add missing properties that modals expect
+    authorName: "User", // This would need to be joined from users table
+    authorUsername: "username", // This would need to be joined from users table  
+    authorAvatar: null, // This would need to be joined from users table
+  });
+
+  // Transform database post to component format for PostEditModal
+  const transformPostForEdit = (post: Post) => ({
+    id: post.id,
+    content: post.content,
+    location: post.location || undefined,
+    images: post.images || [],
+    taggedUsers: post.taggedUsers || [],
+    taggedGear: post.taggedGear || [],
+  });
 
   // Mock handlers for post actions
   const handleLike = (postId: string) => {
@@ -174,7 +205,7 @@ export function PostsTabContent() {
         <PostEditModal
           isOpen={isEditModalOpen}
           onClose={handleCloseEditModal}
-          post={editingPost}
+          post={transformPostForEdit(editingPost)}
         />
       )}
 
@@ -183,7 +214,7 @@ export function PostsTabContent() {
         <PostDetailModal
           isOpen={isDetailModalOpen}
           onClose={handleCloseDetailModal}
-          post={viewingPost}
+          post={transformPostForDetail(viewingPost)}
           currentUserId={session?.user?.id}
           onLike={handleLike}
           onComment={handleComment}

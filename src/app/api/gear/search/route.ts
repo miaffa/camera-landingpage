@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     const validatedData = searchGearSchema.parse(searchData);
 
     // Build search query
-    let whereConditions = [eq(gearListings.isAvailable, true)];
+    const whereConditions = [eq(gearListings.isAvailable, true)];
 
     // Text search
     if (validatedData.query) {

@@ -4,18 +4,10 @@ import React, { useState } from "react";
 import { Heart, MessageCircle, Share, MoreHorizontal, Camera, MapPin, Edit, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { GearListing } from "./GearListing";
 import { PostEditModal } from "@/components/create/PostEditModal";
 
-interface Author {
-  name: string | null;
-  username: string | null;
-  avatar: string | null;
-  location?: string;
-}
 
 interface Post {
   id: string;

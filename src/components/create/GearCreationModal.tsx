@@ -85,14 +85,14 @@ export function GearCreationModal({ isOpen, onClose, onSave }: GearCreationModal
     }
   }, [isOpen]);
 
-  const handleInputChange = (field: keyof GearData, value: any) => {
+  const handleInputChange = (field: keyof GearData, value: unknown) => {
     setGearData(prev => ({
       ...prev,
       [field]: value,
     }));
   };
 
-  const handleAvailabilityChange = (field: keyof GearData['availability'], value: any) => {
+  const handleAvailabilityChange = (field: keyof GearData['availability'], value: unknown) => {
     setGearData(prev => ({
       ...prev,
       availability: {

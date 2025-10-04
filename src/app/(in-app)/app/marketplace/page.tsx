@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GearMapView } from "@/components/map/GearMapView";
 import { BookingRequestModal } from "@/components/rental/BookingRequestModal";
 import useSWR from "swr";
 import dynamic from "next/dynamic";
@@ -45,16 +44,14 @@ export default function MarketplacePage() {
     return data.results || [];
   };
 
-  const { data: gear, error, isLoading } = useSWR<GearItem[]>(
+  const { data: gear, isLoading } = useSWR<GearItem[]>(
     "/api/gear/search",
     fetcher
   );
 
-  // Use the real gear data from the API
-  const marketplaceGear = gear || [];
-
   // Memoize the filtered gear to prevent unnecessary filtering on every render
   const filteredGear = useMemo(() => {
+    const marketplaceGear = gear || [];
     if (!searchQuery.trim()) return marketplaceGear;
     
     const query = searchQuery.toLowerCase();
@@ -63,7 +60,7 @@ export default function MarketplacePage() {
       item.category.toLowerCase().includes(query) ||
       item.location.toLowerCase().includes(query)
     );
-  }, [marketplaceGear, searchQuery]);
+  }, [gear, searchQuery]);
 
   // Debounced search handler
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

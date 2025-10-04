@@ -76,7 +76,7 @@ export function AnimatedGridPattern({
     if (dimensions.width && dimensions.height) {
       setSquares(generateSquares(numSquares));
     }
-  }, [dimensions, numSquares]);
+  }, [dimensions, numSquares, generateSquares]);
 
   // Resize observer to update container dimensions
   useEffect(() => {
@@ -94,8 +94,9 @@ export function AnimatedGridPattern({
     }
 
     return () => {
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current);
+      const currentContainer = containerRef.current;
+      if (currentContainer) {
+        resizeObserver.unobserve(currentContainer);
       }
     };
   }, [containerRef]);

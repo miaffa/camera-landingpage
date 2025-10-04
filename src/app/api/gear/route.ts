@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       if (availability) {
         try {
           availabilityData = JSON.parse(availability);
-        } catch (e) {
+        } catch {
           console.warn("Failed to parse availability data");
         }
       }
@@ -291,7 +291,7 @@ export async function PUT(request: NextRequest) {
     if (availability) {
       try {
         availabilityData = JSON.parse(availability);
-      } catch (e) {
+      } catch {
         console.warn("Failed to parse availability data");
       }
     }

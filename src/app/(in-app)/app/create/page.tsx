@@ -26,8 +26,8 @@ export default function CreatePage() {
   const [taggedGear, setTaggedGear] = useState<TaggedGear[]>([]);
   
   const { createPost, isLoading, error } = usePostCreate();
-  const { createGear, isLoading: isGearLoading, error: gearError } = useGearCreate();
-  const { mutate: refreshGear, isLoading: isGearDataLoading } = useUserGear();
+  const { createGear } = useGearCreate();
+  const { mutate: refreshGear } = useUserGear();
 
   const handleImageSelect = (files: File[]) => {
     setSelectedImages(files);
@@ -70,9 +70,23 @@ export default function CreatePage() {
     setIsGearModalOpen(true);
   };
 
-  const handleSaveGear = useCallback(async (gearData: any) => {
+  const handleSaveGear = useCallback(async (gearData: unknown) => {
     try {
-      await createGear(gearData);
+      const data = gearData as { name: string; category: string; description: string; pricePerDay: number; condition: string; location: string; images: File[]; isAvailable: boolean; availability: { availableFrom: string; availableUntil: string } };
+      await createGear({
+        name: data.name,
+        category: data.category,
+        description: data.description,
+        price: data.pricePerDay,
+        condition: data.condition,
+        location: data.location,
+        images: data.images,
+        availability: {
+          startDate: data.availability.availableFrom,
+          endDate: data.availability.availableUntil,
+          available: data.isAvailable,
+        },
+      });
       // Refresh the gear list
       refreshGear();
     } catch (err) {

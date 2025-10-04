@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { MapPin, Star, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -87,9 +87,6 @@ export function GearMapView({ gear, onClose, onRentClick }: GearMapViewProps) {
     fetchCoordinates();
   }, [gear.location]);
 
-  const handleMapClick = useCallback((event: any) => {
-    // Handle map interactions if needed
-  }, []);
 
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col">

@@ -3,6 +3,14 @@
 import useSWR from "swr";
 import { Booking } from "@/db/schema/bookings";
 
+// Extended booking type that includes joined gear data
+export type BookingWithGear = Booking & {
+  gearName: string;
+  gearCategory: string;
+  gearImages: string[];
+  gearCondition: string;
+};
+
 interface UseBookingsOptions {
   type?: "rented" | "owned" | "all";
   status?: string;
@@ -18,7 +26,7 @@ export function useBookings(options: UseBookingsOptions = {}) {
   const queryString = params.toString();
   const url = queryString ? `/api/bookings?${queryString}` : "/api/bookings";
   
-  const { data, error, isLoading, mutate } = useSWR<Booking[]>(url);
+  const { data, error, isLoading, mutate } = useSWR<BookingWithGear[]>(url);
   
   return {
     bookings: data || [],
@@ -29,7 +37,7 @@ export function useBookings(options: UseBookingsOptions = {}) {
 }
 
 export function useBooking(bookingId: string) {
-  const { data, error, isLoading, mutate } = useSWR<Booking & { messages: any[] }>(
+  const { data, error, isLoading, mutate } = useSWR<Booking & { messages: unknown[] }>(
     bookingId ? `/api/bookings/${bookingId}` : null
   );
   

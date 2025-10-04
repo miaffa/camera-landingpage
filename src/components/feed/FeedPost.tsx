@@ -2,16 +2,8 @@ import React, { useState } from "react";
 import { Heart, MessageCircle, Share, MoreHorizontal, Camera, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { GearListing } from "./GearListing";
 
-interface Author {
-  name: string | null;
-  username: string | null;
-  avatar: string | null;
-  location?: string;
-}
 
 interface Post {
   id: string;

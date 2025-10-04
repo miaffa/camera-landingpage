@@ -1,17 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
-import { bookings, users, reviews } from "@/db/schema/bookings";
+import { bookings, reviews } from "@/db/schema/bookings";
+import { users } from "@/db/schema/user";
 import { gearListings } from "@/db/schema/gear";
-import { eq, and, or, gte, lte } from "drizzle-orm";
+import { eq, and, or } from "drizzle-orm";
 import { sql } from "drizzle-orm";
 
 // GET /api/gear/[id] - Get gear details with availability and reviews
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const gearId = params.id;
+    const { id: gearId } = await params;
 
     // Get gear details with owner information
     const gear = await db

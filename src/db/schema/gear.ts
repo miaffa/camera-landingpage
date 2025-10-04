@@ -3,7 +3,6 @@ import {
   timestamp,
   pgTable,
   text,
-  integer,
   decimal,
 } from "drizzle-orm/pg-core";
 import { users } from "./user";
