@@ -20,6 +20,9 @@ const getConnectionString = () => {
   return primaryUrl;
 };
 
+// Create the connection immediately for the adapter
 const connectionString = getConnectionString();
 const client = postgres(connectionString);
 export const db = drizzle(client, { schema });
+
+console.log("✅ Database connection initialized successfully");
