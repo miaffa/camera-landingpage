@@ -22,7 +22,7 @@ interface BookingRequestModalProps {
     id: string;
     name: string;
     pricePerDay: string;
-    location?: string;
+    location?: string | null;
   };
 }
 

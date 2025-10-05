@@ -16,10 +16,13 @@ interface GearItem {
   id: string;
   name: string;
   category: string;
+  description: string;
   pricePerDay: string;
   condition: string;
   location: string;
   images: string[];
+  availableFrom?: string;
+  availableUntil?: string;
   isAvailable: boolean;
 }
 
@@ -43,7 +46,7 @@ interface GearListingViewProps {
 
 export function GearListingView({ onAddGear }: GearListingViewProps) {
   const { gear, isLoading, mutate: refreshGear } = useUserGear();
-  const [editingGear, setEditingGear] = useState<unknown>(null);
+  const [editingGear, setEditingGear] = useState<GearItem | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   // Fetch booking requests
@@ -56,7 +59,7 @@ export function GearListingView({ onAddGear }: GearListingViewProps) {
     }
   );
 
-  const handleEditGear = (gearItem: unknown) => {
+  const handleEditGear = (gearItem: GearItem) => {
     setEditingGear(gearItem);
     setIsEditModalOpen(true);
   };

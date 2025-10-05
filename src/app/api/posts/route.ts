@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { posts, users } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, and } from "drizzle-orm";
 
 // GET /api/posts - Get all public posts for feed
 export async function GET(request: NextRequest) {
@@ -33,8 +33,10 @@ export async function GET(request: NextRequest) {
       })
       .from(posts)
       .leftJoin(users, eq(posts.authorId, users.id))
-      .where(eq(posts.isPublic, true))
-      .where(eq(posts.isArchived, false))
+      .where(and(
+        eq(posts.isPublic, true),
+        eq(posts.isArchived, false)
+      ))
       .orderBy(desc(posts.createdAt))
       .limit(limit)
       .offset(offset);

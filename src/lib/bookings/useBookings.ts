@@ -49,6 +49,36 @@ export function useBooking(bookingId: string) {
   };
 }
 
+// Type definition for gear search API response
+interface GearSearchResponse {
+  results: GearItem[];
+  pagination: {
+    total: number;
+    limit: number;
+    offset: number;
+    hasMore: boolean;
+  };
+}
+
+// Type definition for gear items from the API
+export interface GearItem {
+  id: string;
+  name: string;
+  category: string;
+  description: string | null;
+  pricePerDay: string;
+  condition: string;
+  location: string | null;
+  images: string[] | null;
+  availableFrom: Date | null;
+  availableUntil: Date | null;
+  isAvailable: boolean;
+  createdAt: Date;
+  ownerId: string;
+  ownerName: string | null;
+  ownerImage: string | null;
+}
+
 export function useGearSearch(params: {
   query?: string;
   category?: string;
@@ -71,7 +101,7 @@ export function useGearSearch(params: {
   const queryString = searchParams.toString();
   const url = queryString ? `/api/gear/search?${queryString}` : "/api/gear/search";
   
-  const { data, error, isLoading, mutate } = useSWR(url);
+  const { data, error, isLoading, mutate } = useSWR<GearSearchResponse>(url);
   
   return {
     results: data?.results || [],

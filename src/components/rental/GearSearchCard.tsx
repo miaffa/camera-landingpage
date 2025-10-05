@@ -13,15 +13,15 @@ interface GearSearchCardProps {
     id: string;
     name: string;
     category: string;
-    description?: string;
+    description?: string | null;
     pricePerDay: string;
     condition: string;
-    location?: string;
-    images: string[];
-    availableFrom?: Date;
-    availableUntil?: Date;
-    ownerName?: string;
-    ownerImage?: string;
+    location?: string | null;
+    images: string[] | null;
+    availableFrom?: Date | null;
+    availableUntil?: Date | null;
+    ownerName?: string | null;
+    ownerImage?: string | null;
     ownerRating?: {
       average: number;
       totalReviews: number;
@@ -99,13 +99,13 @@ export function GearSearchCard({ gear, onRentClick }: GearSearchCardProps) {
             {gear.ownerImage ? (
               <img
                 src={gear.ownerImage}
-                alt={gear.ownerName}
+                alt={gear.ownerName || "Owner"}
                 className="w-6 h-6 rounded-full"
               />
             ) : (
               <div className="w-6 h-6 rounded-full bg-gray-200" />
             )}
-            <span className="text-sm text-gray-600">{gear.ownerName}</span>
+            <span className="text-sm text-gray-600">{gear.ownerName || "Unknown Owner"}</span>
             {gear.ownerRating && gear.ownerRating.totalReviews > 0 && (
               <div className="flex items-center gap-1">
                 <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />

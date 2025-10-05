@@ -11,9 +11,23 @@ import { GearEditModal } from "@/components/create/GearEditModal";
 import { useUserGear } from "@/lib/gear/useUserGear";
 import { useGearCreate } from "@/lib/gear/useGearCreate";
 
+interface GearItem {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  pricePerDay: string;
+  condition: string;
+  location: string;
+  images: string[];
+  isAvailable: boolean;
+  availableFrom?: string;
+  availableUntil?: string;
+}
+
 export function GearTabContent() {
   const [isGearModalOpen, setIsGearModalOpen] = useState(false);
-  const [editingGear, setEditingGear] = useState<unknown>(null);
+  const [editingGear, setEditingGear] = useState<GearItem | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { gear, isLoading, mutate } = useUserGear();
   const { createGear } = useGearCreate();
@@ -24,7 +38,21 @@ export function GearTabContent() {
 
   const handleSaveGear = async (gearData: unknown) => {
     try {
-      await createGear(gearData as { name: string; category: string; description: string; pricePerDay: number; condition: string; location: string; images: string[]; isAvailable: boolean; availability: { availableFrom: string; availableUntil: string } });
+      const data = gearData as { name: string; category: string; description: string; pricePerDay: number; condition: string; location: string; images: string[]; isAvailable: boolean; availability: { availableFrom: string; availableUntil: string } };
+      await createGear({
+        name: data.name,
+        category: data.category,
+        description: data.description,
+        price: data.pricePerDay,
+        condition: data.condition,
+        location: data.location,
+        images: data.images as unknown as File[],
+        availability: {
+          startDate: data.availability.availableFrom,
+          endDate: data.availability.availableUntil,
+          available: data.isAvailable
+        }
+      });
       // Refresh the gear list
       mutate();
     } catch (err) {
@@ -32,7 +60,7 @@ export function GearTabContent() {
     }
   };
 
-  const handleEditGear = (gearItem: unknown) => {
+  const handleEditGear = (gearItem: GearItem) => {
     setEditingGear(gearItem);
     setIsEditModalOpen(true);
   };
@@ -202,7 +230,12 @@ export function GearTabContent() {
         <GearEditModal
           isOpen={isEditModalOpen}
           onClose={handleCloseEditModal}
-          gear={editingGear as { id: string; name: string; category: string; description: string; pricePerDay: number; condition: string; location: string; images: string[]; isAvailable: boolean; availableFrom: string; availableUntil: string }}
+          gear={{
+            ...editingGear,
+            pricePerDay: editingGear?.pricePerDay?.toString() || "0",
+            availableFrom: editingGear?.availableFrom || "",
+            availableUntil: editingGear?.availableUntil || ""
+          }}
         />
       )}
     </div>

@@ -35,7 +35,30 @@ export async function GET(request: NextRequest) {
     const type = searchParams.get("type"); // "rented" or "owned"
     const status = searchParams.get("status"); // Filter by status
 
-    let query = db
+    // Build where conditions
+    const whereConditions = [];
+    
+    // Filter by user role
+    if (type === "rented") {
+      whereConditions.push(eq(bookings.renterId, session.user.id));
+    } else if (type === "owned") {
+      whereConditions.push(eq(bookings.ownerId, session.user.id));
+    } else {
+      // Get all bookings where user is either renter or owner
+      whereConditions.push(
+        or(
+          eq(bookings.renterId, session.user.id),
+          eq(bookings.ownerId, session.user.id)
+        )
+      );
+    }
+
+    // Filter by status if provided
+    if (status) {
+      whereConditions.push(eq(bookings.status, status as "pending" | "approved" | "paid" | "active" | "returned" | "completed" | "cancelled" | "disputed"));
+    }
+
+    const userBookings = await db
       .select({
         id: bookings.id,
         renterId: bookings.renterId,
@@ -63,29 +86,9 @@ export async function GET(request: NextRequest) {
         gearCondition: gearListings.condition,
       })
       .from(bookings)
-      .leftJoin(gearListings, eq(bookings.gearId, gearListings.id));
-
-    // Filter by user role
-    if (type === "rented") {
-      query = query.where(eq(bookings.renterId, session.user.id));
-    } else if (type === "owned") {
-      query = query.where(eq(bookings.ownerId, session.user.id));
-    } else {
-      // Get all bookings where user is either renter or owner
-      query = query.where(
-        or(
-          eq(bookings.renterId, session.user.id),
-          eq(bookings.ownerId, session.user.id)
-        )
-      );
-    }
-
-    // Filter by status if provided
-    if (status) {
-      query = query.where(eq(bookings.status, status as "pending" | "approved" | "paid" | "active" | "returned" | "completed" | "cancelled" | "disputed"));
-    }
-
-    const userBookings = await query.orderBy(bookings.createdAt);
+      .leftJoin(gearListings, eq(bookings.gearId, gearListings.id))
+      .where(and(...whereConditions))
+      .orderBy(bookings.createdAt);
 
     return NextResponse.json(userBookings);
   } catch (error) {
@@ -299,7 +302,7 @@ export async function PUT(request: NextRequest) {
 
     // Update status and add to history
     const statusHistory = [
-      ...bookingData.statusHistory,
+      ...(bookingData.statusHistory || []),
       {
         status: validatedData.status,
         timestamp: new Date(),

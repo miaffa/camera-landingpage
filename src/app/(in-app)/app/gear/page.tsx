@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Search, Filter, MapPin } from "lucide-react";
 import { GearSearchCard } from "@/components/rental/GearSearchCard";
 import { BookingRequestModal } from "@/components/rental/BookingRequestModal";
-import { useGearSearch } from "@/lib/bookings/useBookings";
+import { useGearSearch, GearItem } from "@/lib/bookings/useBookings";
 
 const categories = [
   "Camera Bodies",
@@ -29,7 +29,7 @@ export default function GearSearchPage() {
   const [location, setLocation] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [selectedGear, setSelectedGear] = useState<unknown>(null);
+  const [selectedGear, setSelectedGear] = useState<GearItem | null>(null);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
@@ -47,9 +47,13 @@ export default function GearSearchPage() {
 
   const { results, pagination, isLoading, error } = useGearSearch(searchParams);
 
-  const handleRentClick = (gear: unknown) => {
-    setSelectedGear(gear);
-    setIsBookingModalOpen(true);
+  const handleRentClick = (gearId: string) => {
+    // Find the gear object from results
+    const gear = results.find((g: GearItem) => g.id === gearId);
+    if (gear) {
+      setSelectedGear(gear);
+      setIsBookingModalOpen(true);
+    }
   };
 
   const handleCloseBookingModal = () => {
@@ -216,7 +220,7 @@ export default function GearSearchPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {results.map((gear) => (
+                {results.map((gear: GearItem) => (
                   <GearSearchCard
                     key={gear.id}
                     gear={gear}
