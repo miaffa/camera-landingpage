@@ -5,10 +5,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GearTabContent } from "@/components/profile/GearTabContent";
 import { PostsTabContent } from "@/components/profile/PostsTabContent";
-import { SavedTabContent } from "@/components/profile/SavedTabContent";
+// import { SavedTabContent } from "@/components/profile/SavedTabContent";
 import { SavedContentGrid } from "@/components/profile/SavedContentGrid";
 import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
-import { useUserPosts } from "@/lib/posts/useUserPosts";
+// import { useUserPosts } from "@/lib/posts/useUserPosts";
 import { ProfileStats } from "@/components/profile/ProfileStats";
 import { VerificationCTA } from "@/components/profile/VerificationCTA";
 import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
@@ -17,6 +17,7 @@ import { EditProfileModal } from "@/components/profile/EditProfileModal";
 import { SettingsModal } from "@/components/profile/SettingsModal";
 import useUser from "@/lib/users/useUser";
 import { signOut } from "next-auth/react";
+import { PostWithAuthor } from "@/lib/types/posts";
 // import useCurrentPlan from "@/lib/users/useCurrentPlan"; // TODO: Use for plan-specific features
 // import { ProfileFormData } from "@/lib/validations/profile.schema"; // TODO: Use for form validation
 
@@ -27,7 +28,7 @@ export default function ProfilePage() {
   // Modal states
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [commentsPost, setCommentsPost] = useState<any>(null);
+  const [commentsPost, setCommentsPost] = useState<PostWithAuthor | null>(null);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
   if (userLoading) {
@@ -89,13 +90,9 @@ export default function ProfilePage() {
     // User data will be automatically refreshed by the useProfileUpdate hook
   };
 
-  const handlePostComment = (postId: string) => {
-    const { posts } = useUserPosts();
-    const post = posts.find(p => p.id === postId);
-    if (post) {
-      setCommentsPost(post);
-      setIsCommentsOpen(true);
-    }
+  const handlePostComment = () => {
+    // This will be handled by the PostsTabContent component
+    // We'll pass the post data directly from there
   };
 
   const handleCloseComments = () => {

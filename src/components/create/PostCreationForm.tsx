@@ -69,7 +69,7 @@ function PostCreationForm({
   const [gearSearchQuery, setGearSearchQuery] = useState("");
 
   // Fetch real gear data
-  const { gear: allGear, isLoading: isGearLoading, searchGear } = useGearSearch();
+  const { isLoading: isGearLoading, searchGear } = useGearSearch();
 
 
   const handleFileSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +100,7 @@ function PostCreationForm({
     onTaggedUsersChange(taggedUsers.filter(user => user.id !== userId));
   };
 
-  const handleGearSelect = (gear: any) => {
+  const handleGearSelect = (gear: { id: string; name: string; pricePerDay: string; category: string; images?: string[] | null }) => {
     const taggedGearItem: TaggedGear = {
       id: gear.id,
       name: gear.name,

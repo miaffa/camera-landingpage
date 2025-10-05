@@ -3,10 +3,10 @@
 import { useState, useCallback, useEffect } from "react";
 import { mutate } from "swr";
 
-interface PostInteractions {
-  liked: boolean;
-  saved: boolean;
-}
+// interface PostInteractions {
+//   liked: boolean;
+//   saved: boolean;
+// }
 
 interface UsePostInteractionsOptions {
   postId: string;

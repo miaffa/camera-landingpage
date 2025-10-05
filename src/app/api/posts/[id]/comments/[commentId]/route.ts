@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import withAuthRequired from "@/lib/auth/withAuthRequired";
 import { db } from "@/db";
 import { postComments, posts, users } from "@/db/schema";
@@ -46,7 +46,7 @@ export const PUT = withAuthRequired(async (req, context) => {
     }
 
     // Update the comment
-    const updatedComment = await db
+    await db
       .update(postComments)
       .set({
         content: content.trim(),

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Heart, MessageCircle, Share, MoreHorizontal, Camera, MapPin, Edit, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Heart, MessageCircle, Share, MoreHorizontal, Camera, MapPin, Edit, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -11,33 +11,15 @@ import { usePostInteractions } from "@/lib/posts/usePostInteractions";
 import { useUserInteractions } from "@/lib/posts/useUserInteractions";
 import { CommentsList } from "./CommentsList";
 import { PostGearDisplay } from "./PostGearDisplay";
+import { DisplayPost } from "@/lib/types/posts";
 
 
-interface Post {
-  id: string;
-  authorId: string;
-  content: string;
-  images: string[];
-  location: string | null;
-  taggedUsers: string[];
-  taggedGear: string[];
-  likesCount: number;
-  commentsCount: number;
-  sharesCount: number;
-  isPublic: boolean;
-  isArchived: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  // Author information
-  authorName: string | null;
-  authorUsername: string | null;
-  authorAvatar: string | null;
-}
+// Using DisplayPost from shared types instead of local interface
 
 interface PostDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
-  post: Post | null;
+  post: DisplayPost | null;
   currentUserId?: string;
   onLike: (postId: string) => void;
   onComment: (postId: string) => void;
@@ -74,7 +56,6 @@ export function PostDetailModal({
   onClose, 
   post, 
   currentUserId,
-  onLike, 
   onComment, 
   onShare, 
   onMore 
@@ -87,7 +68,7 @@ export function PostDetailModal({
   const userInteraction = interactions[post?.id || ""] || { liked: false, saved: false };
   
   // Use post interactions for like/save state management
-  const { liked, saved, isLiking, isSaving, toggleLike, toggleSave } = usePostInteractions({
+  const { liked, isLiking, toggleLike } = usePostInteractions({
     postId: post?.id || "",
     initialLiked: userInteraction.liked,
     initialSaved: userInteraction.saved,
@@ -161,7 +142,7 @@ export function PostDetailModal({
                           <span className="text-xs text-gray-500">{post.location}</span>
                         </div>
                       )}
-                      <span className="text-xs text-muted-foreground">{formatDate(post.createdAt)}</span>
+                      <span className="text-xs text-muted-foreground">{formatDate(post.createdAt || new Date())}</span>
                     </div>
                   </div>
                 </div>
@@ -316,8 +297,8 @@ export function PostDetailModal({
             content: post.content,
             location: post.location || undefined,
             images: post.images,
-            taggedUsers: post.taggedUsers,
-            taggedGear: post.taggedGear,
+            taggedUsers: post.taggedUsers || [],
+            taggedGear: post.taggedGear || [],
           }}
         />
       )}

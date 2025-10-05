@@ -4,12 +4,12 @@ import React, { useEffect } from "react";
 import { X, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CommentsList } from "./CommentsList";
-import { Post } from "@/db/schema/posts";
+import { PostWithAuthor } from "@/lib/types/posts";
 
 interface CommentsBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
-  post: Post | null;
+  post: PostWithAuthor | null;
   onComment?: (postId: string) => void;
 }
 

@@ -17,7 +17,7 @@ interface GearSearchResult {
 interface UseGearSearchResult {
   gear: GearSearchResult[];
   isLoading: boolean;
-  error: any;
+  error: Error | undefined;
   searchGear: (query: string) => GearSearchResult[];
 }
 

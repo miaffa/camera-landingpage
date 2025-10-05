@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
     const gearDataMap = gearData.reduce((acc, gear) => {
       acc[gear.id] = gear;
       return acc;
-    }, {} as Record<string, any>);
+    }, {} as Record<string, { id: string; name: string; category: string; pricePerDay: string; condition: string; location?: string | null; images?: string[] | null; isAvailable: boolean | null; ownerId: string; ownerName?: string | null; ownerEmail?: string | null; ownerImage?: string | null; latitude?: number | null; longitude?: number | null; createdAt: Date | null; updatedAt: Date | null }>);
 
     return NextResponse.json(gearDataMap);
   } catch (error) {

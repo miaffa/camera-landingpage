@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X, Star, MapPin, Calendar, User, Camera, ExternalLink, ArrowLeft, Bookmark } from "lucide-react";
+import { X, Star, MapPin, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { BookingRequestModal } from "@/components/rental/BookingRequestModal";
@@ -99,8 +98,8 @@ export function GearDetailModal({
   isOpen, 
   onClose, 
   gear, 
-  mode = "modal",
-  returnTo = "post"
+  mode = "modal"
+  // returnTo = "post"
 }: GearDetailModalProps) {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [coordinates, setCoordinates] = useState({

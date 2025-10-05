@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { User, Camera, Bookmark, Heart, ChevronRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { User, Camera, Heart, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSavedPosts } from "@/lib/posts/useSavedPosts";
 import { useSavedGear } from "@/lib/gear/useSavedGear";

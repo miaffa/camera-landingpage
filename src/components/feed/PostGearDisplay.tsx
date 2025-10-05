@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGearData } from "@/lib/gear/useGearData";
 import { GearDetailModal } from "@/components/gear/GearDetailModal";
+// Using GearItem type from GearDetailModal
 
 interface PostGearDisplayProps {
   gearIds: string[];
@@ -14,7 +15,7 @@ interface PostGearDisplayProps {
 
 export function PostGearDisplay({ gearIds, onRentGear }: PostGearDisplayProps) {
   const { gearData, isLoading } = useGearData(gearIds);
-  const [selectedGear, setSelectedGear] = useState<any>(null);
+  const [selectedGear, setSelectedGear] = useState<unknown>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   if (!gearIds || gearIds.length === 0) {
@@ -130,7 +131,7 @@ export function PostGearDisplay({ gearIds, onRentGear }: PostGearDisplayProps) {
       <GearDetailModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        gear={selectedGear}
+        gear={selectedGear as any} // eslint-disable-line @typescript-eslint/no-explicit-any
         mode="modal"
         returnTo="post"
       />

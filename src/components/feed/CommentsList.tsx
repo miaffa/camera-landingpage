@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { useComments, useCreateComment, useCommentLikes, Comment } from "@/lib/posts/useComments";
+import React from "react";
+import { useComments, useCreateComment, Comment } from "@/lib/posts/useComments";
 import { CommentItem } from "./CommentItem";
 import { CommentInput } from "./CommentInput";
 import { Loader2 } from "lucide-react";
@@ -14,11 +14,11 @@ interface CommentsListProps {
 export function CommentsList({ postId, onComment }: CommentsListProps) {
   const { comments, isLoading, error } = useComments(postId);
   const { createComment } = useCreateComment();
-  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  // const [replyingTo, setReplyingTo] = useState<string | null>(null);
 
   // Get all comment IDs for fetching likes
-  const commentIds = useMemo(() => comments.map(comment => comment.id), [comments]);
-  const { likes: commentLikes } = useCommentLikes(commentIds);
+  // const commentIds = useMemo(() => comments.map(comment => comment.id), [comments]);
+  // const { likes: commentLikes } = useCommentLikes(commentIds);
 
   const handleCreateComment = async (content: string) => {
     try {
@@ -29,8 +29,8 @@ export function CommentsList({ postId, onComment }: CommentsListProps) {
     }
   };
 
-  const handleReply = (parentCommentId: string) => {
-    setReplyingTo(parentCommentId);
+  const handleReply = () => {
+    // setReplyingTo(parentCommentId);
   };
 
   // Organize comments into parent-child relationships

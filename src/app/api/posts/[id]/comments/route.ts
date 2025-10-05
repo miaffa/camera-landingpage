@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import withAuthRequired from "@/lib/auth/withAuthRequired";
 import { db } from "@/db";
 import { postComments, posts, users, commentLikes } from "@/db/schema";
-import { eq, desc, and, sql } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 
 // GET /api/posts/[id]/comments - Get comments for a post
 export const GET = async (request: NextRequest, context: { params: Promise<{ id: string }> }) => {

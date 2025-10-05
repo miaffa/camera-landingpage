@@ -8,37 +8,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useSavedPosts } from "@/lib/posts/useSavedPosts";
 import { PostDetailModal } from "@/components/feed/PostDetailModal";
 import { PostImageCarousel } from "@/components/feed/PostImageCarousel";
-import { usePostInteractions } from "@/lib/posts/usePostInteractions";
 import { useSession } from "next-auth/react";
+import { SavedPost, DisplayPost } from "@/lib/types/posts";
 
-function PostImage({ src, alt, className }: { src: string; alt: string; className: string }) {
-  const [hasError, setHasError] = useState(false);
-  
-  if (hasError) {
-    return (
-      <div className={`${className} bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center`}>
-        <div className="text-center">
-          <Camera className="h-12 w-12 text-blue-400 mx-auto mb-2" />
-          <p className="text-xs text-blue-600 font-medium">Image Uploaded</p>
-        </div>
-      </div>
-    );
-  }
-  
-  return (
-    <img 
-      src={src} 
-      alt={alt} 
-      className={className}
-      onError={() => setHasError(true)}
-    />
-  );
-}
 
 export function SavedTabContent() {
   const { savedPosts, isLoading, mutate } = useSavedPosts();
   const { data: session } = useSession();
-  const [viewingPost, setViewingPost] = useState<any>(null);
+  const [viewingPost, setViewingPost] = useState<DisplayPost | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
   if (isLoading) {
@@ -73,7 +50,7 @@ export function SavedTabContent() {
     );
   }
 
-  const handleViewPost = (post: any) => {
+  const handleViewPost = (post: DisplayPost) => {
     setViewingPost(post);
     setIsDetailModalOpen(true);
   };
@@ -99,7 +76,7 @@ export function SavedTabContent() {
   };
 
   // Transform database post to component format for PostDetailModal
-  const transformPostForModal = (post: any) => ({
+  const transformPostForModal = (post: SavedPost): DisplayPost => ({
     id: post.id,
     authorId: post.authorId,
     content: post.content,

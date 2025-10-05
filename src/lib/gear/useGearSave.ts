@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import useSWR from "swr";
+import { useState } from "react";
 
 interface UseGearSaveProps {
   gearId: string;

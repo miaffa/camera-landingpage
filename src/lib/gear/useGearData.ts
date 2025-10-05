@@ -25,7 +25,7 @@ interface GearData {
 interface UseGearDataResult {
   gearData: Record<string, GearData>;
   isLoading: boolean;
-  error: any;
+  error: Error | undefined;
 }
 
 export function useGearData(gearIds: string[]): UseGearDataResult {

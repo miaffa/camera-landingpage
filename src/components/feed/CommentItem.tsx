@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Heart, MessageCircle, MoreHorizontal, Edit, Trash2, Reply } from "lucide-react";
+import React, { useState } from "react";
+import { Heart, MoreHorizontal, Edit, Trash2, Reply } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -15,7 +15,7 @@ interface CommentItemProps {
   replies?: Comment[];
   onReply?: (parentCommentId: string) => void;
   onEdit?: (commentId: string, content: string) => void;
-  onCreateReply?: (postId: string, content: string, parentCommentId?: string) => Promise<any>;
+  onCreateReply?: (postId: string, content: string, parentCommentId?: string) => Promise<Comment>;
   isReply?: boolean;
 }
 

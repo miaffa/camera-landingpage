@@ -6,13 +6,14 @@ import { PostDetailModal } from "@/components/feed/PostDetailModal";
 import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
 import { usePosts } from "@/lib/posts/usePosts";
 import { useSession } from "next-auth/react";
+import { PostWithAuthor, DisplayPost } from "@/lib/types/posts";
 
 export default function HomePage() {
   const { posts } = usePosts();
   const { data: session } = useSession();
-  const [viewingPost, setViewingPost] = useState<any>(null);
+  const [viewingPost, setViewingPost] = useState<DisplayPost | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
-  const [commentsPost, setCommentsPost] = useState<any>(null);
+  const [commentsPost, setCommentsPost] = useState<PostWithAuthor | null>(null);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
   const handlePostComment = (postId: string) => {

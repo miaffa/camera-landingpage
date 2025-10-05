@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Search, MapPin, Star, Filter, X, ChevronDown } from "lucide-react";
+import { Search, MapPin, Star, Filter, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,13 +15,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { BookingRequestModal } from "@/components/rental/BookingRequestModal";
 import { GearDetailModal } from "@/components/gear/GearDetailModal";
 import useSWR from "swr";
-import dynamic from "next/dynamic";
 
 // Lazy load the map component to improve initial page load
-const LazyGearMapView = dynamic(() => import("@/components/map/GearMapView").then(mod => ({ default: mod.GearMapView })), {
-  loading: () => <div className="fixed inset-0 z-50 bg-white flex items-center justify-center">Loading map...</div>,
-  ssr: false
-});
+// const LazyGearMapView = dynamic(() => import("@/components/map/GearMapView").then(mod => ({ default: mod.GearMapView })), {
+//   loading: () => <div className="fixed inset-0 z-50 bg-white flex items-center justify-center">Loading map...</div>,
+//   ssr: false
+// });
 
 interface GearItem {
   id: string;
@@ -143,7 +142,7 @@ export default function MarketplacePage() {
   }, []);
 
   // Filter handlers
-  const handleFilterChange = useCallback((key: keyof FilterState, value: any) => {
+  const handleFilterChange = useCallback((key: keyof FilterState, value: string | [number, number] | string[] | boolean | null) => {
     setFilters(prev => ({ ...prev, [key]: value }));
   }, []);
 
@@ -193,11 +192,11 @@ export default function MarketplacePage() {
   }, [filters]);
 
   // Handle rent button click
-  const handleRentClick = useCallback(() => {
-    if (selectedGear) {
-      setIsBookingModalOpen(true);
-    }
-  }, [selectedGear]);
+  // const handleRentClick = useCallback(() => {
+  //   if (selectedGear) {
+  //     setIsBookingModalOpen(true);
+  //   }
+  // }, [selectedGear]);
 
   // Handle booking modal close
   const handleCloseBookingModal = useCallback(() => {
@@ -302,7 +301,7 @@ export default function MarketplacePage() {
                   </Label>
                   <Slider
                     value={filters.priceRange}
-                    onValueChange={(value) => handleFilterChange('priceRange', value)}
+                    onValueChange={(value) => handleFilterChange('priceRange', value as [number, number])}
                     max={1000}
                     min={0}
                     step={10}

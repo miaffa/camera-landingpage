@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { db } from "@/db";
 import { posts, postSaves, users } from "@/db/schema";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import withAuthRequired from "@/lib/auth/withAuthRequired";
 
 // GET /api/posts/saved - Get user's saved posts
