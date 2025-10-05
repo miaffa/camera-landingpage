@@ -7,6 +7,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { PostEditModal } from "@/components/create/PostEditModal";
+import { usePostInteractions } from "@/lib/posts/usePostInteractions";
+import { useUserInteractions } from "@/lib/posts/useUserInteractions";
+import { CommentsList } from "./CommentsList";
+import { PostGearDisplay } from "./PostGearDisplay";
 
 
 interface Post {
@@ -77,6 +81,17 @@ export function PostDetailModal({
 }: PostDetailModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  
+  // Fetch user interactions for this post
+  const { interactions } = useUserInteractions(post ? [post.id] : []);
+  const userInteraction = interactions[post?.id || ""] || { liked: false, saved: false };
+  
+  // Use post interactions for like/save state management
+  const { liked, saved, isLiking, isSaving, toggleLike, toggleSave } = usePostInteractions({
+    postId: post?.id || "",
+    initialLiked: userInteraction.liked,
+    initialSaved: userInteraction.saved,
+  });
 
   const formatDate = (date: Date) => {
     const now = new Date();
@@ -123,12 +138,7 @@ export function PostDetailModal({
       <Dialog open={isOpen} onOpenChange={handleClose}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0">
           <DialogHeader className="p-4 pb-0">
-            <DialogTitle className="flex items-center justify-between">
-              <span>Post Details</span>
-              <Button variant="ghost" size="icon" onClick={handleClose}>
-                <X className="h-4 w-4" />
-              </Button>
-            </DialogTitle>
+            <DialogTitle>Post Details</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-0">
@@ -245,25 +255,18 @@ export function PostDetailModal({
               </div>
             ) : null}
 
-            {/* Tagged Gear */}
-            {post.taggedGear && post.taggedGear.length > 0 && (
-              <div className="px-4 py-3 border-b">
-                <h4 className="text-sm font-medium text-gray-900 mb-2">Gear Used</h4>
-                <div className="space-y-2">
-                  {/* TODO: Fetch gear details by IDs and display them */}
-                  <div className="text-sm text-gray-500">
-                    {post.taggedGear.length} gear item{post.taggedGear.length > 1 ? 's' : ''} tagged
-                  </div>
-                </div>
-              </div>
-            )}
-            
             {/* Post Actions */}
-            <div className="p-4 space-y-3">
+            <div className="p-4 space-y-3 border-b">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onLike(post.id)}>
-                    <Heart className="h-5 w-5" />
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-8 w-8" 
+                    onClick={toggleLike}
+                    disabled={isLiking}
+                  >
+                    <Heart className={`h-5 w-5 ${liked ? 'fill-red-500 text-red-500' : ''}`} />
                   </Button>
                   <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onComment(post.id)}>
                     <MessageCircle className="h-5 w-5" />
@@ -280,10 +283,23 @@ export function PostDetailModal({
                   <span>{post.commentsCount} comments</span>
                   <span>{post.sharesCount} shares</span>
                 </div>
-                
-                {post.commentsCount > 0 && (
-                  <p className="text-xs text-muted-foreground">View all {post.commentsCount} comments</p>
-                )}
+              </div>
+            </div>
+
+            {/* Tagged Gear */}
+            {post.taggedGear && post.taggedGear.length > 0 && (
+              <div className="px-4 py-3">
+                <PostGearDisplay 
+                  gearIds={post.taggedGear.filter(gearId => gearId && typeof gearId === 'string')}
+                />
+              </div>
+            )}
+
+            {/* Comments Section */}
+            <div className="border-t">
+              <div className="p-4">
+                <h3 className="font-semibold text-sm mb-4">Comments</h3>
+                <CommentsList postId={post.id} onComment={onComment} />
               </div>
             </div>
           </div>

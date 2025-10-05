@@ -43,6 +43,13 @@
       "when": 1759634505179,
       "tag": "0005_gifted_adam_destine",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1759635533157,
+      "tag": "0006_faithful_fallen_one",
+      "breakpoints": true
     }
   ]
 }

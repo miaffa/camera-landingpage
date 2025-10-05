@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import withAuthRequired from "@/lib/auth/withAuthRequired";
 import { db } from "@/db";
-import { posts } from "@/db/schema";
+import { posts, users } from "@/db/schema";
 import { TaggedUser, TaggedGear, PostCreateResponse } from "@/lib/types/index";
 import { eq, desc, and } from "drizzle-orm";
 import { uploadMultiplePostImages, deletePostImage } from "@/lib/supabase/storage";
@@ -10,8 +10,28 @@ import { uploadMultiplePostImages, deletePostImage } from "@/lib/supabase/storag
 export const GET = withAuthRequired(async (request: NextRequest, { session }) => {
   try {
     const userPosts = await db
-      .select()
+      .select({
+        id: posts.id,
+        authorId: posts.authorId,
+        content: posts.content,
+        images: posts.images,
+        location: posts.location,
+        taggedUsers: posts.taggedUsers,
+        taggedGear: posts.taggedGear,
+        likesCount: posts.likesCount,
+        commentsCount: posts.commentsCount,
+        sharesCount: posts.sharesCount,
+        isPublic: posts.isPublic,
+        isArchived: posts.isArchived,
+        createdAt: posts.createdAt,
+        updatedAt: posts.updatedAt,
+        // Author information
+        authorName: users.name,
+        authorUsername: users.email, // Using email as username for now
+        authorAvatar: users.image,
+      })
       .from(posts)
+      .leftJoin(users, eq(posts.authorId, users.id))
       .where(eq(posts.authorId, session.user.id))
       .orderBy(desc(posts.createdAt));
 

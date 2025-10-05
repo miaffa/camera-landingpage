@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { User, Camera, Heart } from "lucide-react";
+import { User, Camera, Bookmark } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GearTabContent } from "@/components/profile/GearTabContent";
 import { PostsTabContent } from "@/components/profile/PostsTabContent";
 import { SavedTabContent } from "@/components/profile/SavedTabContent";
+import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
+import { useUserPosts } from "@/lib/posts/useUserPosts";
 import { ProfileStats } from "@/components/profile/ProfileStats";
 import { VerificationCTA } from "@/components/profile/VerificationCTA";
 import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
@@ -24,6 +26,8 @@ export default function ProfilePage() {
   // Modal states
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [commentsPost, setCommentsPost] = useState<any>(null);
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
   if (userLoading) {
     return <ProfileSkeleton />;
@@ -84,6 +88,20 @@ export default function ProfilePage() {
     // User data will be automatically refreshed by the useProfileUpdate hook
   };
 
+  const handlePostComment = (postId: string) => {
+    const { posts } = useUserPosts();
+    const post = posts.find(p => p.id === postId);
+    if (post) {
+      setCommentsPost(post);
+      setIsCommentsOpen(true);
+    }
+  };
+
+  const handleCloseComments = () => {
+    setIsCommentsOpen(false);
+    setCommentsPost(null);
+  };
+
   return (
     <div className="flex flex-col gap-6 pb-20">
       {/* Profile Header - Dashboard Style */}
@@ -125,7 +143,7 @@ export default function ProfilePage() {
             Posts
           </TabsTrigger>
           <TabsTrigger value="saved" className="flex items-center gap-2">
-            <Heart className="h-4 w-4" />
+            <Bookmark className="h-4 w-4" />
             Saved
           </TabsTrigger>
         </TabsList>
@@ -135,7 +153,7 @@ export default function ProfilePage() {
         </TabsContent>
 
         <TabsContent value="posts" className="mt-6">
-          <PostsTabContent />
+          <PostsTabContent onComment={handlePostComment} />
         </TabsContent>
 
         <TabsContent value="saved" className="mt-6">
@@ -156,6 +174,14 @@ export default function ProfilePage() {
         onClose={() => setIsSettingsOpen(false)}
         onEditProfile={handleEditProfile}
         onSignOut={handleSignOut}
+      />
+
+      {/* Comments Bottom Sheet */}
+      <CommentsBottomSheet
+        isOpen={isCommentsOpen}
+        onClose={handleCloseComments}
+        post={commentsPost}
+        onComment={handlePostComment}
       />
     </div>
   );

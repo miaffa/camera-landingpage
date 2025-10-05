@@ -1,18 +1,26 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { FeedHeader } from "@/components/feed/FeedHeader";
 import { FeedPosts } from "@/components/feed/FeedPosts";
+import { PostDetailModal } from "@/components/feed/PostDetailModal";
+import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
+import { usePosts } from "@/lib/posts/usePosts";
+import { useSession } from "next-auth/react";
 
 export default function HomePage() {
+  const { posts } = usePosts();
+  const { data: session } = useSession();
+  const [viewingPost, setViewingPost] = useState<any>(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [commentsPost, setCommentsPost] = useState<any>(null);
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
-  const handlePostLike = () => {
-    // TODO: Toggle like for post
-    // Like functionality will be implemented in future iteration
-  };
-
-  const handlePostComment = () => {
-    // TODO: Navigate to comments or open comment modal
-    // Comment functionality will be implemented in future iteration
+  const handlePostComment = (postId: string) => {
+    const post = posts.find(p => p.id === postId);
+    if (post) {
+      setCommentsPost(post);
+      setIsCommentsOpen(true);
+    }
   };
 
   const handlePostShare = () => {
@@ -25,18 +33,51 @@ export default function HomePage() {
     // More options functionality will be implemented in future iteration
   };
 
-  return (
-    <div className="flex flex-col gap-6 pb-20">
-      {/* Header */}
-      <FeedHeader />
+  const handleCloseDetailModal = () => {
+    setIsDetailModalOpen(false);
+    setViewingPost(null);
+  };
 
-      {/* Feed Posts */}
-      <FeedPosts 
-        onLike={handlePostLike}
+  const handleCloseComments = () => {
+    setIsCommentsOpen(false);
+    setCommentsPost(null);
+  };
+
+  return (
+    <>
+      <div className="flex flex-col gap-6 pb-20">
+        {/* Header */}
+        <FeedHeader />
+
+        {/* Feed Posts */}
+        <FeedPosts 
+          onComment={handlePostComment}
+          onShare={handlePostShare}
+          onMore={handlePostMore}
+        />
+      </div>
+
+      {/* Post Detail Modal */}
+      {viewingPost && (
+        <PostDetailModal
+          isOpen={isDetailModalOpen}
+          onClose={handleCloseDetailModal}
+          post={viewingPost}
+          currentUserId={session?.user?.id}
+          onLike={handlePostComment}
+          onComment={handlePostComment}
+          onShare={handlePostShare}
+          onMore={handlePostMore}
+        />
+      )}
+
+      {/* Comments Bottom Sheet */}
+      <CommentsBottomSheet
+        isOpen={isCommentsOpen}
+        onClose={handleCloseComments}
+        post={commentsPost}
         onComment={handlePostComment}
-        onShare={handlePostShare}
-        onMore={handlePostMore}
       />
-    </div>
+    </>
   );
 }

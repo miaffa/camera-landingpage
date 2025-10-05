@@ -6,6 +6,9 @@ import { BottomNavigation } from "@/components/layout/bottom-navigation";
 import React from "react";
 import useUser from "@/lib/users/useUser";
 import { SidebarProvider, useSidebar } from "@/contexts/SidebarContext";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 function DashboardSkeleton() {
   return (
@@ -110,17 +113,38 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 }
 
 function AppLayout({ children }: { children: React.ReactNode }) {
-  const { isLoading } = useUser();
+  const { data: session, status } = useSession();
+  const { isLoading, error } = useUser();
+  const router = useRouter();
 
-  if (isLoading) {
+  // Redirect to sign-in if not authenticated
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/sign-in");
+    }
+  }, [status, router]);
+
+  // Show loading skeleton while checking authentication or loading user data
+  if (status === "loading" || isLoading) {
     return <DashboardSkeleton />;
   }
 
-  return (
-    <SidebarProvider>
-      <AppLayoutContent>{children}</AppLayoutContent>
-    </SidebarProvider>
-  );
+  // If there's an error loading user data, redirect to sign-in
+  if (error || status === "unauthenticated") {
+    return <DashboardSkeleton />; // This will redirect via useEffect
+  }
+
+  // If authenticated and user data loaded successfully
+  if (session && !isLoading) {
+    return (
+      <SidebarProvider>
+        <AppLayoutContent>{children}</AppLayoutContent>
+      </SidebarProvider>
+    );
+  }
+
+  // Fallback loading state
+  return <DashboardSkeleton />;
 }
 
 export default AppLayout;

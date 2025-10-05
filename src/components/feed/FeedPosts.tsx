@@ -3,6 +3,7 @@
 import React from "react";
 import { FeedPost } from "./FeedPost";
 import { usePosts } from "@/lib/posts/usePosts";
+import { useUserInteractions } from "@/lib/posts/useUserInteractions";
 
 // interface Author {
 //   name: string;
@@ -35,14 +36,15 @@ import { usePosts } from "@/lib/posts/usePosts";
 // }
 
 interface FeedPostsProps {
-  onLike: (postId: string) => void;
   onComment: (postId: string) => void;
   onShare: (postId: string) => void;
   onMore: (postId: string) => void;
 }
 
-export function FeedPosts({ onLike, onComment, onShare, onMore }: FeedPostsProps) {
+export function FeedPosts({ onComment, onShare, onMore }: FeedPostsProps) {
   const { posts, isLoading } = usePosts();
+  const postIds = posts.map(post => post.id);
+  const { interactions } = useUserInteractions(postIds);
 
   if (isLoading) {
     return (
@@ -83,16 +85,20 @@ export function FeedPosts({ onLike, onComment, onShare, onMore }: FeedPostsProps
 
   return (
     <div className="space-y-6">
-      {posts.map((post) => (
-        <FeedPost
-          key={post.id}
-          post={post}
-          onLike={onLike}
-          onComment={onComment}
-          onShare={onShare}
-          onMore={onMore}
-        />
-      ))}
+      {posts.map((post) => {
+        const userInteraction = interactions[post.id] || { liked: false, saved: false };
+        return (
+          <FeedPost
+            key={post.id}
+            post={post}
+            initialLiked={userInteraction.liked}
+            initialSaved={userInteraction.saved}
+            onComment={onComment}
+            onShare={onShare}
+            onMore={onMore}
+          />
+        );
+      })}
     </div>
   );
 }

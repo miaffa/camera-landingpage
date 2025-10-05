@@ -2,14 +2,37 @@
 
 import React, { useState } from "react";
 import { Camera, Heart, MessageCircle, Image as ImageIcon, Edit, MoreVertical } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useUserPosts } from "@/lib/posts/useUserPosts";
 import { PostEditModal } from "@/components/create/PostEditModal";
 import { PostDetailModal } from "@/components/feed/PostDetailModal";
 import { useSession } from "next-auth/react";
-import { Post } from "@/db/schema/posts";
+
+interface Post {
+  id: string;
+  authorId: string;
+  content: string;
+  images: string[];
+  location: string | null;
+  taggedUsers: string[];
+  taggedGear: string[];
+  likesCount: number;
+  commentsCount: number;
+  sharesCount: number;
+  isPublic: boolean;
+  isArchived: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  // Author information
+  authorName: string | null;
+  authorUsername: string | null;
+  authorAvatar: string | null;
+}
+
+interface PostsTabContentProps {
+  onComment?: (postId: string) => void;
+}
 
 function PostImage({ src, alt, className }: { src: string; alt: string; className: string }) {
   const [hasError, setHasError] = useState(false);
@@ -35,7 +58,7 @@ function PostImage({ src, alt, className }: { src: string; alt: string; classNam
   );
 }
 
-export function PostsTabContent() {
+export function PostsTabContent({ onComment }: PostsTabContentProps) {
   const { posts, isLoading } = useUserPosts();
   const { data: session } = useSession();
   const [editingPost, setEditingPost] = useState<Post | null>(null);
@@ -45,13 +68,9 @@ export function PostsTabContent() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-1">
         {[1, 2, 3, 4, 5, 6].map((i) => (
-          <Card key={i} className="aspect-square bg-white border-0 shadow-sm overflow-hidden animate-pulse">
-            <CardContent className="p-0 h-full">
-              <div className="w-full h-full bg-gray-200" />
-            </CardContent>
-          </Card>
+          <div key={i} className="aspect-square bg-gray-200 animate-pulse rounded-sm overflow-hidden" />
         ))}
       </div>
     );
@@ -106,10 +125,10 @@ export function PostsTabContent() {
     sharesCount: post.sharesCount || 0,
     isPublic: post.isPublic || true,
     isArchived: post.isArchived || false,
-    // Add missing properties that modals expect
-    authorName: "User", // This would need to be joined from users table
-    authorUsername: "username", // This would need to be joined from users table  
-    authorAvatar: null, // This would need to be joined from users table
+    // Use real author data from the API
+    authorName: post.authorName || "Unknown User",
+    authorUsername: post.authorUsername || "unknown",
+    authorAvatar: post.authorAvatar || null,
   });
 
   // Transform database post to component format for PostEditModal
@@ -128,7 +147,7 @@ export function PostsTabContent() {
   };
 
   const handleComment = (postId: string) => {
-    console.log("Comment on post:", postId);
+    onComment?.(postId);
   };
 
   const handleShare = (postId: string) => {
@@ -141,62 +160,65 @@ export function PostsTabContent() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-3 gap-1">
         {posts.map((post) => (
-          <Card key={post.id} className="aspect-square bg-white border-0 shadow-sm overflow-hidden">
-            <CardContent className="p-0 h-full">
-            <div className="w-full h-full bg-gray-100 flex items-center justify-center relative group overflow-hidden cursor-pointer" onClick={() => handleViewPost(post)}>
-              {post.images && post.images.length > 0 ? (
-                <div className="w-full h-full relative">
-                  {/* Display first image */}
+          <div key={post.id} className="aspect-square bg-gray-100 relative group overflow-hidden cursor-pointer rounded-sm" onClick={() => handleViewPost(post)}>
+            {post.images && post.images.length > 0 ? (
+              <div className="w-full h-full relative">
+                {/* Display first image with proper cropping */}
+                {post.images[0] ? (
+                  <PostImage 
+                    src={post.images[0]} 
+                    alt="Post image" 
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    {post.images[0] ? (
-                      <PostImage 
-                        src={post.images[0]} 
-                        alt="Post image" 
-                        className="w-full h-full object-cover"
-                      />
-                    ) : null}
+                    <Camera className="h-8 w-8 text-gray-400" />
                   </div>
-                  {post.images.length > 1 && (
-                    <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                      +{post.images.length - 1}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Camera className="h-8 w-8 text-gray-400" />
-              )}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors pointer-events-none" />
-                
-                {/* Edit button */}
-                <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-auto">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="secondary" size="sm" className="h-8 w-8 p-0">
-                        <MoreVertical className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start">
-                      <DropdownMenuItem onClick={() => handleEditPost(post)}>
-                        <Edit className="h-4 w-4 mr-2" />
-                        Edit Post
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-
-                <div className="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="flex items-center gap-2 text-white text-xs">
-                    <Heart className="h-3 w-3 fill-white" />
-                    {post.likesCount}
-                    <MessageCircle className="h-3 w-3" />
-                    {post.commentsCount}
+                )}
+                {post.images.length > 1 && (
+                  <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+                    +{post.images.length - 1}
                   </div>
-                </div>
+                )}
               </div>
-            </CardContent>
-          </Card>
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <Camera className="h-8 w-8 text-gray-400" />
+              </div>
+            )}
+            
+            {/* Hover overlay */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors pointer-events-none" />
+              
+            {/* Edit button */}
+            <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-auto">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="secondary" size="sm" className="h-8 w-8 p-0 bg-white/90 hover:bg-white">
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  <DropdownMenuItem onClick={() => handleEditPost(post)}>
+                    <Edit className="h-4 w-4 mr-2" />
+                    Edit Post
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Stats overlay */}
+            <div className="absolute bottom-2 left-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center gap-2 text-white text-xs">
+                <Heart className="h-3 w-3 fill-white" />
+                {post.likesCount}
+                <MessageCircle className="h-3 w-3" />
+                {post.commentsCount}
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 

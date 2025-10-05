@@ -18,7 +18,14 @@ function Providers({ children }: { children: React.ReactNode }) {
     >
       <Suspense>
         <SessionProvider>
-          <SWRConfig value={{ fetcher }}>
+          <SWRConfig 
+            value={{ 
+              fetcher,
+              revalidateOnFocus: true,
+              revalidateOnReconnect: true,
+              dedupingInterval: 2000,
+            }}
+          >
             <Next13ProgressBar
               height="4px"
               color="hsl(var(--primary))"

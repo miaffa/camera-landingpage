@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { Heart, MessageCircle, Share, MoreHorizontal, Camera, MapPin } from "lucide-react";
+import React from "react";
+import { Heart, MessageCircle, Share, MoreHorizontal, MapPin, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { PostImageCarousel } from "./PostImageCarousel";
+import { usePostInteractions } from "@/lib/posts/usePostInteractions";
+import { PostGearDisplay } from "./PostGearDisplay";
 
 
 interface Post {
@@ -28,37 +31,21 @@ interface Post {
 
 interface FeedPostProps {
   post: Post;
-  onLike: (postId: string) => void;
+  initialLiked?: boolean;
+  initialSaved?: boolean;
   onComment: (postId: string) => void;
   onShare: (postId: string) => void;
   onMore: (postId: string) => void;
 }
 
-function PostImage({ src, alt, className }: { src: string; alt: string; className: string }) {
-  const [hasError, setHasError] = useState(false);
-  
-  if (hasError) {
-    return (
-      <div className={`${className} bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center`}>
-        <div className="text-center">
-          <Camera className="h-16 w-16 text-blue-400 mx-auto mb-2" />
-          <p className="text-sm text-blue-600 font-medium">Photo Shared</p>
-        </div>
-      </div>
-    );
-  }
-  
-  return (
-    <img 
-      src={src} 
-      alt={alt} 
-      className={className}
-      onError={() => setHasError(true)}
-    />
-  );
-}
 
-export function FeedPost({ post, onLike, onComment, onShare, onMore }: FeedPostProps) {
+export function FeedPost({ post, initialLiked = false, initialSaved = false, onComment, onShare, onMore }: FeedPostProps) {
+  const { liked, saved, isLiking, isSaving, toggleLike, toggleSave } = usePostInteractions({
+    postId: post.id,
+    initialLiked,
+    initialSaved,
+  });
+
   const formatDate = (date: Date) => {
     const now = new Date();
     const diffInHours = Math.floor((now.getTime() - new Date(date).getTime()) / (1000 * 60 * 60));
@@ -106,27 +93,27 @@ export function FeedPost({ post, onLike, onComment, onShare, onMore }: FeedPostP
         </div>
         
         {/* Post Images */}
-        {post.images && post.images.length > 0 ? (
-          <div className="aspect-square bg-gray-100 flex items-center justify-center border-b relative overflow-hidden">
-            <PostImage 
-              src={post.images[0]} 
-              alt="Post image" 
-              className="w-full h-full object-cover"
-            />
-            {post.images.length > 1 && (
-              <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                +{post.images.length - 1}
-              </div>
-            )}
-          </div>
-        ) : null}
+        {post.images && post.images.length > 0 && (
+          <PostImageCarousel 
+            images={post.images}
+            className="border-b"
+          />
+        )}
         
         {/* Post Actions */}
-        <div className="p-4 space-y-3">
+        <div className="p-4 space-y-3 border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onLike(post.id)}>
-                <Heart className="h-5 w-5" />
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-8 w-8" 
+                onClick={toggleLike}
+                disabled={isLiking}
+              >
+                <Heart 
+                  className={`h-5 w-5 ${liked ? 'fill-red-500 text-red-500' : ''}`} 
+                />
               </Button>
               <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onComment(post.id)}>
                 <MessageCircle className="h-5 w-5" />
@@ -135,6 +122,17 @@ export function FeedPost({ post, onLike, onComment, onShare, onMore }: FeedPostP
                 <Share className="h-5 w-5" />
               </Button>
             </div>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8" 
+              onClick={toggleSave}
+              disabled={isSaving}
+            >
+              <Bookmark 
+                className={`h-5 w-5 ${saved ? 'fill-blue-500 text-blue-500' : ''}`} 
+              />
+            </Button>
           </div>
           
           <div className="space-y-2">
@@ -149,6 +147,15 @@ export function FeedPost({ post, onLike, onComment, onShare, onMore }: FeedPostP
             )}
           </div>
         </div>
+
+        {/* Linked Gear Display */}
+        {post.taggedGear && post.taggedGear.length > 0 && (
+          <div className="px-4 py-3">
+            <PostGearDisplay 
+              gearIds={post.taggedGear.filter(gearId => gearId && typeof gearId === 'string')}
+            />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

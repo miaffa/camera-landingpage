@@ -496,6 +496,206 @@ src/
 - **Error Boundaries**: Graceful error handling
 - **Comprehensive Logging**: Debug and error tracking
 
+## 🚨 Common Errors & Troubleshooting
+
+### Build Errors
+
+#### 1. JSX Syntax Errors
+**Error**: `Unexpected token 'div'. Expected jsx identifier`
+**Cause**: Missing closing bracket, parenthesis, or brace before JSX return statement
+**Solution**: Check function body for unclosed brackets/parentheses before return statement
+**Quick Check**: Look for missing `}` or `)` in functions above the return statement
+
+#### 2. TypeScript Compilation Errors
+**Error**: `Property 'X' does not exist on type 'Y'`
+**Cause**: Type mismatches or missing type definitions
+**Solution**: Check imports, add proper type annotations, or update type definitions
+**Quick Check**: Verify all imports are correct and types are properly defined
+
+#### 3. Module Resolution Errors
+**Error**: `Module not found: Can't resolve 'X'`
+**Cause**: Missing dependencies or incorrect import paths
+**Solution**: Install missing packages or fix import paths
+**Quick Check**: Verify package.json dependencies and import statements
+
+### Runtime Errors
+
+#### 1. Authentication Issues
+**Error**: `Session expired` or `Unauthorized`
+**Cause**: Invalid or expired JWT tokens
+**Solution**: Clear session storage, re-authenticate, check token expiration
+**Quick Check**: Verify auth configuration and session management
+
+#### 2. Database Connection Errors
+**Error**: `Connection refused` or `Database unavailable`
+**Cause**: Database URL issues or connection pool exhaustion
+**Solution**: Check environment variables, restart database, verify connection strings
+**Quick Check**: Verify `DATABASE_URL` and `DIRECT_URL` in environment variables
+
+#### 3. Payment Processing Errors
+**Error**: `Stripe API error` or `Payment failed`
+**Cause**: Invalid API keys, webhook issues, or payment method problems
+**Solution**: Verify Stripe keys, check webhook endpoints, validate payment data
+**Quick Check**: Test with Stripe test mode, verify webhook signatures
+
+### Common Debugging Patterns
+
+#### 1. Build Failures
+```bash
+# Check for syntax errors
+pnpm build
+
+# Check TypeScript errors
+pnpm tsc --noEmit
+
+# Check ESLint issues
+pnpm lint
+```
+
+#### 2. Runtime Issues
+```bash
+# Check console errors in browser
+# Check network tab for failed requests
+# Check application state in React DevTools
+```
+
+#### 3. Database Issues
+```bash
+# Check database connection
+pnpm db:studio
+
+# Verify migrations
+pnpm db:push
+
+# Check environment variables
+echo $DATABASE_URL
+```
+
+### Quick Reference Checklist
+
+#### Before Starting Debugging
+- [ ] Check browser console for errors
+- [ ] Verify all environment variables are set
+- [ ] Ensure all dependencies are installed (`pnpm install`)
+- [ ] Check if the issue is in development vs production
+- [ ] Verify the error is reproducible
+
+#### Common File Locations to Check
+- `src/app/api/` - API route errors
+- `src/lib/` - Utility function errors
+- `src/components/` - Component rendering errors
+- `src/db/schema/` - Database schema issues
+- `src/auth.ts` - Authentication configuration
+
+#### Environment-Specific Issues
+- **Development**: Check hot reload, clear cache
+- **Production**: Check build output, verify deployment
+- **Database**: Check connection strings, migration status
+- **Payments**: Verify API keys, webhook configuration
+
+### Error Prevention Tips
+
+#### 1. Type Safety
+- Always use TypeScript strict mode
+- Define proper interfaces for all data structures
+- Use type guards for runtime type checking
+- Avoid `any` types unless absolutely necessary
+
+#### 2. Code Organization
+- Keep components small and focused
+- Use proper error boundaries
+- Implement proper loading states
+- Handle edge cases explicitly
+
+#### 3. Database Operations
+- Always use transactions for related operations
+- Implement proper error handling
+- Use prepared statements (Drizzle ORM handles this)
+- Validate data before database operations
+
+#### 4. Authentication
+- Always check authentication status
+- Implement proper session management
+- Handle token refresh scenarios
+- Use proper error handling for auth failures
+
+### Common Gotchas
+
+#### 1. Next.js Specific
+- **App Router**: Use `"use client"` for client components
+- **Server Components**: Can't use hooks or browser APIs
+- **API Routes**: Must export named functions (GET, POST, etc.)
+- **Middleware**: Runs before page rendering
+
+#### 2. React Patterns
+- **State Updates**: Use functional updates for state
+- **Effect Dependencies**: Include all dependencies in useEffect
+- **Key Props**: Use stable keys for list items
+- **Refs**: Use useRef for DOM references
+
+#### 3. Database Queries
+- **Relations**: Use proper joins for related data
+- **Transactions**: Wrap related operations in transactions
+- **Indexes**: Ensure proper database indexing
+- **Migrations**: Always test migrations before applying
+
+#### 4. Payment Integration
+- **Webhooks**: Verify webhook signatures
+- **Idempotency**: Handle duplicate webhook events
+- **Error Handling**: Implement proper error recovery
+- **Testing**: Use Stripe test mode for development
+
+### Debugging Tools
+
+#### 1. Browser DevTools
+- **Console**: Check for JavaScript errors
+- **Network**: Monitor API requests and responses
+- **Application**: Check local storage and session storage
+- **React DevTools**: Inspect component state and props
+
+#### 2. Development Tools
+- **TypeScript**: Use `tsc --noEmit` for type checking
+- **ESLint**: Use `pnpm lint` for code quality
+- **Prettier**: Use `pnpm format` for code formatting
+- **Database Studio**: Use `pnpm db:studio` for database inspection
+
+#### 3. Logging
+- **Console Logs**: Use for debugging (remove in production)
+- **Error Boundaries**: Catch and log React errors
+- **API Logs**: Check server logs for API errors
+- **Database Logs**: Monitor database query performance
+
+### Emergency Fixes
+
+#### 1. Build Won't Start
+```bash
+# Clear all caches
+rm -rf .next node_modules pnpm-lock.yaml
+pnpm install
+pnpm build
+```
+
+#### 2. Database Issues
+```bash
+# Reset database
+pnpm db:push --force
+# Or restore from backup
+```
+
+#### 3. Authentication Broken
+```bash
+# Clear all sessions
+# Check auth configuration
+# Verify environment variables
+```
+
+#### 4. Payment Issues
+```bash
+# Switch to test mode
+# Check webhook endpoints
+# Verify API keys
+```
+
 ---
 
 *This tech stack provides a robust foundation for building modern SaaS applications with Next.js, featuring comprehensive authentication, payment processing, and content management capabilities.*

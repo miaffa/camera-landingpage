@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Search, MapPin, Star, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,7 @@ interface GearItem {
 }
 
 export default function MarketplacePage() {
+  const searchParams = useSearchParams();
   const [selectedGear, setSelectedGear] = useState<GearItem | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
@@ -41,13 +43,24 @@ export default function MarketplacePage() {
       throw new Error("Failed to fetch gear");
     }
     const data = await response.json();
-    return data.results || [];
+    return data || [];
   };
 
   const { data: gear, isLoading } = useSWR<GearItem[]>(
     "/api/gear/search",
     fetcher
   );
+
+  // Handle gear parameter from URL
+  useEffect(() => {
+    const gearId = searchParams.get('gear');
+    if (gearId && gear && !selectedGear) {
+      const gearToSelect = gear.find(g => g.id === gearId);
+      if (gearToSelect) {
+        setSelectedGear(gearToSelect);
+      }
+    }
+  }, [searchParams, gear, selectedGear]);
 
   // Memoize the filtered gear to prevent unnecessary filtering on every render
   const filteredGear = useMemo(() => {

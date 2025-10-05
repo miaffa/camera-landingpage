@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 
-interface Post {
+interface SavedPost {
   id: string;
   authorId: string;
   content: string;
@@ -21,15 +21,17 @@ interface Post {
   authorName: string | null;
   authorUsername: string | null;
   authorAvatar: string | null;
+  // Save information
+  savedAt: Date;
 }
 
-export function usePosts() {
-  const { data: posts, error, isLoading, mutate } = useSWR<Post[]>(
-    "/api/posts"
+export function useSavedPosts() {
+  const { data: savedPosts, error, isLoading, mutate } = useSWR<SavedPost[]>(
+    "/api/posts/saved"
   );
 
   return {
-    posts: posts || [],
+    savedPosts: savedPosts || [],
     isLoading,
     error,
     mutate,

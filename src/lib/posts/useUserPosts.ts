@@ -18,6 +18,10 @@ interface Post {
   isArchived: boolean;
   createdAt: Date;
   updatedAt: Date;
+  // Author information
+  authorName: string | null;
+  authorUsername: string | null;
+  authorAvatar: string | null;
 }
 
 export function useUserPosts() {

@@ -26,7 +26,8 @@ import {
 } from "@/components/ui/popover";
 import { ImagePreview } from "./ImagePreview";
 import { TaggedUser, TaggedGear } from "@/lib/types/index";
-import { mockUsers, mockGear } from "@/lib/data/mock-data";
+import { mockUsers } from "@/lib/data/mock-data";
+import { useGearSearch } from "@/lib/gear/useGearSearch";
 
 interface PostCreationFormProps {
   selectedImages: File[];
@@ -67,6 +68,9 @@ function PostCreationForm({
   const [userSearchQuery, setUserSearchQuery] = useState("");
   const [gearSearchQuery, setGearSearchQuery] = useState("");
 
+  // Fetch real gear data
+  const { gear: allGear, isLoading: isGearLoading, searchGear } = useGearSearch();
+
 
   const handleFileSelect = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
@@ -96,9 +100,17 @@ function PostCreationForm({
     onTaggedUsersChange(taggedUsers.filter(user => user.id !== userId));
   };
 
-  const handleGearSelect = (gear: TaggedGear) => {
+  const handleGearSelect = (gear: any) => {
+    const taggedGearItem: TaggedGear = {
+      id: gear.id,
+      name: gear.name,
+      price: parseFloat(gear.pricePerDay),
+      category: gear.category,
+      image: gear.images?.[0] || undefined,
+    };
+    
     if (!taggedGear.find(g => g.id === gear.id)) {
-      onTaggedGearChange([...taggedGear, gear]);
+      onTaggedGearChange([...taggedGear, taggedGearItem]);
     }
     setIsGearSearchOpen(false);
     setGearSearchQuery("");
@@ -117,10 +129,7 @@ function PostCreationForm({
   );
 
   const filteredGear = useMemo(() => 
-    mockGear.filter(gear =>
-      gear.name.toLowerCase().includes(gearSearchQuery.toLowerCase()) ||
-      gear.category.toLowerCase().includes(gearSearchQuery.toLowerCase())
-    ), [gearSearchQuery]
+    searchGear(gearSearchQuery), [gearSearchQuery, searchGear]
   );
 
   return (
@@ -322,26 +331,43 @@ function PostCreationForm({
                 onValueChange={setGearSearchQuery}
               />
               <CommandList>
-                <CommandEmpty>No gear found.</CommandEmpty>
-                <CommandGroup>
-                  {filteredGear.map((gear) => (
-                    <CommandItem
-                      key={gear.id}
-                      onSelect={() => handleGearSelect(gear)}
-                      className="flex items-center gap-2"
-                    >
-                      <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center">
-                        <Camera className="h-4 w-4 text-gray-500" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-medium">{gear.name}</div>
-                        <div className="text-sm text-gray-500">
-                          {gear.category} • ${gear.price}/day
-                        </div>
-                      </div>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
+                {isGearLoading ? (
+                  <div className="p-4 text-center text-sm text-gray-500">
+                    Loading gear...
+                  </div>
+                ) : (
+                  <>
+                    <CommandEmpty>No gear found.</CommandEmpty>
+                    <CommandGroup>
+                      {filteredGear.map((gear) => (
+                        <CommandItem
+                          key={gear.id}
+                          onSelect={() => handleGearSelect(gear)}
+                          className="flex items-center gap-2"
+                        >
+                          <div className="w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                            {gear.images && gear.images.length > 0 ? (
+                              <img
+                                src={gear.images[0]}
+                                alt={gear.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Camera className="h-4 w-4 text-gray-500" />
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-medium">{gear.name}</div>
+                            <div className="text-sm text-gray-500">
+                              {gear.category} • ${parseFloat(gear.pricePerDay).toFixed(0)}/day
+                              {gear.ownerName && ` • by ${gear.ownerName}`}
+                            </div>
+                          </div>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </>
+                )}
               </CommandList>
             </Command>
           </PopoverContent>
@@ -352,8 +378,16 @@ function PostCreationForm({
           <div className="space-y-2">
             {taggedGear.map((gear) => (
               <div key={gear.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center">
-                  <Camera className="h-6 w-6 text-gray-400" />
+                <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                  {gear.image ? (
+                    <img
+                      src={gear.image}
+                      alt={gear.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Camera className="h-6 w-6 text-gray-400" />
+                  )}
                 </div>
                 <div className="flex-1">
                   <div className="font-medium">{gear.name}</div>
