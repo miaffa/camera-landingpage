@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GearTabContent } from "@/components/profile/GearTabContent";
 import { PostsTabContent } from "@/components/profile/PostsTabContent";
 import { SavedTabContent } from "@/components/profile/SavedTabContent";
+import { SavedContentGrid } from "@/components/profile/SavedContentGrid";
 import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
 import { useUserPosts } from "@/lib/posts/useUserPosts";
 import { ProfileStats } from "@/components/profile/ProfileStats";
@@ -157,7 +158,7 @@ export default function ProfilePage() {
         </TabsContent>
 
         <TabsContent value="saved" className="mt-6">
-          <SavedTabContent />
+          <SavedContentGrid />
         </TabsContent>
       </Tabs>
 

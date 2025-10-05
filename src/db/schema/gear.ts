@@ -4,6 +4,7 @@ import {
   pgTable,
   text,
   decimal,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 import { users } from "./user";
 
@@ -40,5 +41,19 @@ export const gearListings = pgTable("gear_listing", {
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow(),
 });
 
+export const gearSaves = pgTable("gear_saves", {
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  gearId: text("gear_id")
+    .notNull()
+    .references(() => gearListings.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
+}, (table) => ({
+  pk: primaryKey({ columns: [table.userId, table.gearId] }),
+}));
+
 export type GearListing = typeof gearListings.$inferSelect;
 export type NewGearListing = typeof gearListings.$inferInsert;
+export type GearSave = typeof gearSaves.$inferSelect;
+export type NewGearSave = typeof gearSaves.$inferInsert;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import useSWR from "swr";
 import { mutate } from "swr";
 
@@ -15,6 +16,8 @@ export interface Comment {
   authorName: string | null;
   authorUsername: string | null;
   authorAvatar: string | null;
+  // Like information
+  likesCount: number;
 }
 
 export function useComments(postId: string) {
@@ -120,4 +123,101 @@ export function useDeleteComment() {
   };
 
   return { deleteComment };
+}
+
+export function useCommentLikes(commentIds: string[]) {
+  const { data, error, isLoading, mutate } = useSWR<Record<string, boolean>>(
+    commentIds.length > 0 ? `/api/comments/likes?commentIds=${commentIds.join(",")}` : null
+  );
+
+  return {
+    likes: data || {},
+    isLoading,
+    error,
+    mutate,
+  };
+}
+
+export function useCommentLike(commentId: string) {
+  const [isLiked, setIsLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const likeComment = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+    const previousState = isLiked;
+
+    // Optimistic update
+    setIsLiked(true);
+
+    try {
+      const response = await fetch(`/api/comments/${commentId}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        // Revert on error
+        setIsLiked(previousState);
+        throw new Error('Failed to like comment');
+      }
+
+      // Revalidate comment likes
+      mutate((key) => typeof key === "string" && key.startsWith("/api/comments/likes"));
+    } catch (error) {
+      // Revert on error
+      setIsLiked(previousState);
+      console.error('Error liking comment:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const unlikeComment = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+    const previousState = isLiked;
+
+    // Optimistic update
+    setIsLiked(false);
+
+    try {
+      const response = await fetch(`/api/comments/${commentId}/like`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        // Revert on error
+        setIsLiked(previousState);
+        throw new Error('Failed to unlike comment');
+      }
+
+      // Revalidate comment likes
+      mutate((key) => typeof key === "string" && key.startsWith("/api/comments/likes"));
+    } catch (error) {
+      // Revert on error
+      setIsLiked(previousState);
+      console.error('Error unliking comment:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const toggleLike = () => {
+    if (isLiked) {
+      unlikeComment();
+    } else {
+      likeComment();
+    }
+  };
+
+  return {
+    isLiked,
+    isLoading,
+    toggleLike,
+  };
 }

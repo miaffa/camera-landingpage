@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { Camera, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGearData } from "@/lib/gear/useGearData";
+import { GearDetailModal } from "@/components/gear/GearDetailModal";
 
 interface PostGearDisplayProps {
   gearIds: string[];
@@ -14,7 +14,8 @@ interface PostGearDisplayProps {
 
 export function PostGearDisplay({ gearIds, onRentGear }: PostGearDisplayProps) {
   const { gearData, isLoading } = useGearData(gearIds);
-  const router = useRouter();
+  const [selectedGear, setSelectedGear] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   if (!gearIds || gearIds.length === 0) {
     return null;
@@ -50,9 +51,18 @@ export function PostGearDisplay({ gearIds, onRentGear }: PostGearDisplayProps) {
     if (onRentGear) {
       onRentGear(gearId);
     } else {
-      // Navigate to marketplace with the specific gear selected
-      router.push(`/app/marketplace?gear=${gearId}`);
+      // Open gear detail modal
+      const gear = gearData[gearId];
+      if (gear) {
+        setSelectedGear(gear);
+        setIsModalOpen(true);
+      }
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedGear(null);
   };
 
   const availableGear = gearIds
@@ -115,6 +125,15 @@ export function PostGearDisplay({ gearIds, onRentGear }: PostGearDisplayProps) {
           </Card>
         ))}
       </div>
+
+      {/* Gear Detail Modal */}
+      <GearDetailModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        gear={selectedGear}
+        mode="modal"
+        returnTo="post"
+      />
     </div>
   );
 }

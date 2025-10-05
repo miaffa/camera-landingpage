@@ -95,9 +95,27 @@ export const postSaves = pgTable("post_saves", {
   createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
 });
 
+export const commentLikes = pgTable("comment_likes", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  
+  commentId: text("commentId")
+    .notNull()
+    .references(() => postComments.id, { onDelete: "cascade" }),
+  
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  
+  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+});
+
 // Type exports
 export type Post = typeof posts.$inferSelect;
 export type NewPost = typeof posts.$inferInsert;
 export type PostLike = typeof postLikes.$inferSelect;
 export type PostComment = typeof postComments.$inferSelect;
 export type PostSave = typeof postSaves.$inferSelect;
+export type CommentLike = typeof commentLikes.$inferSelect;
+export type NewCommentLike = typeof commentLikes.$inferInsert;

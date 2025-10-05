@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import withAuthRequired from "@/lib/auth/withAuthRequired";
 import { db } from "@/db";
-import { postComments, posts, users } from "@/db/schema";
-import { eq, desc, and } from "drizzle-orm";
+import { postComments, posts, users, commentLikes } from "@/db/schema";
+import { eq, desc, and, sql } from "drizzle-orm";
 
 // GET /api/posts/[id]/comments - Get comments for a post
 export const GET = async (request: NextRequest, context: { params: Promise<{ id: string }> }) => {
@@ -30,10 +30,25 @@ export const GET = async (request: NextRequest, context: { params: Promise<{ id:
         authorName: users.name,
         authorUsername: users.email,
         authorAvatar: users.image,
+        // Like count
+        likesCount: sql<number>`COALESCE(COUNT(${commentLikes.id}), 0)`,
       })
       .from(postComments)
       .leftJoin(users, eq(postComments.authorId, users.id))
+      .leftJoin(commentLikes, eq(postComments.id, commentLikes.commentId))
       .where(eq(postComments.postId, postId))
+      .groupBy(
+        postComments.id,
+        postComments.postId,
+        postComments.authorId,
+        postComments.content,
+        postComments.parentCommentId,
+        postComments.createdAt,
+        postComments.updatedAt,
+        users.name,
+        users.email,
+        users.image
+      )
       .orderBy(desc(postComments.createdAt));
 
     return NextResponse.json(comments);

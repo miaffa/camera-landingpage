@@ -1,13 +1,19 @@
 "use client";
 
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { Search, MapPin, Star, Filter } from "lucide-react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { Search, MapPin, Star, Filter, X, ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { BookingRequestModal } from "@/components/rental/BookingRequestModal";
+import { GearDetailModal } from "@/components/gear/GearDetailModal";
 import useSWR from "swr";
 import dynamic from "next/dynamic";
 
@@ -21,21 +27,44 @@ interface GearItem {
   id: string;
   name: string;
   category: string;
-  description: string;
+  description?: string | null;
   pricePerDay: string;
   condition: string;
-  location: string;
-  images: string[];
+  location?: string | null;
+  images?: string[] | null;
   isAvailable: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+  ownerId?: string;
+  ownerName?: string | null;
+  ownerEmail?: string | null;
+  ownerImage?: string | null;
   latitude?: number;
   longitude?: number;
 }
 
+interface FilterState {
+  category: string;
+  priceRange: [number, number];
+  condition: string[];
+  location: string;
+  availability: boolean | null;
+}
+
 export default function MarketplacePage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [selectedGear, setSelectedGear] = useState<GearItem | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<FilterState>({
+    category: "all",
+    priceRange: [0, 1000],
+    condition: [],
+    location: "all",
+    availability: null,
+  });
   // Fetch all available gear from the API
   const fetcher = async (url: string) => {
     const response = await fetch(url);
@@ -65,20 +94,103 @@ export default function MarketplacePage() {
   // Memoize the filtered gear to prevent unnecessary filtering on every render
   const filteredGear = useMemo(() => {
     const marketplaceGear = gear || [];
-    if (!searchQuery.trim()) return marketplaceGear;
-    
-    const query = searchQuery.toLowerCase();
-    return marketplaceGear.filter((item) =>
-      item.name.toLowerCase().includes(query) ||
-      item.category.toLowerCase().includes(query) ||
-      item.location.toLowerCase().includes(query)
-    );
-  }, [gear, searchQuery]);
+    let filtered = marketplaceGear;
+
+    // Apply search query filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter((item) =>
+        item.name.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query) ||
+        (item.location && item.location.toLowerCase().includes(query))
+      );
+    }
+
+    // Apply category filter
+    if (filters.category && filters.category !== "all") {
+      filtered = filtered.filter((item) => item.category === filters.category);
+    }
+
+    // Apply price range filter
+    filtered = filtered.filter((item) => {
+      const price = parseFloat(item.pricePerDay);
+      return price >= filters.priceRange[0] && price <= filters.priceRange[1];
+    });
+
+    // Apply condition filter
+    if (filters.condition.length > 0) {
+      filtered = filtered.filter((item) => filters.condition.includes(item.condition));
+    }
+
+    // Apply location filter
+    if (filters.location && filters.location !== "all") {
+      filtered = filtered.filter((item) => 
+        item.location && item.location.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
+
+    // Apply availability filter
+    if (filters.availability !== null) {
+      filtered = filtered.filter((item) => item.isAvailable === filters.availability);
+    }
+
+    return filtered;
+  }, [gear, searchQuery, filters]);
 
   // Debounced search handler
   const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   }, []);
+
+  // Filter handlers
+  const handleFilterChange = useCallback((key: keyof FilterState, value: any) => {
+    setFilters(prev => ({ ...prev, [key]: value }));
+  }, []);
+
+  const handleConditionToggle = useCallback((condition: string) => {
+    setFilters(prev => ({
+      ...prev,
+      condition: prev.condition.includes(condition)
+        ? prev.condition.filter(c => c !== condition)
+        : [...prev.condition, condition]
+    }));
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setFilters({
+      category: "all",
+      priceRange: [0, 1000],
+      condition: [],
+      location: "all",
+      availability: null,
+    });
+  }, []);
+
+  // Get unique categories and conditions for filter options
+  const categories = useMemo(() => {
+    const cats = new Set(gear?.map(item => item.category) || []);
+    return Array.from(cats).sort();
+  }, [gear]);
+
+  const conditions = useMemo(() => {
+    const conds = new Set(gear?.map(item => item.condition) || []);
+    return Array.from(conds).sort();
+  }, [gear]);
+
+  const locations = useMemo(() => {
+    const locs = new Set(gear?.map(item => item.location).filter(Boolean) || []);
+    return Array.from(locs).sort();
+  }, [gear]);
+
+  // Check if any filters are active
+  const hasActiveFilters = useMemo(() => {
+    return filters.category !== "all" ||
+           filters.priceRange[0] !== 0 ||
+           filters.priceRange[1] !== 1000 ||
+           filters.condition.length > 0 ||
+           filters.location !== "all" ||
+           filters.availability !== null;
+  }, [filters]);
 
   // Handle rent button click
   const handleRentClick = useCallback(() => {
@@ -92,13 +204,24 @@ export default function MarketplacePage() {
     setIsBookingModalOpen(false);
   }, []);
 
+  // Handle gear close - clear URL parameter and selected gear
+  const handleCloseGear = useCallback(() => {
+    setSelectedGear(null);
+    // Clear the gear parameter from URL
+    const url = new URL(window.location.href);
+    url.searchParams.delete('gear');
+    router.replace(url.pathname + url.search);
+  }, [router]);
+
   if (selectedGear) {
     return (
       <>
-        <LazyGearMapView
+        <GearDetailModal
+          isOpen={true}
+          onClose={handleCloseGear}
           gear={selectedGear}
-          onClose={() => setSelectedGear(null)}
-          onRentClick={handleRentClick}
+          mode="fullscreen"
+          returnTo="marketplace"
         />
         {isBookingModalOpen && (
           <BookingRequestModal
@@ -119,9 +242,151 @@ export default function MarketplacePage() {
           <h1 className="text-2xl font-bold text-gray-900">Marketplace</h1>
           <p className="text-sm text-gray-600">Find gear to rent in your area</p>
         </div>
-        <Button variant="outline" size="icon">
-          <Filter className="h-4 w-4" />
-        </Button>
+        <div className="flex items-center gap-2">
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={clearFilters}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              <X className="h-4 w-4 mr-1" />
+              Clear filters
+            </Button>
+          )}
+          <Popover open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Filter className="h-4 w-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 p-4" align="end">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-semibold">Filters</h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearFilters}
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    Clear all
+                  </Button>
+                </div>
+
+                {/* Category Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Category</Label>
+                  <Select
+                    value={filters.category}
+                    onValueChange={(value) => handleFilterChange('category', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="All categories" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All categories</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Price Range Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">
+                    Price Range: ${filters.priceRange[0]} - ${filters.priceRange[1]}
+                  </Label>
+                  <Slider
+                    value={filters.priceRange}
+                    onValueChange={(value) => handleFilterChange('priceRange', value)}
+                    max={1000}
+                    min={0}
+                    step={10}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Condition Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Condition</Label>
+                  <div className="space-y-2">
+                    {conditions.map((condition) => (
+                      <div key={condition} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={condition}
+                          checked={filters.condition.includes(condition)}
+                          onCheckedChange={() => handleConditionToggle(condition)}
+                        />
+                        <Label
+                          htmlFor={condition}
+                          className="text-sm font-normal cursor-pointer"
+                        >
+                          {condition}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Location Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Location</Label>
+                  <Select
+                    value={filters.location}
+                    onValueChange={(value) => handleFilterChange('location', value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="All locations" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All locations</SelectItem>
+                      {locations.map((location) => (
+                        <SelectItem key={location} value={location || ""}>
+                          {location}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Availability Filter */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Availability</Label>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="available"
+                        checked={filters.availability === true}
+                        onCheckedChange={(checked) => 
+                          handleFilterChange('availability', checked ? true : null)
+                        }
+                      />
+                      <Label htmlFor="available" className="text-sm font-normal cursor-pointer">
+                        Available only
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="unavailable"
+                        checked={filters.availability === false}
+                        onCheckedChange={(checked) => 
+                          handleFilterChange('availability', checked ? false : null)
+                        }
+                      />
+                      <Label htmlFor="unavailable" className="text-sm font-normal cursor-pointer">
+                        Unavailable only
+                      </Label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
 
       {/* Search Bar */}
@@ -134,6 +399,57 @@ export default function MarketplacePage() {
           className="pl-10"
         />
       </div>
+
+      {/* Active Filters Summary */}
+      {hasActiveFilters && (
+        <div className="flex flex-wrap gap-2">
+          {filters.category && filters.category !== "all" && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Category: {filters.category}
+              <X 
+                className="h-3 w-3 cursor-pointer" 
+                onClick={() => handleFilterChange('category', 'all')}
+              />
+            </Badge>
+          )}
+          {(filters.priceRange[0] !== 0 || filters.priceRange[1] !== 1000) && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Price: ${filters.priceRange[0]}-${filters.priceRange[1]}
+              <X 
+                className="h-3 w-3 cursor-pointer" 
+                onClick={() => handleFilterChange('priceRange', [0, 1000])}
+              />
+            </Badge>
+          )}
+          {filters.condition.map((condition) => (
+            <Badge key={condition} variant="secondary" className="flex items-center gap-1">
+              {condition}
+              <X 
+                className="h-3 w-3 cursor-pointer" 
+                onClick={() => handleConditionToggle(condition)}
+              />
+            </Badge>
+          ))}
+          {filters.location && filters.location !== "all" && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              Location: {filters.location}
+              <X 
+                className="h-3 w-3 cursor-pointer" 
+                onClick={() => handleFilterChange('location', 'all')}
+              />
+            </Badge>
+          )}
+          {filters.availability !== null && (
+            <Badge variant="secondary" className="flex items-center gap-1">
+              {filters.availability ? 'Available' : 'Unavailable'}
+              <X 
+                className="h-3 w-3 cursor-pointer" 
+                onClick={() => handleFilterChange('availability', null)}
+              />
+            </Badge>
+          )}
+        </div>
+      )}
 
       {/* Gear Grid */}
       <div className="grid grid-cols-1 gap-4">
