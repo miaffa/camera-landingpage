@@ -74,10 +74,19 @@ export default function MarketplacePage() {
     return data || [];
   };
 
-  const { data: gear, isLoading } = useSWR<GearItem[]>(
-    "/api/gear/search",
-    fetcher
-  );
+  const { data: gearResponse, isLoading } = useSWR<{
+    data: GearItem[];
+    pagination: {
+      total: number;
+      limit: number;
+      offset: number;
+      hasMore: boolean;
+      totalPages: number;
+      currentPage: number;
+    };
+  }>("/api/gear/search?limit=20", fetcher);
+
+  const gear = gearResponse?.data || [];
 
   // Handle gear parameter from URL
   useEffect(() => {

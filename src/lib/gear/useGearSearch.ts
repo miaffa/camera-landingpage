@@ -23,7 +23,7 @@ interface UseGearSearchResult {
 
 export function useGearSearch(): UseGearSearchResult {
   const { data, error, isLoading } = useSWR(
-    "/api/gear/search",
+    "/api/gear/search?limit=50", // Get more items for search
     async (url: string) => {
       const response = await fetch(url);
       if (!response.ok) {
@@ -34,18 +34,24 @@ export function useGearSearch(): UseGearSearchResult {
   );
 
   const searchGear = (query: string): GearSearchResult[] => {
-    if (!data || !query.trim()) return data || [];
+    // Handle both old format (array) and new format (paginated response)
+    const gearData = Array.isArray(data) ? data : data?.data || [];
+    
+    if (!gearData || !query.trim()) return gearData;
     
     const lowercaseQuery = query.toLowerCase();
-    return data.filter((gear: GearSearchResult) =>
+    return gearData.filter((gear: GearSearchResult) =>
       gear.name.toLowerCase().includes(lowercaseQuery) ||
       gear.category.toLowerCase().includes(lowercaseQuery) ||
       (gear.ownerName && gear.ownerName.toLowerCase().includes(lowercaseQuery))
     );
   };
 
+  // Handle both old format (array) and new format (paginated response)
+  const gearData = Array.isArray(data) ? data : data?.data || [];
+
   return {
-    gear: data || [],
+    gear: gearData,
     isLoading,
     error,
     searchGear,

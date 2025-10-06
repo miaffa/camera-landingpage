@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { appConfig } from "@/lib/config";
 import { useSidebar } from "@/contexts/SidebarContext";
+import { usePreloadData } from "@/lib/hooks/usePreloadData";
 import { 
   Home, 
   Search, 
@@ -21,37 +22,43 @@ const navigationItems = [
     name: "Home",
     href: "/app",
     icon: Home,
-    label: "Home & Feed"
+    label: "Home & Feed",
+    tabName: "home" as const
   },
   {
     name: "Marketplace",
     href: "/app/marketplace",
     icon: Search,
-    label: "Marketplace"
+    label: "Marketplace",
+    tabName: "marketplace" as const
   },
   {
     name: "Create",
     href: "/app/create",
     icon: Plus,
-    label: "List Gear"
+    label: "List Gear",
+    tabName: "create" as const
   },
   {
     name: "Bookings",
     href: "/app/bookings",
     icon: Calendar,
-    label: "My Bookings"
+    label: "My Bookings",
+    tabName: "bookings" as const
   },
   {
     name: "Profile",
     href: "/app/profile",
     icon: User,
-    label: "Profile"
+    label: "Profile",
+    tabName: "profile" as const
   }
 ];
 
 export function BottomNavigation() {
   const pathname = usePathname();
   const { isCollapsed, toggleSidebar } = useSidebar();
+  const { preloadTabData } = usePreloadData();
 
   return (
     <>
@@ -66,6 +73,8 @@ export function BottomNavigation() {
               <Link
                 key={item.name}
                 href={item.href}
+                onMouseEnter={() => preloadTabData(item.tabName)}
+                onFocus={() => preloadTabData(item.tabName)}
                 className={cn(
                   "flex flex-col items-center justify-center gap-1 px-2 py-2 transition-colors",
                   "hover:bg-accent/50 active:bg-accent/70",
@@ -137,6 +146,8 @@ export function BottomNavigation() {
               <Link
                 key={item.name}
                 href={item.href}
+                onMouseEnter={() => preloadTabData(item.tabName)}
+                onFocus={() => preloadTabData(item.tabName)}
                 className={cn(
                   "flex items-center rounded-lg transition-colors group relative",
                   "hover:bg-accent/50",

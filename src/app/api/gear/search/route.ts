@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import { gearListings } from "@/db/schema/gear";
 import { users } from "@/db/schema/user";
-import { eq, and, or, ilike } from "drizzle-orm";
+import { eq, and, or, ilike, sql } from "drizzle-orm";
 
 // GET /api/gear/search - Search for available gear
 export async function GET(request: NextRequest) {
@@ -13,6 +13,10 @@ export async function GET(request: NextRequest) {
     const location = searchParams.get('location') || '';
     const minPrice = searchParams.get('minPrice');
     const maxPrice = searchParams.get('maxPrice');
+    
+    // Pagination parameters
+    const limit = Math.min(parseInt(searchParams.get('limit') || '20'), 50); // Max 50 items
+    const offset = parseInt(searchParams.get('offset') || '0');
 
     // Build the where conditions
     const conditions = [eq(gearListings.isAvailable, true)];
@@ -43,7 +47,16 @@ export async function GET(request: NextRequest) {
       conditions.push(eq(gearListings.pricePerDay, `<=${maxPrice}`));
     }
 
-    // Fetch gear with owner information
+    // Get total count for pagination
+    const totalCountResult = await db
+      .select({ count: sql`count(*)` })
+      .from(gearListings)
+      .leftJoin(users, eq(gearListings.ownerId, users.id))
+      .where(and(...conditions));
+    
+    const totalCount = Number(totalCountResult[0]?.count || 0);
+
+    // Fetch paginated gear with owner information
     const gearData = await db
       .select({
         id: gearListings.id,
@@ -66,9 +79,21 @@ export async function GET(request: NextRequest) {
       .from(gearListings)
       .leftJoin(users, eq(gearListings.ownerId, users.id))
       .where(and(...conditions))
-      .orderBy(gearListings.createdAt);
+      .orderBy(gearListings.createdAt)
+      .limit(limit)
+      .offset(offset);
 
-    return NextResponse.json(gearData);
+    return NextResponse.json({
+      data: gearData,
+      pagination: {
+        total: totalCount,
+        limit,
+        offset,
+        hasMore: offset + limit < totalCount,
+        totalPages: Math.ceil(totalCount / limit),
+        currentPage: Math.floor(offset / limit) + 1
+      }
+    });
   } catch (error) {
     console.error("Error searching gear:", error);
     return NextResponse.json(

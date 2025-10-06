@@ -21,9 +21,15 @@ function Providers({ children }: { children: React.ReactNode }) {
           <SWRConfig 
             value={{ 
               fetcher,
-              revalidateOnFocus: true,
-              revalidateOnReconnect: true,
-              dedupingInterval: 2000,
+              revalidateOnFocus: false, // Disable focus revalidation
+              revalidateOnReconnect: false, // Disable reconnect revalidation
+              revalidateIfStale: false, // Don't revalidate if data exists
+              revalidateOnMount: true, // Only revalidate on initial mount
+              dedupingInterval: 30000, // Increase to 30 seconds
+              focusThrottleInterval: 60000, // Throttle focus events to 1 minute
+              keepPreviousData: true, // Keep previous data while loading new
+              errorRetryCount: 3, // Retry failed requests 3 times
+              errorRetryInterval: 5000, // Wait 5 seconds between retries
             }}
           >
             <Next13ProgressBar

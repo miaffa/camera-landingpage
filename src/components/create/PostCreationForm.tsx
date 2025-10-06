@@ -128,9 +128,10 @@ function PostCreationForm({
     ), [userSearchQuery]
   );
 
-  const filteredGear = useMemo(() => 
-    searchGear(gearSearchQuery), [gearSearchQuery, searchGear]
-  );
+  const filteredGear = useMemo(() => {
+    const result = searchGear(gearSearchQuery);
+    return Array.isArray(result) ? result : [];
+  }, [gearSearchQuery, searchGear]);
 
   return (
     <div className="space-y-6">
