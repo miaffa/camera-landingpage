@@ -11,7 +11,7 @@ export const PUT = withAuthRequired(async (request: NextRequest, { session }) =>
     const username = formData.get("username") as string;
     // const bio = formData.get("bio") as string; // TODO: Uncomment after migration
     // const location = formData.get("location") as string; // TODO: Uncomment after migration
-    // const image = formData.get("image") as File | null; // TODO: Implement image upload
+    const imageUrl = formData.get("imageUrl") as string | null;
 
     // Validate required fields
     if (!name || !username) {
@@ -21,11 +21,14 @@ export const PUT = withAuthRequired(async (request: NextRequest, { session }) =>
       );
     }
 
+    // Avatar URL is now provided directly from client-side upload
+
     // Update user profile
     const updatedUser = await db
       .update(users)
       .set({
         name,
+        image: imageUrl || undefined, // Only update image if we have a new one
         // TODO: Add username, bio and location fields after migration
         // username: username,
         // bio: bio || null,

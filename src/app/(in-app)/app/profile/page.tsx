@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { User, Camera, Bookmark } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { User, Camera, Bookmark, Star, CheckCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GearTabContent } from "@/components/profile/GearTabContent";
@@ -9,11 +10,10 @@ import { PostsTabContent } from "@/components/profile/PostsTabContent";
 import { SavedContentGrid } from "@/components/profile/SavedContentGrid";
 import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
 // import { useUserPosts } from "@/lib/posts/useUserPosts";
-import { ProfileStats } from "@/components/profile/ProfileStats";
+import { ProfileStatsHybrid } from "@/components/profile/ProfileStatsHybrid";
 import { VerificationCTA } from "@/components/profile/VerificationCTA";
 import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
 import { ProfileDropdown } from "@/components/profile/ProfileDropdown";
-import { EditProfileModal } from "@/components/profile/EditProfileModal";
 import { SettingsModal } from "@/components/profile/SettingsModal";
 import useUser from "@/lib/users/useUser";
 import { signOut } from "next-auth/react";
@@ -22,11 +22,11 @@ import { PostWithAuthor } from "@/lib/types/posts";
 // import { ProfileFormData } from "@/lib/validations/profile.schema"; // TODO: Use for form validation
 
 export default function ProfilePage() {
+  const router = useRouter();
   const { user, isLoading: userLoading, error: userError } = useUser();
   // const { currentPlan } = useCurrentPlan(); // TODO: Use for plan-specific features
   
   // Modal states
-  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [commentsPost, setCommentsPost] = useState<PostWithAuthor | null>(null);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
@@ -70,7 +70,7 @@ export default function ProfilePage() {
 
   // Event handlers
   const handleEditProfile = () => {
-    setIsEditProfileOpen(true);
+    router.push("/app/profile/edit");
   };
 
   const handleSettings = () => {
@@ -85,10 +85,6 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSaveProfile = () => {
-    // Profile is already saved by the modal, this is just for any additional handling
-    // User data will be automatically refreshed by the useProfileUpdate hook
-  };
 
   const handlePostComment = () => {
     // This will be handled by the PostsTabContent component
@@ -111,7 +107,19 @@ export default function ProfilePage() {
           </AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-gray-900">Profile Dashboard</h1>
+          <div className="flex items-center gap-3 mb-1">
+            <h1 className="text-2xl font-bold text-gray-900">Profile Dashboard</h1>
+            <div className="flex items-center gap-1">
+              <Star className="h-4 w-4 text-yellow-500 fill-current" />
+              <span className="text-sm font-semibold text-gray-700">4.8</span>
+            </div>
+            {(user as { stripeAccountId?: string }).stripeAccountId && (
+              <div className="flex items-center gap-1">
+                <CheckCircle className="h-4 w-4 text-green-500" />
+                <span className="text-xs text-green-600 font-medium">Verified</span>
+              </div>
+            )}
+          </div>
           <p className="text-gray-600">Welcome back, {user.name?.split(' ')[0] || 'User'}</p>
         </div>
         <div className="flex gap-2">
@@ -124,7 +132,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Stats Cards */}
-      <ProfileStats />
+      <ProfileStatsHybrid />
 
       {/* Verification CTA */}
       <VerificationCTA isEmailVerified={isEmailVerified} />
@@ -160,13 +168,6 @@ export default function ProfilePage() {
       </Tabs>
 
       {/* Modals */}
-      <EditProfileModal
-        isOpen={isEditProfileOpen}
-        onClose={() => setIsEditProfileOpen(false)}
-        user={user}
-        onSave={handleSaveProfile}
-      />
-      
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}

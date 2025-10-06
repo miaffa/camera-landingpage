@@ -1,4 +1,5 @@
 import { supabase } from './client';
+import { supabaseAdmin } from './server';
 
 export interface UploadResult {
   url: string;
@@ -137,5 +138,60 @@ export async function deleteGearImage(imagePath: string): Promise<void> {
 
   if (error) {
     throw new Error(`Failed to delete gear image: ${error.message}`);
+  }
+}
+
+// Avatar upload functions
+export async function uploadAvatar(
+  file: File,
+  userId: string
+): Promise<UploadResult> {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase admin client is not configured. Please set up SUPABASE_SERVICE_ROLE_KEY environment variable.');
+  }
+
+  console.log(`Uploading avatar file: ${file.name}, size: ${file.size}, type: ${file.type}`);
+
+  const fileExt = file.name.split('.').pop();
+  const fileName = `avatar-${Date.now()}.${fileExt}`;
+  const filePath = `avatars/${userId}/${fileName}`;
+
+  console.log(`Uploading avatar to path: ${filePath}`);
+
+  const { data, error } = await supabaseAdmin.storage
+    .from('avatars')
+    .upload(filePath, file, {
+      cacheControl: '3600',
+      upsert: true, // Allow overwriting existing avatars
+    });
+
+  if (error) {
+    console.error('Supabase avatar upload error:', error);
+    throw new Error(`Failed to upload avatar: ${error.message}`);
+  }
+
+  const { data: { publicUrl } } = supabaseAdmin.storage
+    .from('avatars')
+    .getPublicUrl(data.path);
+
+  console.log(`Avatar upload successful, public URL: ${publicUrl}`);
+
+  return {
+    url: publicUrl,
+    path: data.path,
+  };
+}
+
+export async function deleteAvatar(imagePath: string): Promise<void> {
+  if (!supabase) {
+    throw new Error('Supabase is not configured. Please set up environment variables.');
+  }
+
+  const { error } = await supabase.storage
+    .from('avatars')
+    .remove([imagePath]);
+
+  if (error) {
+    throw new Error(`Failed to delete avatar: ${error.message}`);
   }
 }

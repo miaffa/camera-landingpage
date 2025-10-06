@@ -1,15 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
-import { Camera, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Camera, Loader2, ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -24,21 +20,13 @@ import {
 } from "@/components/ui/form";
 import { profileSchema, ProfileFormData } from "@/lib/validations/profile.schema";
 import { useProfileUpdate } from "@/lib/users/useProfileUpdate";
-import { PhotoCropper } from "./PhotoCropper";
+import { PhotoCropper } from "@/components/profile/PhotoCropper";
+import useUser from "@/lib/users/useUser";
 
-interface EditProfileModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  user: {
-    name?: string | null;
-    email?: string;
-    image?: string | null;
-  };
-  onSave: (profileData: ProfileFormData) => void;
-}
-
-export function EditProfileModal({ isOpen, onClose, user, onSave }: EditProfileModalProps) {
-  const [previewImage, setPreviewImage] = useState<string | null>(user.image || null);
+export default function EditProfilePage() {
+  const router = useRouter();
+  const { user, isLoading: userLoading, error: userError } = useUser();
+  const [previewImage, setPreviewImage] = useState<string | null>(user?.image || null);
   const [croppingImage, setCroppingImage] = useState<string | null>(null);
   const [isCropping, setIsCropping] = useState(false);
   const { updateProfile, isLoading, error } = useProfileUpdate();
@@ -46,8 +34,8 @@ export function EditProfileModal({ isOpen, onClose, user, onSave }: EditProfileM
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: user.name || "",
-      username: user.email?.split('@')[0] || "",
+      name: user?.name || "",
+      username: user?.email?.split('@')[0] || "",
       bio: "",
       location: "",
     },
@@ -95,8 +83,7 @@ export function EditProfileModal({ isOpen, onClose, user, onSave }: EditProfileM
   const onSubmit = async (data: ProfileFormData) => {
     try {
       await updateProfile(data);
-      onSave(data);
-      onClose();
+      router.push("/app/profile");
     } catch (err) {
       // Error is handled by the hook and displayed in the UI
       console.error("Profile update failed:", err);
@@ -118,16 +105,54 @@ export function EditProfileModal({ isOpen, onClose, user, onSave }: EditProfileM
     return 'U';
   };
 
-  return (
-    <>
-      <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Edit Profile</DialogTitle>
-        </DialogHeader>
+  // Show loading state while user data is being fetched
+  if (userLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
 
+  // Show error state if user data failed to load
+  if (userError || !user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h3 className="text-lg font-semibold mb-2">Error loading profile</h3>
+          <p className="text-gray-600 mb-4">There was an error loading your profile information.</p>
+          <Button onClick={() => router.back()}>Go Back</Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b sticky top-0 z-40">
+        <div className="max-w-2xl mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => router.back()}
+              className="h-8 w-8 p-0"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <h1 className="text-xl font-semibold">Edit Profile</h1>
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="max-w-2xl mx-auto px-4 py-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {/* Error Display */}
             {error && (
               <Alert variant="destructive">
@@ -136,120 +161,123 @@ export function EditProfileModal({ isOpen, onClose, user, onSave }: EditProfileM
             )}
 
             {/* Profile Photo Section */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Profile Photo</h3>
-              <div className="flex items-center gap-4">
-                <Avatar className="h-20 w-20">
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-4">Profile Photo</h3>
+              <div className="flex items-center gap-6">
+                <Avatar className="h-24 w-24">
                   <AvatarImage src={previewImage || undefined} />
-                  <AvatarFallback className="text-lg bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-                    {getInitials(form.watch("name"), user.email)}
+                  <AvatarFallback className="text-2xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                    {getInitials(form.watch("name"), user?.email)}
                   </AvatarFallback>
                 </Avatar>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
                     <label htmlFor="image-upload" className="cursor-pointer">
                       <Camera className="h-4 w-4 mr-2" />
-                      Upload Photo
+                      Change Photo
                     </label>
                   </Button>
                   <input
                     id="image-upload"
                     type="file"
-                    accept="image/jpeg,image/png,image/webp"
+                    accept="image/*"
                     onChange={handleImageUpload}
                     className="hidden"
                   />
-                  <p className="text-sm text-muted-foreground">
-                    JPG, PNG or WebP. Max size 10MB.
+                  <p className="text-sm text-gray-500">
+                    Click to upload a new profile photo
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Basic Information Section */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Basic Information</h3>
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-4">Basic Information</h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Full Name *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter your full name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username *</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Enter your username" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="bio"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Full Name *</FormLabel>
+                      <FormLabel>Bio</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your full name" {...field} />
+                        <Textarea
+                          placeholder="Tell us about yourself..."
+                          className="min-h-[100px] resize-none"
+                          maxLength={500}
+                          {...field}
+                        />
                       </FormControl>
+                      <div className="text-right text-sm text-gray-500">
+                        {field.value?.length || 0}/500
+                      </div>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
-                  name="username"
+                  name="location"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Username *</FormLabel>
+                      <FormLabel>Location</FormLabel>
                       <FormControl>
-                        <Input placeholder="Enter your username" {...field} />
+                        <Input placeholder="Enter your location" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-
-              <FormField
-                control={form.control}
-                name="bio"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Bio</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Tell us about yourself..."
-                        className="min-h-[100px] resize-none"
-                        maxLength={500}
-                        {...field}
-                      />
-                    </FormControl>
-                    <div className="text-right text-sm text-muted-foreground">
-                      {field.value?.length || 0}/500
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Location</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter your location" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-end gap-3 pt-4 border-t">
+            <div className="flex justify-end gap-3 pb-8">
               <Button 
                 type="button" 
                 variant="outline" 
-                onClick={onClose}
+                onClick={() => router.back()}
                 disabled={isLoading}
+                className="px-8"
               >
                 Cancel
               </Button>
               <Button 
                 type="submit" 
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -264,20 +292,17 @@ export function EditProfileModal({ isOpen, onClose, user, onSave }: EditProfileM
             </div>
           </form>
         </Form>
-      </DialogContent>
-      
-      </Dialog>
-      
-      {/* Photo Cropper Modal - Rendered outside Dialog using Portal */}
-      {croppingImage && typeof window !== 'undefined' && createPortal(
+      </div>
+
+      {/* Photo Cropper Modal */}
+      {croppingImage && (
         <PhotoCropper
           imageSrc={croppingImage}
           onCropComplete={handleCropComplete}
           onCancel={handleCropCancel}
           isOpen={isCropping}
-        />,
-        document.body
+        />
       )}
-    </>
+    </div>
   );
 }
