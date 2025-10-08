@@ -16,6 +16,7 @@ import { VerificationCTA } from "@/components/profile/VerificationCTA";
 import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
 import { ProfileDropdown } from "@/components/profile/ProfileDropdown";
 import { SettingsModal } from "@/components/profile/SettingsModal";
+import { ConnectOnboarding } from "@/components/stripe/ConnectOnboarding";
 import useUser from "@/lib/users/useUser";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
@@ -149,6 +150,9 @@ export default function ProfilePage() {
 
       {/* Verification CTA */}
       <VerificationCTA isEmailVerified={isEmailVerified} />
+
+      {/* Payment Setup Section */}
+      <ConnectOnboarding />
 
       {/* Tabbed Content */}
       <Tabs defaultValue="gear" className="w-full">

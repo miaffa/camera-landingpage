@@ -35,11 +35,17 @@ export async function POST() {
 
     const stripe = getStripeClient();
 
+    // Get the base URL - use NEXTAUTH_URL or fallback to localhost for development
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    
+    // Ensure the URL starts with http:// or https://
+    const validBaseUrl = baseUrl.startsWith('http') ? baseUrl : `http://${baseUrl}`;
+
     // Create account link for onboarding
     const accountLink = await stripe.accountLinks.create({
       account: userData.stripeConnectAccountId,
-      refresh_url: `${process.env.NEXTAUTH_URL}/app/profile?tab=payments&refresh=true`,
-      return_url: `${process.env.NEXTAUTH_URL}/app/profile?tab=payments&success=true`,
+      refresh_url: `${validBaseUrl}/app/profile?tab=payments&refresh=true`,
+      return_url: `${validBaseUrl}/app/profile?tab=payments&success=true`,
       type: 'account_onboarding',
     });
 

@@ -67,11 +67,38 @@ export async function POST(
       .where(eq(users.id, session.user.id))
       .limit(1);
 
-    if (renter.length === 0 || !renter[0].stripeCustomerId) {
+    if (renter.length === 0) {
       return NextResponse.json(
-        { error: "Renter must have a Stripe customer account" },
-        { status: 400 }
+        { error: "User not found" },
+        { status: 404 }
       );
+    }
+
+    let renterData = renter[0];
+
+    // If renter doesn't have a Stripe customer ID, create one
+    if (!renterData.stripeCustomerId) {
+      const stripe = getStripeClient();
+      
+      // Create Stripe customer
+      const customer = await stripe.customers.create({
+        email: renterData.email,
+        name: renterData.name || undefined,
+        metadata: {
+          userId: renterData.id,
+        },
+      });
+
+      // Update user with Stripe customer ID
+      await db
+        .update(users)
+        .set({
+          stripeCustomerId: customer.id,
+        })
+        .where(eq(users.id, session.user.id));
+
+      // Update renterData with the new customer ID
+      renterData = { ...renterData, stripeCustomerId: customer.id };
     }
 
     // Get owner's Stripe Connect account
@@ -102,7 +129,7 @@ export async function POST(
     const paymentIntent = await stripe.paymentIntents.create({
       amount: totalAmount,
       currency: "usd",
-      customer: renter[0].stripeCustomerId,
+      customer: renterData.stripeCustomerId!,
       application_fee_amount: Math.round(parseFloat(bookingData.platformFee) * 100),
       transfer_data: {
         destination: owner[0].stripeConnectAccountId, // Transfer to owner's Connect account
@@ -119,11 +146,24 @@ export async function POST(
       }),
     });
 
-    // Update booking with payment intent ID
+    // Update booking with payment intent ID and mark as paid
+    const statusHistory = [
+      ...(Array.isArray(bookingData.statusHistory) ? bookingData.statusHistory : []),
+      {
+        status: "paid" as const,
+        timestamp: new Date(),
+        note: "Payment completed successfully"
+      }
+    ];
+
     await db
       .update(bookings)
       .set({
         stripePaymentIntentId: paymentIntent.id,
+        status: "paid",
+        paymentStatus: "paid",
+        statusHistory,
+        paidAt: new Date(),
         updatedAt: new Date(),
       })
       .where(eq(bookings.id, bookingId));
@@ -131,6 +171,7 @@ export async function POST(
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
+      status: "paid"
     });
   } catch (error) {
     console.error("Error creating payment intent:", error);
