@@ -21,9 +21,9 @@ interface SavedGearItem {
   savedAt?: Date;
 }
 
-export function useSavedGear() {
+export function useSavedGear(shouldLoad: boolean = true) {
   const { data, error, isLoading, mutate } = useSWR<SavedGearItem[]>(
-    "/api/gear/saved"
+    shouldLoad ? "/api/gear/saved" : null
   );
 
   return {

@@ -2,8 +2,9 @@
 
 import React from "react";
 import { FeedPost } from "./FeedPost";
-import { usePosts } from "@/lib/posts/usePosts";
-import { useUserInteractions } from "@/lib/posts/useUserInteractions";
+import { useFeedData } from "@/lib/posts/useFeedData";
+import { PullToRefresh } from "./PullToRefresh";
+import { mutate } from "swr";
 
 // interface Author {
 //   name: string;
@@ -42,9 +43,13 @@ interface FeedPostsProps {
 }
 
 export function FeedPosts({ onComment, onShare, onMore }: FeedPostsProps) {
-  const { posts, isLoading } = usePosts();
-  const postIds = posts.map(post => post.id);
-  const { interactions } = useUserInteractions(postIds);
+  const { posts, interactions, isLoading } = useFeedData();
+
+  const handleRefresh = async () => {
+    // Manually revalidate the feed data
+    await mutate("/api/posts");
+    await mutate("/api/posts/user-interactions");
+  };
 
   if (isLoading) {
     return (
@@ -84,21 +89,23 @@ export function FeedPosts({ onComment, onShare, onMore }: FeedPostsProps) {
   }
 
   return (
-    <div className="space-y-6">
-      {posts.map((post) => {
-        const userInteraction = interactions[post.id] || { liked: false, saved: false };
-        return (
-          <FeedPost
-            key={post.id}
-            post={post}
-            initialLiked={userInteraction.liked}
-            initialSaved={userInteraction.saved}
-            onComment={onComment}
-            onShare={onShare}
-            onMore={onMore}
-          />
-        );
-      })}
-    </div>
+    <PullToRefresh onRefresh={handleRefresh}>
+      <div className="space-y-6">
+        {posts.map((post) => {
+          const userInteraction = interactions[post.id] || { liked: false, saved: false };
+          return (
+            <FeedPost
+              key={post.id}
+              post={post}
+              initialLiked={userInteraction.liked}
+              initialSaved={userInteraction.saved}
+              onComment={onComment}
+              onShare={onShare}
+              onMore={onMore}
+            />
+          );
+        })}
+      </div>
+    </PullToRefresh>
   );
 }

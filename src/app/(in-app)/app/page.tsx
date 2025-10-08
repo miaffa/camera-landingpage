@@ -4,12 +4,12 @@ import { FeedHeader } from "@/components/feed/FeedHeader";
 import { FeedPosts } from "@/components/feed/FeedPosts";
 import { PostDetailModal } from "@/components/feed/PostDetailModal";
 import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
-import { usePosts } from "@/lib/posts/usePosts";
+import { useFeedData } from "@/lib/posts/useFeedData";
 import { useSession } from "next-auth/react";
 import { PostWithAuthor, DisplayPost } from "@/lib/types/posts";
 
 export default function HomePage() {
-  const { posts } = usePosts();
+  const { posts } = useFeedData();
   const { data: session } = useSession();
   const [viewingPost, setViewingPost] = useState<DisplayPost | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);

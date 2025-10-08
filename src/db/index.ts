@@ -2,6 +2,14 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "./schema";
 
+// Global connection cache
+declare global {
+  var __db: ReturnType<typeof drizzle> | undefined;
+  var __client: postgres.Sql | undefined;
+  var __dbInitialized: boolean | undefined;
+  var __dbPromise: Promise<{ db: ReturnType<typeof drizzle>; client: postgres.Sql }> | undefined;
+}
+
 // Try both connection strings for troubleshooting
 const getConnectionString = () => {
   const primaryUrl = process.env.DATABASE_URL;
@@ -20,9 +28,39 @@ const getConnectionString = () => {
   return primaryUrl;
 };
 
-// Create the connection immediately for the adapter
-const connectionString = getConnectionString();
-const client = postgres(connectionString);
-export const db = drizzle(client, { schema });
+// Create optimized database connection with proper singleton pattern
+const createDatabaseConnection = () => {
+  // Return existing connection if available
+  if (global.__db && global.__client && global.__dbInitialized) {
+    return { db: global.__db, client: global.__client };
+  }
 
-console.log("✅ Database connection initialized successfully");
+  const connectionString = getConnectionString();
+  const client = postgres(connectionString, {
+    max: 2, // Very conservative connection pool
+    idle_timeout: 2, // Close idle connections quickly
+    connect_timeout: 1, // Fast connection timeout
+    prepare: false, // Disable prepared statements for better performance
+    transform: {
+      undefined: null, // Transform undefined to null for better compatibility
+    },
+    // Add connection pooling optimizations
+    max_lifetime: 60 * 10, // 10 minutes max connection lifetime
+    onnotice: () => {}, // Disable notices to reduce noise
+  });
+
+  const db = drizzle(client, { schema });
+
+  // Cache the connection globally
+  global.__db = db;
+  global.__client = client;
+  global.__dbInitialized = true;
+
+  console.log("✅ Database connection initialized successfully");
+  
+  return { db, client };
+};
+
+// For immediate use in modules
+const { db } = createDatabaseConnection();
+export { db };

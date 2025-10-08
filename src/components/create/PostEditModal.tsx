@@ -141,7 +141,7 @@ export function PostEditModal({ isOpen, onClose, post }: PostEditModalProps) {
     user.username.toLowerCase().includes(userSearchQuery.toLowerCase())
   );
 
-  const filteredGear = searchGear(gearSearchQuery);
+  const filteredGear = Array.isArray(searchGear(gearSearchQuery)) ? searchGear(gearSearchQuery) : [];
 
   const handleSave = async () => {
     try {

@@ -13,6 +13,9 @@ interface MapboxMapProps {
 export function MapboxMap({ latitude, longitude, zoom = 14, className = "" }: MapboxMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<unknown>(null);
+  
+  // Get the Mapbox token from environment
+  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
   useEffect(() => {
     if (!mapContainer.current) return;
@@ -46,10 +49,7 @@ export function MapboxMap({ latitude, longitude, zoom = 14, className = "" }: Ma
         (map.current as mapboxgl.Map).remove();
       }
     };
-  }, [latitude, longitude, zoom]);
-
-  // Get the Mapbox token from environment
-  const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+  }, [latitude, longitude, zoom, mapboxToken]);
   
   // Fallback UI when no token
   if (!mapboxToken) {

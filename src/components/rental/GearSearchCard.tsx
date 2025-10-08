@@ -4,6 +4,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { FallbackImage } from "@/components/ui/fallback-image";
 import { MapPin, Calendar, Star, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -42,10 +43,14 @@ export function GearSearchCard({ gear, onRentClick }: GearSearchCardProps) {
         {/* Image Section */}
         <div className="relative h-48 w-full overflow-hidden rounded-t-lg">
           {gear.images && gear.images.length > 0 ? (
-            <img
+            <FallbackImage
               src={gear.images[0]}
               alt={gear.name}
+              width={400}
+              height={192}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+              fallbackIcon={<Camera className="h-12 w-12 text-gray-400" />}
+              fallbackText="Gear Image"
             />
           ) : (
             <div className="w-full h-full bg-gray-100 flex items-center justify-center">
@@ -97,10 +102,13 @@ export function GearSearchCard({ gear, onRentClick }: GearSearchCardProps) {
           {/* Owner Info */}
           <div className="flex items-center gap-2 mb-3">
             {gear.ownerImage ? (
-              <img
+              <FallbackImage
                 src={gear.ownerImage}
                 alt={gear.ownerName || "Owner"}
+                width={24}
+                height={24}
                 className="w-6 h-6 rounded-full"
+                fallbackIcon={<div className="w-6 h-6 rounded-full bg-gray-200" />}
               />
             ) : (
               <div className="w-6 h-6 rounded-full bg-gray-200" />

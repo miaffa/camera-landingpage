@@ -102,7 +102,7 @@ export function Header() {
               </Link>
               <div className="px-3 py-2">
                 <Button className="w-full" asChild>
-                  <Link href="/get-started">Get Started</Link>
+                  <Link href="/sign-up">Get Started</Link>
                 </Button>
               </div>
             </div>

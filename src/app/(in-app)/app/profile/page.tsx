@@ -8,6 +8,7 @@ import { GearTabContent } from "@/components/profile/GearTabContent";
 import { PostsTabContent } from "@/components/profile/PostsTabContent";
 // import { SavedTabContent } from "@/components/profile/SavedTabContent";
 import { SavedContentGrid } from "@/components/profile/SavedContentGrid";
+import { LazyTabContent } from "@/components/profile/LazyTabContent";
 import { CommentsBottomSheet } from "@/components/feed/CommentsBottomSheet";
 // import { useUserPosts } from "@/lib/posts/useUserPosts";
 import { ProfileStatsHybrid } from "@/components/profile/ProfileStatsHybrid";
@@ -16,6 +17,7 @@ import { ProfileSkeleton } from "@/components/profile/ProfileSkeleton";
 import { ProfileDropdown } from "@/components/profile/ProfileDropdown";
 import { SettingsModal } from "@/components/profile/SettingsModal";
 import useUser from "@/lib/users/useUser";
+import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { PostWithAuthor } from "@/lib/types/posts";
 // import useCurrentPlan from "@/lib/users/useCurrentPlan"; // TODO: Use for plan-specific features
@@ -23,6 +25,7 @@ import { PostWithAuthor } from "@/lib/types/posts";
 
 export default function ProfilePage() {
   const router = useRouter();
+  const { data: session, status } = useSession();
   const { user, isLoading: userLoading, error: userError } = useUser();
   // const { currentPlan } = useCurrentPlan(); // TODO: Use for plan-specific features
   
@@ -31,11 +34,21 @@ export default function ProfilePage() {
   const [commentsPost, setCommentsPost] = useState<PostWithAuthor | null>(null);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
-  if (userLoading) {
+  // Use session data for immediate display, then load additional user data
+  const displayUser = user || (session?.user ? {
+    id: session.user.id,
+    name: (session.user as { name?: string }).name || null,
+    email: session.user.email,
+    image: (session.user as { image?: string }).image || null,
+    emailVerified: null,
+    stripeAccountId: (session.user as { stripeAccountId?: string }).stripeAccountId
+  } : null);
+  
+  if (status === "loading" || (userLoading && !session?.user)) {
     return <ProfileSkeleton />;
   }
 
-  if (userError || !user) {
+  if ((userError || !displayUser) && status === "authenticated") {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <div className="rounded-full bg-destructive/10 p-6 mb-4">
@@ -66,7 +79,7 @@ export default function ProfilePage() {
   };
 
   // Check if user has verified email
-  const isEmailVerified = !!user.emailVerified;
+  const isEmailVerified = !!displayUser?.emailVerified;
 
   // Event handlers
   const handleEditProfile = () => {
@@ -101,9 +114,9 @@ export default function ProfilePage() {
       {/* Profile Header - Dashboard Style */}
       <div className="flex items-center gap-4">
         <Avatar className="h-16 w-16 ring-4 ring-blue-200">
-          <AvatarImage src={user.image || undefined} />
+          <AvatarImage src={displayUser?.image || undefined} />
           <AvatarFallback className="text-lg bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-            {getInitials(user.name, user.email)}
+            {getInitials(displayUser?.name, displayUser?.email)}
           </AvatarFallback>
         </Avatar>
         <div className="flex-1">
@@ -113,14 +126,14 @@ export default function ProfilePage() {
               <Star className="h-4 w-4 text-yellow-500 fill-current" />
               <span className="text-sm font-semibold text-gray-700">4.8</span>
             </div>
-            {(user as { stripeAccountId?: string }).stripeAccountId && (
+            {(displayUser as { stripeAccountId?: string })?.stripeAccountId && (
               <div className="flex items-center gap-1">
                 <CheckCircle className="h-4 w-4 text-green-500" />
                 <span className="text-xs text-green-600 font-medium">Verified</span>
               </div>
             )}
           </div>
-          <p className="text-gray-600">Welcome back, {user.name?.split(' ')[0] || 'User'}</p>
+          <p className="text-gray-600">Welcome back, {displayUser?.name?.split(' ')[0] || 'User'}</p>
         </div>
         <div className="flex gap-2">
           <ProfileDropdown
@@ -155,15 +168,21 @@ export default function ProfilePage() {
         </TabsList>
 
         <TabsContent value="gear" className="mt-6">
-          <GearTabContent />
+          <LazyTabContent delay={200}>
+            <GearTabContent />
+          </LazyTabContent>
         </TabsContent>
 
         <TabsContent value="posts" className="mt-6">
-          <PostsTabContent onComment={handlePostComment} />
+          <LazyTabContent delay={200}>
+            <PostsTabContent onComment={handlePostComment} />
+          </LazyTabContent>
         </TabsContent>
 
         <TabsContent value="saved" className="mt-6">
-          <SavedContentGrid />
+          <LazyTabContent delay={200}>
+            <SavedContentGrid />
+          </LazyTabContent>
         </TabsContent>
       </Tabs>
 

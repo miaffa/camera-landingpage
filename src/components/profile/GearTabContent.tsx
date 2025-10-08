@@ -29,7 +29,17 @@ export function GearTabContent() {
   const [isGearModalOpen, setIsGearModalOpen] = useState(false);
   const [editingGear, setEditingGear] = useState<GearItem | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { gear, isLoading, mutate } = useUserGear();
+  const [shouldLoadData, setShouldLoadData] = useState(false);
+
+  // Only load data when component is actually visible
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldLoadData(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const { gear, isLoading, mutate } = useUserGear(shouldLoadData);
   const { createGear } = useGearCreate();
 
   const handleAddGear = () => {
