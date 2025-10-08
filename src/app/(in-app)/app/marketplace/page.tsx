@@ -86,7 +86,7 @@ export default function MarketplacePage() {
     };
   }>("/api/gear/search?limit=20", fetcher);
 
-  const gear = gearResponse?.data || [];
+  const gear = useMemo(() => gearResponse?.data || [], [gearResponse?.data]);
 
   // Handle gear parameter from URL
   useEffect(() => {

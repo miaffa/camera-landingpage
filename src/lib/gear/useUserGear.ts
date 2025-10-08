@@ -15,7 +15,7 @@ interface GearItem {
   isAvailable: boolean;
 }
 
-export function useUserGear() {
+export function useUserGear(shouldLoad: boolean = true) {
   const { data: session } = useSession();
   
   const fetcher = async (url: string): Promise<GearItem[]> => {
@@ -27,7 +27,7 @@ export function useUserGear() {
   };
 
   const { data: gear, error, isLoading, mutate } = useSWR<GearItem[]>(
-    session?.user?.id ? "/api/gear" : null,
+    session?.user?.id && shouldLoad ? "/api/gear" : null,
     fetcher
   );
 

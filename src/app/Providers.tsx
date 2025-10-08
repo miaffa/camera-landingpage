@@ -25,11 +25,13 @@ function Providers({ children }: { children: React.ReactNode }) {
               revalidateOnReconnect: false, // Disable reconnect revalidation
               revalidateIfStale: false, // Don't revalidate if data exists
               revalidateOnMount: true, // Only revalidate on initial mount
-              dedupingInterval: 30000, // Increase to 30 seconds
-              focusThrottleInterval: 60000, // Throttle focus events to 1 minute
+              dedupingInterval: 120000, // 2 minutes - much longer deduping
+              focusThrottleInterval: 300000, // 5 minutes - throttle focus events
               keepPreviousData: true, // Keep previous data while loading new
-              errorRetryCount: 3, // Retry failed requests 3 times
-              errorRetryInterval: 5000, // Wait 5 seconds between retries
+              errorRetryCount: 2, // Reduce retries for faster failure
+              errorRetryInterval: 10000, // Wait 10 seconds between retries
+              // Add refresh interval for background updates
+              refreshInterval: 0, // Disable automatic refresh
             }}
           >
             <Next13ProgressBar

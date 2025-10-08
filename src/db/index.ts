@@ -7,6 +7,7 @@ declare global {
   var __db: ReturnType<typeof drizzle> | undefined;
   var __client: postgres.Sql | undefined;
   var __dbInitialized: boolean | undefined;
+  var __dbPromise: Promise<{ db: ReturnType<typeof drizzle>; client: postgres.Sql }> | undefined;
 }
 
 // Try both connection strings for troubleshooting
@@ -36,15 +37,15 @@ const createDatabaseConnection = () => {
 
   const connectionString = getConnectionString();
   const client = postgres(connectionString, {
-    max: 3, // Very conservative connection pool
-    idle_timeout: 3, // Close idle connections quickly
-    connect_timeout: 2, // Fast connection timeout
+    max: 2, // Very conservative connection pool
+    idle_timeout: 2, // Close idle connections quickly
+    connect_timeout: 1, // Fast connection timeout
     prepare: false, // Disable prepared statements for better performance
     transform: {
       undefined: null, // Transform undefined to null for better compatibility
     },
     // Add connection pooling optimizations
-    max_lifetime: 60 * 15, // 15 minutes max connection lifetime
+    max_lifetime: 60 * 10, // 10 minutes max connection lifetime
     onnotice: () => {}, // Disable notices to reduce noise
   });
 
@@ -60,5 +61,6 @@ const createDatabaseConnection = () => {
   return { db, client };
 };
 
+// For immediate use in modules
 const { db } = createDatabaseConnection();
 export { db };

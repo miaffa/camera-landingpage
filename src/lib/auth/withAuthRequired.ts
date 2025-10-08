@@ -44,34 +44,32 @@ const withAuthRequired = (handler: WithManagerHandler) => {
     const userId = session.user.id;
 
     const getCurrentPlan = async () => {
-      const user = await db.select().from(users).where(eq(users.id, userId));
-
-      if (!user) {
-        return null;
-      }
-
-      // Get the current plan and quotas
-
-      if (!user[0].planId) {
-        return null;
-      }
-
-      const currentPlan = await db
+      // Single optimized query with JOIN to get user and plan data
+      const userWithPlan = await db
         .select({
-          id: plans.id,
-          name: plans.name,
-          codename: plans.codename,
-          quotas: plans.quotas,
-          default: plans.default,
+          userId: users.id,
+          planId: users.planId,
+          planName: plans.name,
+          planCodename: plans.codename,
+          planQuotas: plans.quotas,
+          planDefault: plans.default,
         })
-        .from(plans)
-        .where(eq(plans.id, user[0].planId));
+        .from(users)
+        .leftJoin(plans, eq(users.planId, plans.id))
+        .where(eq(users.id, userId))
+        .limit(1);
 
-      if (!currentPlan.length) {
+      if (!userWithPlan.length || !userWithPlan[0].planId) {
         return null;
       }
 
-      return currentPlan[0];
+      return {
+        id: userWithPlan[0].planId,
+        name: userWithPlan[0].planName,
+        codename: userWithPlan[0].planCodename,
+        quotas: userWithPlan[0].planQuotas,
+        default: userWithPlan[0].planDefault,
+      };
     };
 
     return await handler(req, {

@@ -101,7 +101,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
     <div className="flex flex-col h-screen">
       {/* <AppHeader /> */}
       <div className="flex-1 flex">
-        <div className={`flex-1 p-4 sm:p-2 max-w-7xl mx-auto w-full overflow-y-auto transition-all duration-300 ${
+        <div className={`flex-1 p-2 sm:p-4 max-w-7xl mx-auto w-full overflow-y-auto transition-all duration-300 ${
           isCollapsed ? 'md:ml-16' : 'md:ml-64'
         }`}>
           {children}

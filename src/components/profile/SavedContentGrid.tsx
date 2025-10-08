@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { User, Camera, Heart, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSavedPosts } from "@/lib/posts/useSavedPosts";
@@ -9,9 +9,20 @@ import { SavedTabContent } from "./SavedTabContent";
 import { SavedGearTabContent } from "./SavedGearTabContent";
 
 export function SavedContentGrid() {
-  const { savedPosts, isLoading: postsLoading } = useSavedPosts();
-  const { savedGear, isLoading: gearLoading } = useSavedGear();
   const [activeView, setActiveView] = useState<"grid" | "posts" | "gear">("grid");
+  const [shouldLoadData, setShouldLoadData] = useState(false);
+
+  // Only load data when component is actually visible
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldLoadData(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Make API calls conditional by passing shouldLoadData
+  const { savedPosts, isLoading: postsLoading } = useSavedPosts(shouldLoadData);
+  const { savedGear, isLoading: gearLoading } = useSavedGear(shouldLoadData);
 
   const handleBackToGrid = () => {
     setActiveView("grid");

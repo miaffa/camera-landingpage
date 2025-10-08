@@ -25,9 +25,9 @@ interface SavedPost {
   savedAt: Date;
 }
 
-export function useSavedPosts() {
+export function useSavedPosts(shouldLoad: boolean = true) {
   const { data: savedPosts, error, isLoading, mutate } = useSWR<SavedPost[]>(
-    "/api/posts/saved"
+    shouldLoad ? "/api/posts/saved" : null
   );
 
   return {

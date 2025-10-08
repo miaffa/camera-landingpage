@@ -38,12 +38,15 @@ export function useFeedData() {
   // Start performance monitoring
   performanceMonitor.start('feed-data-load');
   
-  // Load posts first with conservative revalidation
+  // Load posts first with aggressive caching
   const { data: posts, error: postsError, isLoading: postsLoading } = useSWR<Post[]>("/api/posts", {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     revalidateIfStale: false,
-    dedupingInterval: 30000, // 30 seconds
+    dedupingInterval: 180000, // 3 minutes - much longer cache
+    refreshInterval: 0, // No automatic refresh
+    errorRetryCount: 1, // Faster failure
+    errorRetryInterval: 15000, // 15 seconds between retries
   });
   
   // Extract post IDs for interactions
@@ -56,7 +59,10 @@ export function useFeedData() {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       revalidateIfStale: false,
-      dedupingInterval: 30000, // 30 seconds
+      dedupingInterval: 180000, // 3 minutes - much longer cache
+      refreshInterval: 0, // No automatic refresh
+      errorRetryCount: 1, // Faster failure
+      errorRetryInterval: 15000, // 15 seconds between retries
     }
   );
 

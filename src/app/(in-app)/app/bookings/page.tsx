@@ -268,7 +268,7 @@ export default function BookingsPage() {
           <div className="fixed right-0 top-0 z-50 h-full w-full max-w-md bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex flex-col h-full">
               {/* Header */}
-              <div className="flex items-center justify-between p-4 border-b bg-white">
+              <div className="flex items-center justify-between p-3 md:p-4 border-b bg-white">
                 <h2 className="text-lg font-semibold">Messages</h2>
                 <Button
                   variant="ghost"
@@ -279,13 +279,14 @@ export default function BookingsPage() {
                 </Button>
               </div>
               
-              {/* Messages Content */}
+              {/* Messages Content - Direct component instead of iframe */}
               <div className="flex-1 overflow-hidden">
-                <iframe
-                  src="/app/messages"
-                  className="w-full h-full border-0"
-                  title="Messages"
-                />
+                <div className="h-full">
+                  {/* This will be replaced with actual messages component */}
+                  <div className="p-4 text-center text-muted-foreground">
+                    Messages will be integrated here
+                  </div>
+                </div>
               </div>
             </div>
           </div>

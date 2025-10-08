@@ -91,7 +91,7 @@ export function ConversationsList({ searchQuery, onConversationClick }: Conversa
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-1 md:gap-2">
       {filteredConversations.map((conversation) => (
         <ConversationItem
           key={conversation.id}

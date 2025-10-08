@@ -49,7 +49,7 @@ export default function MessagesPage() {
 
   // Show conversations list
   return (
-    <div className="flex flex-col gap-6 pb-20">
+    <div className="flex flex-col gap-4 md:gap-6 pb-16 md:pb-20">
       {/* Header */}
       <MessagesHeader />
 

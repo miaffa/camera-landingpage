@@ -30,6 +30,15 @@ export function useGearSearch(): UseGearSearchResult {
         throw new Error('Failed to fetch gear data');
       }
       return response.json();
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      revalidateIfStale: false,
+      dedupingInterval: 240000, // 4 minutes - long cache for gear data
+      refreshInterval: 0, // No automatic refresh
+      errorRetryCount: 1, // Faster failure
+      errorRetryInterval: 15000, // 15 seconds between retries
     }
   );
 

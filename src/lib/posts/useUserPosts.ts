@@ -24,7 +24,7 @@ interface Post {
   authorAvatar: string | null;
 }
 
-export function useUserPosts() {
+export function useUserPosts(shouldLoad: boolean = true) {
   const { data: session } = useSession();
   
   const fetcher = async (url: string): Promise<Post[]> => {
@@ -37,7 +37,7 @@ export function useUserPosts() {
   };
 
   const { data: posts, error, isLoading, mutate } = useSWR<Post[]>(
-    session?.user?.id ? "/api/app/posts" : null,
+    session?.user?.id && shouldLoad ? "/api/app/posts" : null,
     fetcher
   );
 

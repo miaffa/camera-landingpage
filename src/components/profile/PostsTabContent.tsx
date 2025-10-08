@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Camera, Heart, MessageCircle, Image as ImageIcon, Edit, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -59,7 +59,17 @@ function PostImage({ src, alt, className }: { src: string; alt: string; classNam
 }
 
 export function PostsTabContent({ onComment }: PostsTabContentProps) {
-  const { posts, isLoading } = useUserPosts();
+  const [shouldLoadData, setShouldLoadData] = useState(false);
+
+  // Only load data when component is actually visible
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldLoadData(true);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const { posts, isLoading } = useUserPosts(shouldLoadData);
   const { data: session } = useSession();
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
